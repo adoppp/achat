@@ -1,0 +1,59 @@
+/* 1. Светлая тема */
+:root[data-theme="light"] {
+  --background-color: #F8F8F8;          /* Основной фон */
+  --message-bg: #FFFFFF;                 /* Фон сообщений */
+  --text-primary: #1E1E1E;               /* Основной текст */
+  --text-secondary: #6E6E6E;             /* Второстепенный текст */
+  --incoming-message-bg: #E6E6E6;        /* Входящее сообщение */
+  --outgoing-message-bg: #3B82F6;        /* Исходящее сообщение */
+  --icons-buttons-color: #9CA3AF;        /* Иконки/кнопки */
+  --input-field-bg: #FFFFFF;             /* Поле ввода */
+}
+
+/* 2. Тёмная тема */
+:root[data-theme="dark"] {
+  --background-color: #121212;
+  --message-bg: #1E1E1E;
+  --text-primary: #E4E4E4;
+  --text-secondary: #9CA3AF;
+  --incoming-message-bg: #2C2C2C;
+  --outgoing-message-bg: #60A5FA;
+  --icons-buttons-color: #D1D5DB;
+  --input-field-bg: #1F2937;
+}
+
+/* 3. Кастомная лавандовая тема */
+:root[data-theme="lavender"] {
+  --background-color: #F4F2FA;
+  --message-bg: #FFFFFF;
+  --text-primary: #3F3A60;
+  --text-secondary: #7D7C95;
+  --incoming-message-bg: #E2D9F3;
+  --outgoing-message-bg: #A78BFA;
+  --icons-buttons-color: #C4B5FD;
+  --input-field-bg: #FFFFFF;
+}
+
+/* 4. Бордовая тема */
+:root[data-theme="burgundy"] {
+  --background-color: #3B0B0B;          /* Тёмно-бордовый фон */
+  --message-bg: #5C1212;                 /* Фон сообщений */
+  --text-primary: #F8EDEB;               /* Светлый текст */
+  --text-secondary: #B84A4A;             /* Второстепенный текст */
+  --incoming-message-bg: #7A1F1F;        /* Входящее сообщение */
+  --outgoing-message-bg: #A33434;        /* Исходящее сообщение */
+  --icons-buttons-color: #D8B4B4;        /* Иконки/кнопки */
+  --input-field-bg: #5C1212;             /* Поле ввода */
+}
+
+/* 5. Фиолетовая тема */
+:root[data-theme="purple"] {
+  --background-color: #2E0854;          /* Тёмно-фиолетовый фон */
+  --message-bg: #422A76;                 /* Фон сообщений */
+  --text-primary: #E6E0F8;               /* Светлый текст */
+  --text-secondary: #A394C7;             /* Второстепенный текст */
+  --incoming-message-bg: #5C47A3;        /* Входящее сообщение */
+  --outgoing-message-bg: #8C6EF1;        /* Исходящее сообщение */
+  --icons-buttons-color: #B9A8F4;        /* Иконки/кнопки */
+  --input-field-bg: #422A76;             /* Поле ввода */
+}

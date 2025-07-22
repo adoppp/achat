@@ -1,12 +1,12 @@
 import { createBrowserRouter } from "react-router";
 
-import { RootLayout } from "@/layouts/RootLayout/RootLayout";
+import { App } from "@/App";
 import { RouterConfig } from "@/routing/router.config";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <RootLayout />,
+        element: <App />,
         children: RouterConfig.map(({ index, path, element: Component}) => {
             return (
                 {

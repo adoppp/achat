@@ -1,10 +1,9 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router";
 
-export const RootLayout = () => {
+export const App = () => {
   return (
     <>
-    1111
         <Suspense fallback={<div>Loading...</div>}>
             <Outlet />
         </Suspense>

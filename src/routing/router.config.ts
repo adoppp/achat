@@ -1,9 +1,9 @@
 import { lazy } from 'react';
 import type { LazyExoticComponent, ComponentType } from 'react';
 
-const Chats = lazy(() => import('../pages/Chats/Chats'));
-const SignIn = lazy(() => import('../pages/Auth/SignIn/SignIn'));
-const SignUp = lazy(() => import('../pages/Auth/SignUp/SignUp'));
+const Chats = lazy(() => import('@/pages/Chats/Chats'));
+const SignIn = lazy(() => import('@/pages/Auth/SignIn/SignIn'));
+const SignUp = lazy(() => import('@/pages/Auth/SignUp/SignUp'));
 
 interface CommonRoute {
   element: LazyExoticComponent<ComponentType>;

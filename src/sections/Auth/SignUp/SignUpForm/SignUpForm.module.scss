@@ -1,0 +1,21 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.form {
+    background-color: var(--message-bg);
+
+    width: 100%;
+    max-width: 520px;
+
+    padding: 24px 16px;
+    border-radius: $border-radius;
+}
+
+.input__margin {
+    margin-bottom: 8px;
+
+    &__last {
+        margin-bottom: 44px;
+    }
+}

@@ -1,6 +1,11 @@
+import { SignUpForm } from "@/sections/Auth/SignUp/SignUpForm/SignUpForm";
+
 const SignUp = () => {
   return (
-    <div>SignUp</div>
+    <div>
+      SignUp
+      <SignUpForm />
+    </div>
   );
 };
 

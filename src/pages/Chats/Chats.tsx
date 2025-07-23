@@ -22,12 +22,12 @@ const Chats: FC = (): ReactElement => {
         <div>
             Chats   
             <Input
-                label='name'
+                label='Name'
                 value={name}
                 placeholder="Type your name"
                 onChange={handleChange}
                 error={error}
-                id="name"
+                id="first-name"
             />
         </div>
     );

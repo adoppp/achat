@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from '@/ui/Input/Input.module.scss';
 
 interface InputProps {
+    type?: string;
     label?: string;
     placeholder?: string;
     value: string;
@@ -20,7 +21,7 @@ interface InputProps {
 
 const cn = classNames.bind(styles);
 
-export const Input: FC<InputProps> = ({ label, placeholder, value, onChange, error, id, customClass }): ReactElement => {
+export const Input: FC<InputProps> = ({ type = 'text', label, placeholder, value, onChange, error, id, customClass }): ReactElement => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
@@ -32,11 +33,12 @@ export const Input: FC<InputProps> = ({ label, placeholder, value, onChange, err
 
             <label htmlFor={id}>
                 <input 
-                    type="text" 
+                    type={type} 
                     placeholder={placeholder}
                     value={value} 
                     onChange={handleChange}  
                     className={cn('input__element', customClass?.input)}
+                    id={id}
                 />
             </label>
 

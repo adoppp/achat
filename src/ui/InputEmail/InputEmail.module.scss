@@ -19,13 +19,17 @@
         @include text(sm);
 
         background-color: var(--input-field-bg);
-        color: var(--text-secondary);
+        color: var(--text-primary);
 
         padding: 12px;
         border: 1px $border-color solid;
         border-radius: $border-radius;
 
         transition: $transition;
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
 
         &:hover {
             border-color: var(--icons-buttons-color);

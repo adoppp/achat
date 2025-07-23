@@ -1,6 +1,6 @@
 import { useState, type FC, type ReactElement } from "react";
 
-import { InputEmail } from "@/ui/InputEmail/InputEmail";
+import { InputPassword } from "@/ui/InputPassword/InputPassword";
 
 const Chats: FC = (): ReactElement => {
     const [name, setName] = useState<string>('');
@@ -24,13 +24,13 @@ const Chats: FC = (): ReactElement => {
     return (
         <div>
             Chats   
-            <InputEmail
-                label='Email'
+            <InputPassword
+                label='Password'
                 value={name}
-                placeholder="Type your email"
+                placeholder="Type your password"
                 onChange={handleChange}
                 error={error}
-                id="e-mail"
+                id="password"
             />
         </div>
     );

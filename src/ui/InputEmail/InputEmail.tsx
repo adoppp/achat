@@ -1,9 +1,9 @@
 import type { ChangeEvent, FC, ReactElement } from "react";
 import classNames from "classnames/bind";
 
-import styles from '@/ui/Input/Input.module.scss';
+import styles from '@/ui/InputEmail/InputEmail.module.scss';
 
-interface InputProps {
+interface InputEmailProps {
     label?: string;
     placeholder?: string;
     value: string;
@@ -20,7 +20,7 @@ interface InputProps {
 
 const cn = classNames.bind(styles);
 
-export const Input: FC<InputProps> = ({ label, placeholder, value, onChange, error, id, customClass }): ReactElement => {
+export const InputEmail: FC<InputEmailProps> = ({ label, placeholder, value, onChange, error, id, customClass }): ReactElement => {
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
@@ -32,7 +32,7 @@ export const Input: FC<InputProps> = ({ label, placeholder, value, onChange, err
 
             <label htmlFor={id}>
                 <input 
-                    type='text'
+                    type='email'
                     placeholder={placeholder}
                     value={value} 
                     onChange={handleChange}  

@@ -1,5 +1,6 @@
-import { Input } from "@/ui/Input/Input";
 import { useState, type FC, type ReactElement } from "react";
+
+import { InputEmail } from "@/ui/InputEmail/InputEmail";
 
 const Chats: FC = (): ReactElement => {
     const [name, setName] = useState<string>('');
@@ -10,6 +11,8 @@ const Chats: FC = (): ReactElement => {
 
         if(value.trim().length < 3) {
             setError('At least 3 charactes');
+        } else if (!value.includes('@')) {
+            setError("@ is important")
         }
     };
 
@@ -21,13 +24,13 @@ const Chats: FC = (): ReactElement => {
     return (
         <div>
             Chats   
-            <Input
-                label='Name'
+            <InputEmail
+                label='Email'
                 value={name}
-                placeholder="Type your name"
+                placeholder="Type your email"
                 onChange={handleChange}
                 error={error}
-                id="first-name"
+                id="e-mail"
             />
         </div>
     );

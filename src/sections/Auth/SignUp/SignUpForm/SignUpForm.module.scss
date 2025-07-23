@@ -10,12 +10,18 @@
 
     padding: 24px 16px;
     border-radius: $border-radius;
+
+    &__heading {
+        @include heading(xl);
+
+        text-align: center;
+    }
 }
 
 .input__margin {
     margin-bottom: 8px;
 
     &__last {
-        margin-bottom: 44px;
+        margin-bottom: 60px;
     }
 }

@@ -1,0 +1,30 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.button {
+    @include text;
+
+    background-color: var(--button-bg);
+    color: whitesmoke;
+
+    width: 100%;
+
+    padding: 8px 16px;
+    border-radius: $border-radius;
+
+    transition: $transition;
+
+    &:hover {
+        background-color: var(--button-hover);
+    }
+
+    &:active {
+        background-color: var(--button-active);
+    }
+
+    &:disabled {
+        background-color: var(--button-disabled);
+        cursor: not-allowed;
+    }
+}

@@ -1,13 +1,18 @@
 /* 1. Светлая тема */
 :root {
-  --background-color: #F8F8F8;          /* Основной фон */
-  --message-bg: #FFFFFF;                 /* Фон сообщений */
-  --text-primary: #1E1E1E;               /* Основной текст */
-  --text-secondary: #6E6E6E;             /* Второстепенный текст */
-  --incoming-message-bg: #E6E6E6;        /* Входящее сообщение */
-  --outgoing-message-bg: #3B82F6;        /* Исходящее сообщение */
-  --icons-buttons-color: #9CA3AF;        /* Иконки/кнопки */
-  --input-field-bg: #FFFFFF;             /* Поле ввода */
+  --background-color: #F8F8F8;
+  --message-bg: #FFFFFF;
+  --text-primary: #1E1E1E;
+  --text-secondary: #6E6E6E;
+  --incoming-message-bg: #E6E6E6;
+  --outgoing-message-bg: #3B82F6;
+  --icons-buttons-color: #9CA3AF;
+  --input-field-bg: #FFFFFF;
+
+  --button-bg: #3B82F6;
+  --button-hover: #2563EB;
+  --button-active: #1D4ED8;
+  --button-disabled: #E5E7EB;
 }
 
 /* 2. Тёмная тема */
@@ -20,6 +25,11 @@
   --outgoing-message-bg: #60A5FA;
   --icons-buttons-color: #D1D5DB;
   --input-field-bg: #1F2937;
+
+  --button-bg: #374151;
+  --button-hover: #4B5563;
+  --button-active: #6B7280;
+  --button-disabled: #374151;
 }
 
 /* 3. Кастомная лавандовая тема */
@@ -32,31 +42,47 @@
   --outgoing-message-bg: #A78BFA;
   --icons-buttons-color: #C4B5FD;
   --input-field-bg: #FFFFFF;
+
+  --button-bg: #A78BFA;
+  --button-hover: #8B5CF6;
+  --button-active: #7C3AED;
+  --button-disabled: #DDD6F3;
 }
 
 /* 4. Бордовая тема */
 :root[data-theme="burgundy"] {
-  --background-color: #3B0B0B;          /* Тёмно-бордовый фон */
-  --message-bg: #5C1212;                 /* Фон сообщений */
-  --text-primary: #F8EDEB;               /* Светлый текст */
-  --text-secondary: #B84A4A;             /* Второстепенный текст */
-  --incoming-message-bg: #7A1F1F;        /* Входящее сообщение */
-  --outgoing-message-bg: #A33434;        /* Исходящее сообщение */
-  --icons-buttons-color: #D8B4B4;        /* Иконки/кнопки */
-  --input-field-bg: #5C1212;             /* Поле ввода */
+  --background-color: #3B0B0B;
+  --message-bg: #5C1212;
+  --text-primary: #F8EDEB;
+  --text-secondary: #B84A4A;
+  --incoming-message-bg: #7A1F1F;
+  --outgoing-message-bg: #A33434;
+  --icons-buttons-color: #D8B4B4;
+  --input-field-bg: #5C1212;
+
+  --button-bg: #A33434;
+  --button-hover: #911F1F;
+  --button-active: #7A1F1F;
+  --button-disabled: #6B2C2C;
 }
 
 /* 5. Фиолетовая тема */
 :root[data-theme="purple"] {
-  --background-color: #2E0854;          /* Тёмно-фиолетовый фон */
-  --message-bg: #422A76;                 /* Фон сообщений */
-  --text-primary: #E6E0F8;               /* Светлый текст */
-  --text-secondary: #A394C7;             /* Второстепенный текст */
-  --incoming-message-bg: #5C47A3;        /* Входящее сообщение */
-  --outgoing-message-bg: #8C6EF1;        /* Исходящее сообщение */
-  --icons-buttons-color: #B9A8F4;        /* Иконки/кнопки */
-  --input-field-bg: #422A76;             /* Поле ввода */
+  --background-color: #2E0854;
+  --message-bg: #422A76;
+  --text-primary: #E6E0F8;
+  --text-secondary: #A394C7;
+  --incoming-message-bg: #5C47A3;
+  --outgoing-message-bg: #8C6EF1;
+  --icons-buttons-color: #B9A8F4;
+  --input-field-bg: #422A76;
+
+  --button-bg: #8C6EF1;
+  --button-hover: #7C5AD1;
+  --button-active: #6B47B1;
+  --button-disabled: #5E4780;
 }
+
 
 body {
   font-family: 'Inter', sans-serif;

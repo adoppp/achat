@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 interface FormStateProps {
     name: string;
@@ -27,6 +27,7 @@ const initialErrorState: ErrorsProps = {
 export const useSignUpForm = () => {
     const [formState, setFormState] = useState<FormStateProps>(initialFormState);
     const [errors, setErrors] = useState<ErrorsProps>(initialErrorState);
+    const [disabled, setDisabled] = useState<boolean>(true);
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
         validation(value, field);
@@ -39,7 +40,10 @@ export const useSignUpForm = () => {
         setErrors((prev) => ({ ...prev, [errorField]: ''}));
 
         if (value.trim().length === 0) {
-                setErrors((prev) => ({ ...prev, [errorField]: 'Field can not be empty'}));
+            setErrors((prev) => ({ 
+                ...prev, 
+                [errorField]: 'Field can not be empty'
+            }));
         } else if (field === 'email' && value.length > 0 && !value.includes('@')) {
             setErrors((prev) => ({
                 ...prev,
@@ -50,8 +54,28 @@ export const useSignUpForm = () => {
                 ...prev,
                 [errorField]: 'Min lenght is 8 characters'
             }))
-        }
+        };
     };
 
-    return { formState, errors, handleChange };
+    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();  
+
+        if (disabled) return;
+    };
+
+    useEffect(() => {
+        const hasErrors =
+            errors.nameError !== '' ||
+            errors.emailError !== '' ||
+            errors.passwordError !== '';
+
+        const hasEmptyFields =
+            formState.name.trim() === '' ||
+            formState.email.trim() === '' ||
+            formState.password.trim() === '';
+
+        setDisabled(hasErrors || hasEmptyFields);
+    }, [formState, errors]);
+
+    return { formState, errors, handleChange, handleSubmit, disabled };
 };

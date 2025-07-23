@@ -7,15 +7,17 @@ import { Input } from "@/ui/Input/Input";
 import { InputEmail } from "@/ui/InputEmail/InputEmail";
 import { InputPassword } from "@/ui/InputPassword/InputPassword";
 import { useSignUpForm } from "./SignUpForm.hooks";
+import { Button } from "@/ui/Button/Button";
 
 const cn = classNames.bind(styles);
 
 export const SignUpForm: FC = (): ReactElement => {
-    const { formState, errors, handleChange } = useSignUpForm();
+    const { formState, errors, handleChange, handleSubmit, disabled } = useSignUpForm();
 
     return (
         <div className={cn('form')}>
-            <form className={cn('form__element')}>
+            <h1 className={cn('form__heading')}>Sign Up</h1>
+            <form className={cn('form__element')} onSubmit={handleSubmit}>
                 <Input 
                     value={formState.name}
                     onChange={handleChange('name')}
@@ -39,6 +41,11 @@ export const SignUpForm: FC = (): ReactElement => {
                     id="password"
                     error={errors.passwordError}
                     customClass={{ container: cn('input__margin__last')}}
+                />
+                <Button 
+                    label="Sign up" 
+                    type="submit"
+                    disabled={disabled}
                 />
             </form>
         </div>

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "@/services";
-import { useAppDispatch, useAppSelector } from "@/store/redux.hooks";
+import { useAppDispatch } from "@/store/redux.hooks";
 import { clearUser, setUser } from "@/store/slices/authSlice";
 
 export const useApp = () => {
@@ -16,6 +16,7 @@ export const useApp = () => {
                     email: user.email,
                     displayName: user.displayName,
                     photoURL: user.photoURL,
+                    isInitialized: true,
                 }));
             } else {
                 dispatch(clearUser());

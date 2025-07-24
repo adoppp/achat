@@ -1,4 +1,5 @@
 import { type FC, type ReactElement } from "react";
+import { Link } from "react-router";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
@@ -48,6 +49,10 @@ export const SignUpForm: FC = (): ReactElement => {
                     disabled={disabled}
                 />
             </form>
+            <p className={cn('form__navigation')}>
+                Already have an account?
+                <Link to="/signin">Sign in</Link>
+            </p>
         </div>
     )
 };

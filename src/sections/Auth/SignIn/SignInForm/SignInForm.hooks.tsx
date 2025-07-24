@@ -64,10 +64,10 @@ export const useSignInForm = () => {
 
         if (disabled) return;
 
-        // await setPersistence(
-        //     auth,
-        //     rememberMe ? browserLocalPersistence : browserSessionPersistence
-        // );
+        await setPersistence(
+            auth,
+            rememberMe ? browserLocalPersistence : browserSessionPersistence
+        );
 
         try {
             const userCredentials = await signInWithEmailAndPassword(
@@ -96,5 +96,5 @@ export const useSignInForm = () => {
         setDisabled(hasErrors || hasEmptyFields);
     }, [formState, errors]);
 
-    return { formState, errors, handleChange, handleSubmit, disabled };
+    return { formState, errors, handleChange, handleSubmit, disabled, rememberMe, setRememberMe };
 };

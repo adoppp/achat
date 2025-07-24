@@ -6,7 +6,7 @@ import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
 import { Input } from "@/ui/Input/Input";
 import { InputEmail } from "@/ui/InputEmail/InputEmail";
 import { InputPassword } from "@/ui/InputPassword/InputPassword";
-import { useSignUpForm } from "./SignUpForm.hooks";
+import { useSignUpForm } from "@/sections/Auth/SignUp/SignUpForm/SignUpForm.hooks";
 import { Button } from "@/ui/Button/Button";
 
 const cn = classNames.bind(styles);

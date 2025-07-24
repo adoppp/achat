@@ -1,0 +1,11 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+}

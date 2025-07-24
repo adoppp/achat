@@ -7,12 +7,12 @@ export const router = createBrowserRouter([
     {
         path: '/',
         element: <App />,
-        children: RouterConfig.map(({ index, path, element: Component}) => {
+        children: RouterConfig.map(({ index, path, element}) => {
             return (
                 {
                     path,
                     index,
-                    element: <Component />
+                    element
                 }
             )
         }),

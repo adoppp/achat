@@ -1,38 +1,34 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
 
-import { auth, firestore } from "@/services";
+import { auth } from "@/services";
 
 interface FormStateProps {
-    name: string;
     email: string;
     password: string;
 };
 
 interface ErrorsProps {
-    nameError: string;
     emailError: string;
     passwordError: string;
 };
 
 const initialFormState: FormStateProps = {
-    name: '',
     email: '',
     password: '',
 };
 
 const initialErrorState: ErrorsProps = {
-    nameError: '',
     emailError: '',
     passwordError: '',
 };
 
-export const useSignUpForm = () => {
+export const useSignInForm = () => {
     const [formState, setFormState] = useState<FormStateProps>(initialFormState);
     const [errors, setErrors] = useState<ErrorsProps>(initialErrorState);
     const [disabled, setDisabled] = useState<boolean>(true);
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
@@ -68,22 +64,19 @@ export const useSignUpForm = () => {
 
         if (disabled) return;
 
+        // await setPersistence(
+        //     auth,
+        //     rememberMe ? browserLocalPersistence : browserSessionPersistence
+        // );
+
         try {
-            const userCredentials = await createUserWithEmailAndPassword(
-                auth, formState.email, formState.password
+            const userCredentials = await signInWithEmailAndPassword(
+                auth, 
+                formState.email, 
+                formState.password
             );
 
-            const user = userCredentials.user;
-
-            await updateProfile(user, { displayName: formState.name});
-
-            await setDoc(doc(firestore, 'users', user.uid), {
-                uid: user.uid,
-                displayName: formState.name,
-                email: user.email,
-                photoURL: user.photoURL,
-                createdAt: Date.now(),
-            });
+            console.log('Signed in as: ', userCredentials.user)
 
             navigate('/')
         } catch (e) {
@@ -93,12 +86,10 @@ export const useSignUpForm = () => {
 
     useEffect(() => {
         const hasErrors =
-            errors.nameError !== '' ||
             errors.emailError !== '' ||
             errors.passwordError !== '';
 
         const hasEmptyFields =
-            formState.name.trim() === '' ||
             formState.email.trim() === '' ||
             formState.password.trim() === '';
 

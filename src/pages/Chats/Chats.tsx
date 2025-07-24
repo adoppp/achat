@@ -1,37 +1,19 @@
-import { useState, type FC, type ReactElement } from "react";
+import { type FC, type ReactElement } from "react";
 
-import { InputPassword } from "@/ui/InputPassword/InputPassword";
+import { Button } from "@/ui/Button/Button";
+import { signOut } from "firebase/auth";
+import { auth } from "@/services";
 
 const Chats: FC = (): ReactElement => {
-    const [name, setName] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
 
-    const validation = (value: string) => {
-        setError(null);
-
-        if(value.trim().length < 3) {
-            setError('At least 3 charactes');
-        } else if (!value.includes('@')) {
-            setError("@ is important")
-        }
-    };
-
-    const handleChange = (value: string) => {
-        validation(value);
-        setName(value);
+    const handleOnClick = async () => {
+        await signOut(auth);
     };
 
     return (
         <div>
             Chats   
-            <InputPassword
-                label='Password'
-                value={name}
-                placeholder="Type your password"
-                onChange={handleChange}
-                error={error}
-                id="password"
-            />
+            <Button label="Log out" onClick={handleOnClick} />
         </div>
     );
 };

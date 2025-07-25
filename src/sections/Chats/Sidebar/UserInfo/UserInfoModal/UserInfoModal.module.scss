@@ -1,0 +1,9 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.modal {
+    background-color: var(--background-color);
+    padding: 16px;
+    border-radius: $border-radius;
+}

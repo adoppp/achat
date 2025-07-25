@@ -64,19 +64,17 @@ export const useSignInForm = () => {
 
         if (disabled) return;
 
-        await setPersistence(
-            auth,
-            rememberMe ? browserLocalPersistence : browserSessionPersistence
-        );
-
         try {
-            const userCredentials = await signInWithEmailAndPassword(
+            await setPersistence(
+                auth,
+                rememberMe ? browserLocalPersistence : browserSessionPersistence
+            );
+
+            await signInWithEmailAndPassword(
                 auth, 
                 formState.email, 
                 formState.password
             );
-
-            console.log('Signed in as: ', userCredentials.user)
 
             navigate('/')
         } catch (e) {

@@ -1,4 +1,4 @@
-import { useState, type FC, type ReactElement } from "react";
+import { type FC, type ReactElement } from "react";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModal.module.scss';
@@ -6,6 +6,7 @@ import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModa
 import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
 import { useUserInfoModal } from "./UserInfoModal.hooks";
 import { Input } from "@/ui/Input/Input";
+import { UserItem } from "./UserItem/UserItem";
 
 interface UserInfoModalProps {
     toggleOpen: () => void;
@@ -29,7 +30,7 @@ export const UserInfoModal: FC<UserInfoModalProps> = ({ toggleOpen }): ReactElem
                     />
                     <ul>
                         {
-                            filteredUsersList().map(item => <li key={item.displayName}>{item.displayName}</li>)
+                            filteredUsersList().map(user => <UserItem displayName={user.displayName} photoURL={user.photoURL} />)
                         }
                     </ul>
                 </div>

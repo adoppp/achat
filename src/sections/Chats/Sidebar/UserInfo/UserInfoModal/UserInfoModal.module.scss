@@ -6,4 +6,15 @@
     background-color: var(--background-color);
     padding: 16px;
     border-radius: $border-radius;
+
+    min-width: 320px;
+    height: 520px;
+
+    overflow-y: auto;
+
+    &__content {
+        & ul {
+            margin-top: 16px;
+        }
+    }
 }

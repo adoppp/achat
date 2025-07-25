@@ -1,0 +1,40 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.user {
+    display: flex;
+    align-items: center;
+
+    padding: 8px 4px;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    transition: $transition;
+
+    &:hover {
+        background-color: var(--incoming-message-bg);
+    }
+
+    &:active {
+        background-color: var(--outgoing-message-bg);
+    }
+
+    &:active h3 {
+        color: white;
+    }
+
+    & img {
+        width: 32px;
+        height: 32px;
+        margin-right: 8px;
+        border-radius: 50%;
+    }
+
+    & h3 {
+        @include text;
+        color: var(--text-primary);
+
+        transition: $transition;
+    }
+}

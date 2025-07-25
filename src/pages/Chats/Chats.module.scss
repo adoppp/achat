@@ -2,6 +2,10 @@
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
 
-.sidebar {
-    flex-grow: 1;
+.chats {
+    display: flex;
+}
+
+.time {
+    flex-grow: 2.5;
 }

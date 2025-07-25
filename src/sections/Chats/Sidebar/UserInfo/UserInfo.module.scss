@@ -1,0 +1,49 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.userinfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 12px 24px 12px 24px;
+    border-bottom: 1px $border-color solid;
+
+    &__info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        & img {
+            width: 32px;
+            height: 32px;
+        }
+
+        & h1 {
+            @include heading;
+            color: var(--text-primary);
+        }
+    }
+
+    &__search {
+        height: 24px;
+
+        & svg {
+            stroke: var(--icons-buttons-color);
+
+            width: 24px;
+            height: 24px;
+
+            transition: $transition;
+        }
+
+        &:hover svg {
+            stroke: var(--button-hover);
+        }
+
+        &:active svg {
+            stroke: var(--button-active);
+        }
+    }
+}

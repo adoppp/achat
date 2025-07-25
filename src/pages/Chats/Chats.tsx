@@ -1,8 +1,14 @@
 import { type FC, type ReactElement } from "react";
+import classNames from "classnames/bind";
+
+import styles from '@/pages/Chats/Chats.module.scss';
 
 import { Button } from "@/ui/Button/Button";
 import { signOut } from "firebase/auth";
 import { auth } from "@/services";
+import { Sidebar } from "@/sections/Chats/Sidebar/Sidebar";
+
+const cn = classNames.bind(styles);
 
 const Chats: FC = (): ReactElement => {
 
@@ -11,9 +17,12 @@ const Chats: FC = (): ReactElement => {
     };
 
     return (
-        <div>
-            Chats   
-            <Button label="Log out" onClick={handleOnClick} />
+        <div className={cn('chats')}>
+            <Sidebar />   
+            <div className={cn('time')}>
+                Chats
+                <Button label="Log out" onClick={handleOnClick} />
+            </div>
         </div>
     );
 };

@@ -47,3 +47,9 @@
         }
     }
 }
+
+.modal {
+    background-color: var(--background-color);
+    padding: 16px;
+    border-radius: $border-radius;
+}

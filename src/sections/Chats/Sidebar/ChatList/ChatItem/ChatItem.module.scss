@@ -1,0 +1,52 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.chatitem {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 12px;
+
+    width: 100%;
+    cursor: pointer;
+
+    transition: $transition;
+
+    &:hover {
+        background-color: var(--incoming-message-bg);
+    }
+
+    &:active {
+        background-color: var(--outgoing-message-bg);
+    }
+
+    &__main {
+        display: flex;
+
+        & img {
+            width: 44px;
+            height: 44px;
+
+            margin-right: 8px;
+            border: 50%;
+        }
+    }
+
+    &__info {
+        color: var(--text-primary);
+
+        & h2 {
+            @include heading;
+        }
+
+        & p {
+            @include text(sm);
+            color: var(--text-secondary);
+        }
+    }
+
+    & p {
+        color: var(--text-secondary);
+    }
+}

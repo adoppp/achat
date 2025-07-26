@@ -6,6 +6,8 @@ const cn = classNames.bind(styles);
 
 export const Loader = () => {
   return (
-    <div className={cn('loader')}></div>
+    <div className={cn('container')}>
+      <div className={cn('loader')}></div>
+    </div>
   );
 };

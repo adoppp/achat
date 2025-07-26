@@ -1,3 +1,7 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
 .modal {
     display: flex;
     justify-content: center;
@@ -12,4 +16,15 @@
     position: absolute;
     top: 0;
     left: 0;
+
+    &__container {
+        background-color: var(--background-color);
+        padding: 16px;
+        border-radius: $border-radius;
+
+        min-width: 320px;
+        height: 520px;
+
+        overflow-y: auto;
+    }
 }

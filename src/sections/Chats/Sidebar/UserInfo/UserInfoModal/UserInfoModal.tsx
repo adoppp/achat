@@ -6,7 +6,6 @@ import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModa
 import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
 import { useUserInfoModal } from "./UserInfoModal.hooks";
 import { Input } from "@/ui/Input/Input";
-import { UserItem } from "./UserItem/UserItem";
 
 interface UserInfoModalProps {
     toggleOpen: () => void;
@@ -15,11 +14,10 @@ interface UserInfoModalProps {
 const cn = classNames.bind(styles);
 
 export const UserInfoModal: FC<UserInfoModalProps> = ({ toggleOpen }): ReactElement => {
-    const { filteredUsersList, search, setSearch } = useUserInfoModal();
+    const { UserListItems, search, setSearch } = useUserInfoModal({ toggleOpen });
 
     return (
         <ModalPortal>
-            <section className={cn('modal')}>
                 <button onClick={toggleOpen}>x</button>
                 <div className={cn('modal__content')}>
                     <Input 
@@ -29,12 +27,9 @@ export const UserInfoModal: FC<UserInfoModalProps> = ({ toggleOpen }): ReactElem
                         id="search"
                     />
                     <ul>
-                        {
-                            filteredUsersList().map(user => <UserItem displayName={user.displayName} photoURL={user.photoURL} />)
-                        }
+                        {UserListItems}
                     </ul>
                 </div>
-            </section>
         </ModalPortal>
     );
 };

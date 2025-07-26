@@ -12,8 +12,6 @@ const cn = classNames.bind(styles);
 export const UserInfo: FC = (): ReactNode => {
     const { Modal, toggleOpen, user } = useUserInfo();
 
-    console.log(user)
-
     return (
         <>
             <div className={cn('userinfo')}>

@@ -8,13 +8,19 @@ import userImage from '@/assets/img/user.png';
 interface UserItemProps {
     displayName: string | null; 
     photoURL: string | null;
+    uid: string | null;
+    onClick: (uid: string | null) => void;
 };
 
 const cn = classNames.bind(styles);
 
-export const UserItem: FC<UserItemProps> = ({ displayName, photoURL }) => {
+export const UserItem: FC<UserItemProps> = ({ displayName, photoURL, uid, onClick }) => {
+    const handleClick = () => {
+        onClick(uid);
+    };
+
     return (
-        <li className={cn('user')}>
+        <li className={cn('user')} onClick={handleClick}>
             <img 
                 src={photoURL ? photoURL : userImage} 
                 alt={displayName ? displayName : 'Not found'}

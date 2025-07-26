@@ -76,7 +76,7 @@ export const useSignInForm = () => {
                 formState.password
             );
 
-            navigate('/')
+            navigate('/chats')
         } catch (e) {
             console.log('Error ', e)
         }

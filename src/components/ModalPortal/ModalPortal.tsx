@@ -13,7 +13,9 @@ const cn = classNames.bind(styles);
 export const ModalPortal: FC<ModalPortalProps> = ({ children }) => {
     return createPortal(
         <div className={cn('modal')}>
-            {children}
+            <section className={cn('modal__container')}>
+                {children}
+            </section>
         </div>,
         document.body
     );

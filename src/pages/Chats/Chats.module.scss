@@ -4,8 +4,8 @@
 
 .chats {
     display: flex;
-}
 
-.time {
-    flex-grow: 2.5;
+    &__component {
+        flex-grow: 4;
+    }
 }

@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface SerializedUser {
   uid: string | null; 
   email: string | null;
@@ -11,7 +13,22 @@ export interface Chat {
   participants: string[];
   lastMessage: {
     text: string;
-    timestamp: any; 
+    timeStamp: {
+        seconds: number, 
+        nanoseconds: number
+    }; 
   } | null;
   updatedAt: any; 
 };
+export type MessageType = "text" | "image" | "file" | "audio" | "video";
+
+export interface Message {
+  id: string; // ID документа (может быть присвоен отдельно)
+  chatId: string; // ID чата, к которому принадлежит сообщение
+  senderId: string; // UID отправителя
+  text?: string; // Текст сообщения, если type === 'text'
+  mediaURL?: string; // URL к файлу/изображению, если type !== 'text'
+  timestamp: Timestamp; // Время отправки (используется serverTimestamp())
+  type: MessageType; // Тип сообщения
+  readBy: string[]; // UID-ы пользователей, которые прочитали сообщение
+}

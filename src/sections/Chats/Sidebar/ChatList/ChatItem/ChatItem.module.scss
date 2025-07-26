@@ -3,22 +3,41 @@
 @use '@/styles/variables' as *;
 
 .chatitem {
-    display: flex;
-    justify-content: space-between;
+    &__link {
+        display: flex;
+        justify-content: space-between;
+        text-decoration: none;
+    
+        padding: 12px;
+    
+        width: 100%;
+        cursor: pointer;
+    
+        transition: $transition;
 
-    padding: 12px;
+        &.active {
+            background-color: var(--button-disabled);
+        }
 
-    width: 100%;
-    cursor: pointer;
+        &:hover {
+            background-color: var(--incoming-message-bg);
+        }
 
-    transition: $transition;
+        &:active {
+            background-color: var(--outgoing-message-bg);
+        }
 
-    &:hover {
-        background-color: var(--incoming-message-bg);
-    }
+        &:active p {
+            color: whitesmoke;
+        }
 
-    &:active {
-        background-color: var(--outgoing-message-bg);
+        &:active .chatitem__info h2 {
+            color: white;
+        }
+
+        & p {
+            color: var(--text-secondary);
+        }
     }
 
     &__main {
@@ -29,7 +48,7 @@
             height: 44px;
 
             margin-right: 8px;
-            border: 50%;
+            border-radius: 50%;
         }
     }
 
@@ -43,10 +62,11 @@
         & p {
             @include text(sm);
             color: var(--text-secondary);
-        }
-    }
 
-    & p {
-        color: var(--text-secondary);
+            max-width: 180px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
     }
 }

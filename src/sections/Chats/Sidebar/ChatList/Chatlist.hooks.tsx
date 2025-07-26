@@ -2,16 +2,17 @@ import { useEffect, useMemo, useState } from "react";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 
 import { auth, firestore } from "@/services";
-import type { Chat, SerializedUser } from "@/types";
-import { getUsers } from "@/utils/useGetUsers";
+import type { Chat } from "@/types";
 import { ChatItem } from "@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { formatRelativeTime } from "@/utils/useTimeFormat";
+import { useUsersList } from "@/utils/useUsersList";
 
 export const useChatList = () => {
     const [chats, setChats] = useState<Chat[]>([]);
-    const [users, setUsers] = useState<SerializedUser[]>([])
+    const users = useUsersList();
     const [user, loadingAuth] = useAuthState(auth);
-    const [usersLoading, setUsersLoading] = useState(true);
+    const [usersLoading, setUsersLoading] = useState(false);
 
     const loading = loadingAuth || usersLoading;
 
@@ -22,7 +23,7 @@ export const useChatList = () => {
                 const otherParticipant = users.find(user => user.uid === otherParticipantId);
 
                 if (!otherParticipant) return null;
-
+                
                 return (
                     <ChatItem 
                         key={chat.id}
@@ -30,20 +31,12 @@ export const useChatList = () => {
                         photoURL={otherParticipant.photoURL}
                         displayName={otherParticipant.displayName}
                         lastMessageText={chat.lastMessage?.text}
-                        lastMessageTime={chat.lastMessage?.timestamp}
+                        lastMessageTime={formatRelativeTime(chat.lastMessage?.timeStamp?.seconds)}
                     />
                 );
             })
             .filter(Boolean);
     }, [chats, users, user]);
-
-    useEffect(() => {
-        if (!user?.uid) return;
-
-        setUsersLoading(true);
-        getUsers({ setUsers })
-            .finally(() => setUsersLoading(false));
-    }, [user?.uid]);
 
     useEffect(() => {
         if (!user?.uid) return;

@@ -1,23 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 
 import { auth, firestore } from "@/services";
-import type { SerializedUser } from "@/types";
 import { UserItem } from "@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserItem/UserItem";
-import { getUsers } from "@/utils/useGetUsers";
+import { useUsersList } from "@/utils/useUsersList";
 
 interface useUserInfoModalProps {
     toggleOpen: () => void;
 }
 
 export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
-    const [users, setUsers] = useState<SerializedUser[]>([]);
+    const users = useUsersList();
     const [search, setSearch] = useState<string>('');
     const currentUser = auth.currentUser;
 
     const filteredUsersList = () => {
         if (search.trim().length > 0) {
-            const filtered = users.filter(user => user.displayName?.includes(search) && user.displayName !== currentUser?.displayName);
+            const filtered = users.filter(user => user.displayName?.toLowerCase().includes(search.toLowerCase()) && user.displayName !== currentUser?.displayName);
             return filtered;
         } else {
 
@@ -50,10 +49,6 @@ export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
             onClick={handleClick}
         />
     );
-
-    useEffect(() => {
-        getUsers({ setUsers });
-    }, []);
 
     return { UserListItems, search, setSearch };
 };

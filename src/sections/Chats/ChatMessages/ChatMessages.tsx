@@ -34,7 +34,8 @@ export const ChatMessages: FC = (): ReactNode => {
             lastMessage: {
                 text: message,
                 timeStamp: serverTimestamp(),
-            }
+            },
+            updatedAt: serverTimestamp(),
         });
 
         setMessage('');

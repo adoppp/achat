@@ -4,6 +4,7 @@ import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 import { auth, firestore } from "@/services";
 import { UserItem } from "@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserItem/UserItem";
 import { useUsersList } from "@/utils/useUsersList";
+import { useNavigate } from "react-router";
 
 interface useUserInfoModalProps {
     toggleOpen: () => void;
@@ -12,6 +13,7 @@ interface useUserInfoModalProps {
 export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
     const users = useUsersList();
     const [search, setSearch] = useState<string>('');
+    const navigate = useNavigate();
     const currentUser = auth.currentUser;
 
     const filteredUsersList = () => {
@@ -19,7 +21,6 @@ export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
             const filtered = users.filter(user => user.displayName?.toLowerCase().includes(search.toLowerCase()) && user.displayName !== currentUser?.displayName);
             return filtered;
         } else {
-
             return [];
         }
     };
@@ -29,15 +30,18 @@ export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
         const chatRef = doc(firestore, 'chats', chatId);
         const chatSnap = await getDoc(chatRef);
 
-        if (chatSnap.exists()) return;
-
-        await setDoc(chatRef, {
-            participants: [currentUser?.uid, uid],
-            lastMessage: null,
-            updatedAt: serverTimestamp(),
-        });
-
-        toggleOpen();
+        if (chatSnap.exists()) {
+            toggleOpen();
+            navigate(`/chats/${chatId}`)
+        } else {
+            await setDoc(chatRef, {
+                participants: [currentUser?.uid, uid],
+                lastMessage: null,
+                updatedAt: serverTimestamp(),
+            });
+    
+            toggleOpen();
+        };
     };
 
     const UserListItems = filteredUsersList().map(user => 

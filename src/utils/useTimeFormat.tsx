@@ -1,7 +1,6 @@
 import { format, isToday, isYesterday } from "date-fns";
 
-export const formatRelativeTime = (seconds?: number): string => {
-    console.log(seconds)
+export const useTimeFormat = (seconds?: number): string => {
     if (!seconds) return '';
 
     const date = new Date(seconds * 1000);

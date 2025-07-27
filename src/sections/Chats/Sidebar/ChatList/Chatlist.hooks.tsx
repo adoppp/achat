@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { auth, firestore } from "@/services";
 import type { Chat } from "@/types";
 import { ChatItem } from "@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { formatRelativeTime } from "@/utils/useTimeFormat";
+import { useTimeFormat } from "@/utils/useTimeFormat";
 import { useUsersList } from "@/utils/useUsersList";
 
 export const useChatList = () => {
@@ -21,6 +21,7 @@ export const useChatList = () => {
             .map(chat => {
                 const otherParticipantId = chat.participants.find(uid => uid !== user?.uid);
                 const otherParticipant = users.find(user => user.uid === otherParticipantId);
+                console.log(chat)
 
                 if (!otherParticipant) return null;
                 
@@ -31,7 +32,7 @@ export const useChatList = () => {
                         photoURL={otherParticipant.photoURL}
                         displayName={otherParticipant.displayName}
                         lastMessageText={chat.lastMessage?.text}
-                        lastMessageTime={formatRelativeTime(chat.lastMessage?.timeStamp?.seconds)}
+                        lastMessageTime={useTimeFormat(chat.lastMessage?.timeStamp?.seconds)}
                     />
                 );
             })

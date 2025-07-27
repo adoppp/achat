@@ -11,14 +11,13 @@ const cn = classNames.bind(styles);
 
 const Chats: FC = (): ReactElement => {
     return (
-        <div className={cn('chats')}>
+        <section className={cn('chats')}>
             <Sidebar />   
-            <div className={cn('chats__component')}>
-                <Suspense fallback={<Loader />}>
-                    <Outlet />
-                </Suspense>
-            </div>
-        </div>
+
+            <Suspense fallback={<Loader />}>
+                <Outlet />
+            </Suspense>
+        </section>
     );
 };
 

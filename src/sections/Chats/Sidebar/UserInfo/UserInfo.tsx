@@ -14,13 +14,13 @@ export const UserInfo: FC = (): ReactNode => {
 
     return (
         <>
-            <div className={cn('userinfo')}>
+            <section className={cn('userinfo')}>
                 <div className={cn('userinfo__info')}>
                     <img 
                         src={user?.photoURL ? user.photoURL : userImage} 
                         alt={user?.displayName ? user.displayName : 'Not found'} 
                     />
-                    <h1>{user?.displayName}</h1>
+                    <h1>Chats</h1>
                 </div>
                 <button 
                     type="button" 
@@ -29,7 +29,7 @@ export const UserInfo: FC = (): ReactNode => {
                 >
                     {IconSearch}
                 </button>
-            </div>
+            </section>
             {Modal}
         </>
     );

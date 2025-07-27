@@ -11,10 +11,10 @@ export const ChatList: FC = (): ReactNode => {
     const { chatItems, loading } = useChatList();
 
     return (
-        <div className={cn('chats')}>
+        <section className={cn('chats')}>
             <ul>
                 {loading ? <Loader /> : chatItems}
             </ul>
-        </div>
+        </section>
     );
 };

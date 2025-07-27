@@ -1,6 +1,5 @@
 import { useState, type FC, type FormEvent, type ReactNode } from "react"
 
-import { Input } from "@/ui/Input/Input"
 import { MessagesList } from "@/sections/Chats/ChatMessages/MessagesList/MessagesList"
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "@/services";
@@ -8,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router";
 import { signOut } from "firebase/auth";
 import { FriendInfo } from "./FriendInfo/FriendInfo";
+import { InputMessage } from "./InputMessage/InputMessage";
 
 export const ChatMessages: FC = (): ReactNode => {
     const { chatId } = useParams<{ chatId: string }>();
@@ -41,23 +41,25 @@ export const ChatMessages: FC = (): ReactNode => {
         setMessage('');
     };
 
-    const handleLogOut = async () => {
-        await signOut(auth);
-    }
+    // const handleLogOut = async () => {
+    //     await signOut(auth);
+    // };
 
   return (
-        <section>
-            <FriendInfo />
-            <button onClick={handleLogOut}>logout</button>
-            <MessagesList />
+        <>
+            <div>  
+                <FriendInfo />
+                {/* <button onClick={handleLogOut}>logout</button> */}
+                <MessagesList />
+            </div>
             <form onSubmit={sendMessage}>
-                <Input 
+                <InputMessage 
                     value={message}
                     onChange={setMessage}
                     placeholder="Type your message..."
                     id="message"
                 />
             </form>
-        </section>
+        </>
   )
 }

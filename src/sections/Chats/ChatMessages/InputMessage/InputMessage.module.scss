@@ -1,0 +1,48 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.input {
+    width: 100%;
+
+    & label {
+        display: block;
+    }
+
+    &__label {
+        @include text;
+
+        color: var(--text-primary);
+    }
+
+    &__element {
+        @include text(sm);
+
+        background-color: var(--input-field-bg);
+        color: var(--text-primary);
+
+        padding: 12px;
+        border: 1px $border-color solid;
+        border-radius: $border-radius;
+
+        transition: $transition;
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
+
+        &:hover {
+            border-color: var(--icons-buttons-color);
+        }
+
+        &:focus {
+            border-color: var(--outgoing-message-bg);
+            padding-left: 8px;
+        }
+    }
+
+    &__error {
+        @include text(sm);
+        color: $red;
+    }
+}

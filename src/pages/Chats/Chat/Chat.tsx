@@ -1,13 +1,16 @@
+import classNames from "classnames/bind";
+
+import styles from '@/pages/Chats/Chat/Chat.module.scss';
+
 import { ChatMessages } from "@/sections/Chats/ChatMessages/ChatMessages";
-import { useParams } from "react-router";
+
+const cn = classNames.bind(styles);
 
 function Chat() {
-    const { chatId } = useParams<{ chatId: string }>();
-
   return (
-    <div>
+    <section className={cn('chat')}>
         <ChatMessages />
-    </div>
+    </section>
   );
 };
 

@@ -17,6 +17,8 @@ export interface Chat {
         seconds: number, 
         nanoseconds: number
     }; 
+    readBy: string[];
+    senderId: string;
   } | null;
   updatedAt: any; 
 };

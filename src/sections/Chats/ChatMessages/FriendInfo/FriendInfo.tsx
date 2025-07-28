@@ -1,6 +1,7 @@
 import { useEffect, useState, type FC, type ReactNode } from "react";
 import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
+import Avatar from 'react-avatar';
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/ChatMessages/FriendInfo/FriendInfo.module.scss';
@@ -8,7 +9,6 @@ import styles from '@/sections/Chats/ChatMessages/FriendInfo/FriendInfo.module.s
 import { auth, firestore } from "@/services";
 import type { Chat, SerializedUser } from "@/types";
 import { useUsersList } from "@/utils/useUsersList";
-import userImage from '@/assets/img/user.png';
 
 const cn = classNames.bind(styles);
 
@@ -37,10 +37,14 @@ export const FriendInfo: FC = (): ReactNode => {
 
     return (
         <section className={cn('friend')}>
-            <img 
-                src={friend?.photoURL ??  userImage} 
-                alt={friend?.displayName ?? 'Not found'} 
-            />
+            {
+                friend?.photoURL ? 
+                <img 
+                    src={friend?.photoURL} 
+                    alt={friend?.displayName ?? 'Not found'} 
+                /> :
+                <Avatar name={friend?.displayName as string} size="44" round  />
+            }
             <h3>
                 {friend?.displayName}
             </h3>

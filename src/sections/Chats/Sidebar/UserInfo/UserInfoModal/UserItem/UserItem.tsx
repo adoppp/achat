@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserItem/UserItem.module.scss';
 
 import userImage from '@/assets/img/user.png';
+import Avatar from "react-avatar";
 
 interface UserItemProps {
     displayName: string | null; 
@@ -21,10 +22,14 @@ export const UserItem: FC<UserItemProps> = ({ displayName, photoURL, uid, onClic
 
     return (
         <li className={cn('user')} onClick={handleClick}>
-            <img 
-                src={photoURL ? photoURL : userImage} 
-                alt={displayName ? displayName : 'Not found'}
-            />
+            {
+                photoURL ?
+                <img 
+                    src={photoURL ? photoURL : userImage} 
+                    alt={displayName ? displayName : 'Not found'}
+                /> :
+                <Avatar name={displayName as string} size="32" textSizeRatio={2} className={cn('user__avatar')} round />
+            }
             <h3>
                 {displayName}
             </h3>

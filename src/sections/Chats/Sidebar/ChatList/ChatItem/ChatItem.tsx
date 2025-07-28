@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem.module.scss';
 
-import userImage from '@/assets/img/user.png';
+import Avatar from "react-avatar";
 
 interface ChatItemProps {
     chatId: string;
@@ -12,19 +12,24 @@ interface ChatItemProps {
     displayName: string | null;
     lastMessageText: string | undefined;
     lastMessageTime: string;
+    isUnread: boolean;
 };
 
 const cn = classNames.bind(styles);
 
-export const ChatItem: FC<ChatItemProps> = ({ chatId, photoURL, displayName, lastMessageText, lastMessageTime }): ReactNode => {
+export const ChatItem: FC<ChatItemProps> = ({ chatId, photoURL, displayName, lastMessageText, lastMessageTime, isUnread }): ReactNode => {
     return (
         <li className={cn('chatitem')}>
             <NavLink to={`/chats/${chatId}`} className={({ isActive }) => cn("chatitem__link", { active: isActive })}>
                 <div className={cn('chatitem__main')}>
-                    <img 
-                        src={photoURL ?? userImage} 
-                        alt={photoURL ?? 'Not found'} 
-                    />
+                    {
+                        photoURL ?
+                        <img 
+                            src={photoURL} 
+                            alt={photoURL ?? 'Not found'} 
+                        /> :
+                        <Avatar name={displayName as string} size="44" className={cn('chatitem__avatar')} round  />
+                    }
                     <div className={cn('chatitem__info')}>
                         <h2>
                             {displayName}
@@ -34,8 +39,13 @@ export const ChatItem: FC<ChatItemProps> = ({ chatId, photoURL, displayName, las
                         </p>
                     </div>
                 </div>
-                <p>
+                <p className={cn('chatitem__time')}>
                     {lastMessageTime ?? '--:--'}
+                    {
+                        isUnread &&
+                        <span>
+                        </span>
+                    }
                 </p>
             </NavLink>
         </li>

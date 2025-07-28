@@ -69,4 +69,27 @@
             white-space: nowrap;
         }
     }
+
+    &__avatar {
+        margin-right: 8px;
+    }
+
+    &__time {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: fit-content;
+
+        & span {
+            display: block;
+
+            width: 16px;
+            height: 16px;
+
+            background-color: var(--outgoing-message-bg);
+
+            margin-left: 8px;
+            border-radius: 50%;
+        }
+    }
 }

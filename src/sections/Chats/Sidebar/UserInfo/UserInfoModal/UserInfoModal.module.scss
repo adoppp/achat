@@ -7,3 +7,23 @@
         margin-top: 16px;
     }
 }
+
+.modal__close {
+    display: block;
+    margin-left: auto;
+    margin-bottom: 12px;
+
+    & svg {
+        stroke: var(--icons-buttons-color);
+
+        transition: $transition;
+    }
+
+    &:hover svg {
+        stroke: var(--button-hover);
+    }
+
+    &:active svg {
+        stroke: var(--button-active);
+    }
+}

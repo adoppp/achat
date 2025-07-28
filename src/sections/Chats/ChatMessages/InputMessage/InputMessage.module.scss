@@ -4,15 +4,11 @@
 
 .input {
     width: 100%;
+    padding: 0 12px 12px 12px;
 
     & label {
         display: block;
-    }
-
-    &__label {
-        @include text;
-
-        color: var(--text-primary);
+        position: relative;
     }
 
     &__element {
@@ -22,6 +18,7 @@
         color: var(--text-primary);
 
         padding: 12px;
+        padding-left: 44px;
         border: 1px $border-color solid;
         border-radius: $border-radius;
 
@@ -37,12 +34,35 @@
 
         &:focus {
             border-color: var(--outgoing-message-bg);
-            padding-left: 8px;
+            padding-left: 40px;
         }
     }
 
-    &__error {
-        @include text(sm);
-        color: $red;
+    &__emoji__box {
+        position: absolute;
+        bottom: 55px;
+    }
+
+    &__emoji__btn {
+        position: absolute;
+        height: 24px;
+
+        top: 11px;
+        left: 12px;
+
+        & svg {
+            fill: var(--icons-buttons-color);
+
+            width: 24px;
+            height: 24px;
+        }
+
+        &:hover svg {
+            fill: var(--button-hover);
+        }
+
+        &:active svg {
+            fill: var(--button-active);
+        }
     }
 }

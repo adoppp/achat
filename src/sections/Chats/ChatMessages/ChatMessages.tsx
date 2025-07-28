@@ -1,7 +1,7 @@
-import { useState, type FC, type FormEvent, type ReactNode } from "react"
+import { useEffect, useState, type FC, type FormEvent, type ReactNode } from "react"
 
 import { MessagesList } from "@/sections/Chats/ChatMessages/MessagesList/MessagesList"
-import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, arrayUnion, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { auth, firestore } from "@/services";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useParams } from "react-router";
@@ -17,6 +17,7 @@ export const ChatMessages: FC = (): ReactNode => {
     const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (message === '') return;
         if (!chatId) return;
 
         const messageRef = collection(firestore, 'chats', chatId, 'messages');
@@ -34,12 +35,24 @@ export const ChatMessages: FC = (): ReactNode => {
             lastMessage: {
                 text: message,
                 timeStamp: serverTimestamp(),
+                readBy: [user?.uid],
+                senderId: user?.uid,
             },
             updatedAt: serverTimestamp(),
         });
 
         setMessage('');
     };
+
+    useEffect(() => {
+        if (!chatId || !user?.uid) return;
+
+        const chatRef = doc(firestore, 'chats', chatId);
+
+        updateDoc(chatRef, {
+            'lastMessage.readBy': arrayUnion(user.uid),
+        });
+    }, [chatId, user?.uid]);
 
     // const handleLogOut = async () => {
     //     await signOut(auth);
@@ -56,7 +69,7 @@ export const ChatMessages: FC = (): ReactNode => {
                 <InputMessage 
                     value={message}
                     onChange={setMessage}
-                    placeholder="Type your message..."
+                    placeholder="Message"
                     id="message"
                 />
             </form>

@@ -6,6 +6,7 @@ import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModa
 import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
 import { useUserInfoModal } from "./UserInfoModal.hooks";
 import { Input } from "@/ui/Input/Input";
+import { IconClose } from "@/assets/svg";
 
 interface UserInfoModalProps {
     toggleOpen: () => void;
@@ -18,7 +19,9 @@ export const UserInfoModal: FC<UserInfoModalProps> = ({ toggleOpen }): ReactElem
 
     return (
         <ModalPortal>
-                <button onClick={toggleOpen}>x</button>
+                <button onClick={toggleOpen} className={cn('modal__close')}>
+                    {IconClose}
+                </button>
                 <div className={cn('modal__content')}>
                     <Input 
                         value={search}

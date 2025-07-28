@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import classNames from "classnames/bind";
@@ -14,7 +14,8 @@ const cn = classNames.bind(styles);
 export const MessagesList = () => {
     const { chatId } = useParams<{ chatId: string }>();
     const [messages, setMessages] = useState<Message[]>([]);
-    const [user, loading] = useAuthState(auth);
+    const [user] = useAuthState(auth);
+    const listRef = useRef<HTMLUListElement>(null); 
 
     useEffect(() => {
         if (!chatId) return;
@@ -29,13 +30,21 @@ export const MessagesList = () => {
                 ...doc.data()
             }));
             setMessages(data as Message[]);
-        })
+        });
 
         return () => unsubscribe();
-    }, [chatId])
+    }, [chatId]);
+
+    useEffect(() => {
+        if (listRef.current) {
+            requestAnimationFrame(() => {
+                listRef.current!.scrollTop = listRef.current!.scrollHeight;
+            });
+        }
+    }, [messages]);
     
   return (
-    <ul className={cn('messages')}>
+    <ul className={cn('messages')} ref={listRef}>
         {messages.map(message => <li key={message.id} className={cn('message', message.senderId === user?.uid ? 'message__sender' : 'message__receiver')}>{message.text}</li>)}
     </ul>
   )

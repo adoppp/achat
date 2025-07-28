@@ -10,10 +10,9 @@ import { useUsersList } from "@/utils/useUsersList";
 
 export const useChatList = () => {
     const [chats, setChats] = useState<Chat[]>([]);
+    const [usersLoading, setUsersLoading] = useState(false);
     const users = useUsersList();
     const [user, loadingAuth] = useAuthState(auth);
-    const [usersLoading, setUsersLoading] = useState(false);
-
     const loading = loadingAuth || usersLoading;
 
     const chatItems = useMemo(() => {
@@ -21,7 +20,9 @@ export const useChatList = () => {
             .map(chat => {
                 const otherParticipantId = chat.participants.find(uid => uid !== user?.uid);
                 const otherParticipant = users.find(user => user.uid === otherParticipantId);
-                console.log(chat)
+                const isUnread = chat.lastMessage &&
+                    chat.lastMessage.senderId !== user?.uid &&
+                    !chat.lastMessage.readBy?.includes(user?.uid as string);
 
                 if (!otherParticipant) return null;
                 
@@ -33,6 +34,7 @@ export const useChatList = () => {
                         displayName={otherParticipant.displayName}
                         lastMessageText={chat.lastMessage?.text}
                         lastMessageTime={useTimeFormat(chat.lastMessage?.timeStamp?.seconds)}
+                        isUnread={isUnread!}
                     />
                 );
             })

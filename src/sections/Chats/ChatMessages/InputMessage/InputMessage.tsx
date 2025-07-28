@@ -3,11 +3,12 @@ import EmojiPicker from 'emoji-picker-react';
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/ChatMessages/InputMessage/InputMessage.module.scss';
+import { IconEmoji } from "@/assets/svg";
 
 interface InputMessageProps {
     placeholder?: string;
     value: string;
-    onChange: (value: string) => void;
+    onChange: (value: string | ((prev: string) => string)) => void;
     id: string;
     customClass?: {
         container?: string,
@@ -20,7 +21,7 @@ interface InputMessageProps {
 const cn = classNames.bind(styles);
 
 export const InputMessage: FC<InputMessageProps> = ({ placeholder, value, onChange, id, customClass }): ReactElement => {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         onChange(event.target.value);
@@ -28,7 +29,7 @@ export const InputMessage: FC<InputMessageProps> = ({ placeholder, value, onChan
 
     const handleEmojiClick = (emojiObject: any) => {
         onChange(prev => prev + emojiObject.emoji);
-        // setIsOpen(false);
+        setIsOpen(false);
     };
 
     return (
@@ -37,6 +38,19 @@ export const InputMessage: FC<InputMessageProps> = ({ placeholder, value, onChan
                 <button type='button'>
 
                 </button>
+                <button 
+                    type="button" 
+                    className={cn('input__emoji__btn')}
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    {IconEmoji}
+                </button>
+                {
+                    isOpen &&
+                    <div className={cn('input__emoji__box')}>
+                        <EmojiPicker onEmojiClick={handleEmojiClick} />
+                    </div>
+                }
                 <input 
                     type='text'
                     placeholder={placeholder}
@@ -45,12 +59,6 @@ export const InputMessage: FC<InputMessageProps> = ({ placeholder, value, onChan
                     className={cn('input__element', customClass?.input)}
                     id={id}
                 />
-                {
-                    isOpen &&
-                    <div>
-                        <EmojiPicker onEmojiClick={handleEmojiClick} />
-                    </div>
-                }
             </label>
         </div>
     );

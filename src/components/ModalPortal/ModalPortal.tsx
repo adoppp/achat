@@ -6,13 +6,14 @@ import styles from '@/components/ModalPortal/ModalPortal.module.scss';
 
 interface ModalPortalProps {
     children: ReactNode;
+    customContainerClass?: string;
 };
 
 const cn = classNames.bind(styles);
 
-export const ModalPortal: FC<ModalPortalProps> = ({ children }) => {
+export const ModalPortal: FC<ModalPortalProps> = ({ children, customContainerClass }) => {
     return createPortal(
-        <div className={cn('modal')}>
+        <div className={cn('modal', customContainerClass)}>
             <section className={cn('modal__container')}>
                 {children}
             </section>

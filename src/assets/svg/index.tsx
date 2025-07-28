@@ -55,3 +55,15 @@ export const IconClose = (
     <path d="M15.2417 1L0.999904 15.0418" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 );
+
+export const IconPencil = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M11.6785 1.24977C11.8718 1.05649 12.1013 0.903176 12.3538 0.798575C12.6063 0.693974 12.877 0.640137 13.1503 0.640137C13.4236 0.640137 13.6943 0.693974 13.9468 0.798575C14.1994 0.903176 14.4288 1.05649 14.6221 1.24977C14.8154 1.44305 14.9687 1.6725 15.0733 1.92503C15.1779 2.17756 15.2317 2.44822 15.2317 2.72156C15.2317 2.99489 15.1779 3.26555 15.0733 3.51808C14.9687 3.77061 14.8154 4.00006 14.6221 4.19334L4.68755 14.1279L0.640137 15.2317L1.74398 11.1843L11.6785 1.24977Z" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+);
+
+export const IconArrowLeft = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 29" fill="none">
+    <path d="M15 19.9201L8.47997 13.4001C7.70997 12.6301 7.70997 11.3701 8.47997 10.6001L15 4.08008" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+);

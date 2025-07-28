@@ -1,9 +1,10 @@
-import { useState, type ChangeEvent, type FC, type ReactElement } from "react";
+import { type FC, type ReactElement } from "react";
 import EmojiPicker from 'emoji-picker-react';
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/ChatMessages/InputMessage/InputMessage.module.scss';
 import { IconEmoji } from "@/assets/svg";
+import { useInputMessage } from "@/sections/Chats/ChatMessages/InputMessage/InputMessage.hooks";
 
 interface InputMessageProps {
     placeholder?: string;
@@ -21,16 +22,7 @@ interface InputMessageProps {
 const cn = classNames.bind(styles);
 
 export const InputMessage: FC<InputMessageProps> = ({ placeholder, value, onChange, id, customClass }): ReactElement => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        onChange(event.target.value);
-    };
-
-    const handleEmojiClick = (emojiObject: any) => {
-        onChange(prev => prev + emojiObject.emoji);
-        setIsOpen(false);
-    };
+    const { isOpen, setIsOpen, handleChange, handleEmojiClick } = useInputMessage({ onChange });
 
     return (
         <div className={cn('input', customClass?.container)}>

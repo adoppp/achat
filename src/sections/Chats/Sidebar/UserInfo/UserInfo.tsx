@@ -10,20 +10,22 @@ import Avatar from "react-avatar";
 const cn = classNames.bind(styles);
 
 export const UserInfo: FC = (): ReactNode => {
-    const { Modal, toggleOpen, user } = useUserInfo();
+    const { Modal, Profile, toggleOpen, toggleIsSettingsOpen, user } = useUserInfo();
 
     return (
         <>
             <section className={cn('userinfo')}>
                 <div className={cn('userinfo__info')}>
-                    {
-                        user?.photoURL ?
-                        <img 
-                        src={user?.photoURL} 
-                        alt={user?.displayName ? user.displayName : 'Not found'} 
-                        /> :
-                        <Avatar name={user?.displayName as string} size="32" textSizeRatio={2} round/>
-                    }
+                    <button type="button" onClick={toggleIsSettingsOpen}>
+                        {
+                            user?.photoURL ?
+                            <img 
+                            src={user?.photoURL} 
+                            alt={user?.displayName ? user.displayName : 'Not found'} 
+                            /> :
+                            <Avatar name={user?.displayName as string} size="32" textSizeRatio={2} round/>
+                        }
+                    </button>
                     <h1>Chats</h1>
                 </div>
                 <button 
@@ -35,6 +37,7 @@ export const UserInfo: FC = (): ReactNode => {
                 </button>
             </section>
             {Modal}
+            {Profile}
         </>
     );
 };

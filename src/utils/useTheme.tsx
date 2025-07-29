@@ -2,9 +2,8 @@ import type { Theme } from "@/types";
 import { useEffect, useState } from "react";
 
 export const useTheme = () => {
-    const localStorageTheme = localStorage.getItem('theme') as Theme;
-    const html = document.documentElement;
     const [currentTheme, setCurrentTheme] = useState<Theme | null>(null); 
+    const html = document.documentElement;
 
     const setTheme = (theme: Theme) => {
         if (!theme) return;
@@ -15,6 +14,8 @@ export const useTheme = () => {
     };
 
     useEffect(() => {
+        const localStorageTheme = localStorage.getItem('theme') as Theme;
+
         if (!localStorageTheme) return;
 
         html.setAttribute('data-theme', localStorageTheme);

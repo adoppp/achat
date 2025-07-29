@@ -22,15 +22,18 @@ export interface Chat {
   } | null;
   updatedAt: any; 
 };
+
 export type MessageType = "text" | "image" | "file" | "audio" | "video";
 
 export interface Message {
-  id: string; // ID документа (может быть присвоен отдельно)
-  chatId: string; // ID чата, к которому принадлежит сообщение
-  senderId: string; // UID отправителя
-  text?: string; // Текст сообщения, если type === 'text'
-  mediaURL?: string; // URL к файлу/изображению, если type !== 'text'
-  timestamp: Timestamp; // Время отправки (используется serverTimestamp())
-  type: MessageType; // Тип сообщения
-  readBy: string[]; // UID-ы пользователей, которые прочитали сообщение
-}
+  id: string;
+  chatId: string;
+  senderId: string;
+  text?: string;
+  mediaURL?: string;
+  timestamp: Timestamp;
+  type: MessageType;
+  readBy: string[];
+};
+
+export type Theme = 'light' | 'dark' | 'lavender' | 'burgundy' | 'purple';

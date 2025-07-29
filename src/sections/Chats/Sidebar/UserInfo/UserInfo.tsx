@@ -1,16 +1,16 @@
 import { type FC, type ReactNode } from "react";
+import Avatar from "react-avatar";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfo.module.scss';
 
 import { IconSearch } from "@/assets/svg";
 import { useUserInfo } from "@/sections/Chats/Sidebar/UserInfo/UserInfo.hooks";
-import Avatar from "react-avatar";
 
 const cn = classNames.bind(styles);
 
 export const UserInfo: FC = (): ReactNode => {
-    const { Modal, Profile, toggleOpen, toggleIsSettingsOpen, user } = useUserInfo();
+    const { Modal, ProfileModal, toggleOpen, toggleIsSettingsOpen, user } = useUserInfo();
 
     return (
         <>
@@ -37,7 +37,7 @@ export const UserInfo: FC = (): ReactNode => {
                 </button>
             </section>
             {Modal}
-            {Profile}
+            {ProfileModal}
         </>
     );
 };

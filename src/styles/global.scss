@@ -1,5 +1,5 @@
 /* 1. Светлая тема */
-:root {
+:root[data-theme="light"] {
   --background-color: #F8F8F8;
   --message-bg: #FFFFFF;
   --text-primary: #1E1E1E;

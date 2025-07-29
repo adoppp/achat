@@ -2,7 +2,7 @@ import { useState } from "react";
 import { auth } from "@/services";
 
 import { UserInfoModal } from "@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModal";
-import { ProfileSettings } from "@/sections/Chats/Sidebar/UserInfo/ProfileSettings/ProfileSettings";
+import { Profile } from "@/sections/Chats/Sidebar/UserInfo/Profile/Profile";
 
 export const useUserInfo = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -19,7 +19,7 @@ export const useUserInfo = () => {
 
     const Modal = isOpen && <UserInfoModal toggleOpen={toggleOpen} />;
 
-    const Profile = isSettingsOpen && <ProfileSettings toggleOpen={toggleIsSettingsOpen} />;
+    const ProfileModal = isSettingsOpen && <Profile toggleOpen={toggleIsSettingsOpen} />;
 
-    return { Modal, Profile, toggleOpen, toggleIsSettingsOpen, user };
+    return { Modal, ProfileModal, toggleOpen, toggleIsSettingsOpen, user };
 };

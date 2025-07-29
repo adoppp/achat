@@ -1,0 +1,75 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.profile {
+
+    &__close {
+        display: block;
+        margin-left: auto;
+        margin-bottom: 12px;
+
+        & svg {
+            stroke: var(--icons-buttons-color);
+
+            transition: $transition;
+        }
+
+        &:hover svg {
+            stroke: var(--button-hover);
+        }
+
+        &:active svg {
+            stroke: var(--button-active);
+        }
+    }
+}
+
+
+.anim {
+    &__open {
+        animation: openAnimation 0.7s ease 0s 1 normal forwards;
+    }
+
+    &__close {
+        animation: closeAnimation 0.5s ease 0s 1 normal forwards;
+    }
+
+    &__back {
+        animation: backAnimation 0.4s ease 0s 1 normal forwards;
+    }
+}
+
+@keyframes backAnimation {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes closeAnimation {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+}
+
+@keyframes openAnimation {
+	0% {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}

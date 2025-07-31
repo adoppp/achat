@@ -15,17 +15,40 @@
 
 
 .message {
-    max-width: fit-content;
+    position: relative;
+    width: fit-content;
+    max-width: 380px;
+    min-width: 80px;
     padding: 12px;
+    padding-bottom: 20px;
     border-radius: $border-radius;
 
     &__sender {
         background-color: var(--outgoing-message-bg);
         color: white;
         margin-left: auto;
+
+        & span {
+            @include text(sm);
+            color: $border-color;
+
+            position: absolute;
+            bottom: 0;
+            right: 8px;
+        }
     }
 
     &__receiver {
         background-color: var(--incoming-message-bg);
+        color: var(--text-primary);
+
+        & span {
+            @include text(sm);
+            color: var(--text-secondary);
+
+            position: absolute;
+            bottom: 0;
+            right: 8px;
+        }
     }
 }

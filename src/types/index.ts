@@ -31,7 +31,7 @@ export interface Message {
   senderId: string;
   text?: string;
   mediaURL?: string;
-  timestamp: Timestamp;
+  timeStamp: Timestamp;
   type: MessageType;
   readBy: string[];
 };

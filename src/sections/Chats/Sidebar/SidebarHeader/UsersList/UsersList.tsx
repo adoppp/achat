@@ -1,21 +1,21 @@
 import { type FC, type ReactElement } from "react";
 import classNames from "classnames/bind";
 
-import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserInfoModal.module.scss';
+import styles from '@/sections/Chats/Sidebar/SidebarHeader/UsersList/UsersList.module.scss';
 
 import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
-import { useUserInfoModal } from "./UserInfoModal.hooks";
+import { useUsersList } from "./UsersList.hooks";
 import { Input } from "@/ui/Input/Input";
 import { IconClose } from "@/assets/svg";
 
-interface UserInfoModalProps {
+interface UsersListProps {
     toggleOpen: () => void;
 };
 
 const cn = classNames.bind(styles);
 
-export const UserInfoModal: FC<UserInfoModalProps> = ({ toggleOpen }): ReactElement => {
-    const { UserListItems, search, setSearch } = useUserInfoModal({ toggleOpen });
+export const UsersList: FC<UsersListProps> = ({ toggleOpen }): ReactElement => {
+    const { UserListItems, search, setSearch } = useUsersList({ toggleOpen });
 
     return (
         <ModalPortal>

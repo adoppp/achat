@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { doc, getDoc } from "firebase/firestore";
 
-import { auth, firestore } from "@/services";
+import { firestore } from "@/services";
 import type { Chat, SerializedUser } from "@/types";
-import { useUsersList } from "@/utils/useUsersList";
+import { useUsers } from "@/utils/useUsers";
+import { useAuth } from "@/utils/useAuth";
 
 export const useFriendInfo = () => {
     const [friend, setFriend] = useState<SerializedUser>();
     const { chatId } = useParams<{ chatId: string | undefined }>();
-    const users = useUsersList();
-    const currentUser = auth.currentUser;
+    const users = useUsers();
+    const { user: currentUser } = useAuth();
 
     const getOtherParticipant = async () => {
         const chatRef = doc(firestore, 'chats', chatId!);
@@ -19,7 +20,7 @@ export const useFriendInfo = () => {
         const otherParticipantId = currentChat?.participants.find(id => id !== currentUser?.uid);
         const otherParticipant = users.find(user => user.uid === otherParticipantId);
 
-        setFriend(otherParticipant)
+        setFriend(otherParticipant);
     };
 
     useEffect(() => {

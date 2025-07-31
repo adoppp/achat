@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
 
-import { auth, firestore } from "@/services";
+import { firestore } from "@/services";
 import type { Message } from "@/types";
+import { useAuth } from "@/utils/useAuth";
 
 export const useMessagesList = () => {
     const { chatId } = useParams<{ chatId: string }>();
     const [messages, setMessages] = useState<Message[]>([]);
-    const [user] = useAuthState(auth);
+    const { user } = useAuth();
     const listRef = useRef<HTMLUListElement>(null); 
 
     useEffect(() => {

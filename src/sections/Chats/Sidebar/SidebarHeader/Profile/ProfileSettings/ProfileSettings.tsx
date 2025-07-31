@@ -1,12 +1,12 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactElement } from "react";
 import Avatar from "react-avatar";
 import type { User } from "firebase/auth";
 import classNames from "classnames/bind";
 
-import styles from '@/sections/Chats/Sidebar/UserInfo/Profile/ProfileSettings/ProfileSettings.module.scss';
+import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings.module.scss';
 
 import { IconArrowLeft } from "@/assets/svg";
-import { useProfileSettings } from "@/sections/Chats/Sidebar/UserInfo/Profile/ProfileSettings/ProfileSettings.hooks";
+import { useProfileSettings } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings.hooks";
 import { Input } from "@/ui/Input/Input";
 import { Button } from "@/ui/Button/Button";
 
@@ -17,7 +17,7 @@ interface ProfileSettingsProps {
 
 const cn = classNames.bind(styles);
 
-export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUser }): ReactNode => {
+export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUser }): ReactElement => {
     const { name, setName, handleSubmit } = useProfileSettings({ currentUser, closeEdit });
 
     return (

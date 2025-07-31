@@ -1,10 +1,8 @@
-import type { FC } from "react";
+import type { FC, ReactElement } from "react";
 import classNames from "classnames/bind";
-
-import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserItem/UserItem.module.scss';
-
-import userImage from '@/assets/img/user.png';
 import Avatar from "react-avatar";
+
+import styles from '@/sections/Chats/Sidebar/SidebarHeader/UsersList/UserItem/UserItem.module.scss';
 
 interface UserItemProps {
     displayName: string | null; 
@@ -15,7 +13,7 @@ interface UserItemProps {
 
 const cn = classNames.bind(styles);
 
-export const UserItem: FC<UserItemProps> = ({ displayName, photoURL, uid, onClick }) => {
+export const UserItem: FC<UserItemProps> = ({ displayName, photoURL, uid, onClick }): ReactElement => {
     const handleClick = () => {
         onClick(uid);
     };
@@ -25,7 +23,7 @@ export const UserItem: FC<UserItemProps> = ({ displayName, photoURL, uid, onClic
             {
                 photoURL ?
                 <img 
-                    src={photoURL ? photoURL : userImage} 
+                    src={photoURL} 
                     alt={displayName ? displayName : 'Not found'}
                 /> :
                 <Avatar name={displayName as string} size="32" textSizeRatio={2} className={cn('user__avatar')} round />

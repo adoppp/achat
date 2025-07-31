@@ -2,10 +2,10 @@ import { type FC, type ReactNode } from "react";
 import Avatar from "react-avatar";
 import classNames from "classnames/bind";
 
-import styles from '@/sections/Chats/Sidebar/UserInfo/Profile/ProfileInfo/ProfileInfo.module.scss';
+import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.module.scss';
 
 import { IconLogout, IconPencil } from "@/assets/svg";
-import { useProfileInfo } from "@/sections/Chats/Sidebar/UserInfo/Profile/ProfileInfo/ProfileInfo.hooks";
+import { useProfileInfo } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.hooks";
 import type { Theme } from "@/types";
 import { useTheme } from "@/utils/useTheme";
 

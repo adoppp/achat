@@ -1,29 +1,30 @@
-import { useState } from "react";
-import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
-
-import { auth, firestore } from "@/services";
-import { UserItem } from "@/sections/Chats/Sidebar/UserInfo/UserInfoModal/UserItem/UserItem";
-import { useUsersList } from "@/utils/useUsersList";
+import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
-interface useUserInfoModalProps {
+import { firestore } from "@/services";
+import { UserItem } from "@/sections/Chats/Sidebar/SidebarHeader/UsersList/UserItem/UserItem";
+import { useUsers } from "@/utils/useUsers";
+import { useAuth } from "@/utils/useAuth";
+
+interface useUsersListProps {
     toggleOpen: () => void;
 }
 
-export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
-    const users = useUsersList();
+export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
+    const users = useUsers();
     const [search, setSearch] = useState<string>('');
     const navigate = useNavigate();
-    const currentUser = auth.currentUser;
+    const { user: currentUser } = useAuth();
 
-    const filteredUsersList = () => {
+    const filteredUsersList = useMemo(() => {
         if (search.trim().length > 0) {
             const filtered = users.filter(user => user.displayName?.toLowerCase().includes(search.toLowerCase()) && user.displayName !== currentUser?.displayName);
             return filtered;
         } else {
             return [];
         }
-    };
+    }, [users, search, currentUser]);
 
     const handleClick = async (uid: string | null) => {
         const chatId = [currentUser?.uid, uid].sort().join("_");
@@ -34,17 +35,21 @@ export const useUserInfoModal = ({ toggleOpen }: useUserInfoModalProps) => {
             toggleOpen();
             navigate(`/chats/${chatId}`)
         } else {
-            await setDoc(chatRef, {
-                participants: [currentUser?.uid, uid],
-                lastMessage: null,
-                updatedAt: serverTimestamp(),
-            });
-    
-            toggleOpen();
+            try {
+                await setDoc(chatRef, {
+                    participants: [currentUser?.uid, uid],
+                    lastMessage: null,
+                    updatedAt: serverTimestamp(),
+                });
+        
+                toggleOpen();
+            } catch (e) {
+                console.log('UsersList: ', e)
+            }
         };
     };
 
-    const UserListItems = filteredUsersList().map(user => 
+    const UserListItems = filteredUsersList.map(user => 
         <UserItem 
             key={user.uid}
             displayName={user.displayName} 

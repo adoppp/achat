@@ -1,7 +1,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 import { auth, firestore } from "@/services";
 
@@ -77,17 +77,19 @@ export const useSignUpForm = () => {
 
             await updateProfile(user, { displayName: formState.name});
 
-            await setDoc(doc(firestore, 'users', user.uid), {
+            const userRef = doc(firestore, 'users', user.uid);
+
+            await setDoc(userRef, {
                 uid: user.uid,
                 displayName: formState.name,
                 email: user.email,
                 photoURL: user.photoURL,
-                createdAt: Date.now(),
+                createdAt: serverTimestamp(),
             });
 
-            navigate('/')
+            navigate('/chats');
         } catch (e) {
-            console.log('Error ', e)
+            console.log('Error ', e);
         }
     };
 

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { auth } from "@/services"
+import { useAuth } from "@/utils/useAuth";
 
 export const useProfile = () => {
     const [isEdit, setIsEdit] = useState<boolean>(false);
     const [animation, setAnimation] = useState<'anim__open' | 'anim__close'>('anim__open');
-    const currentUser = auth.currentUser;
+    const { user } = useAuth();
 
     const openEdit = () => {
         setIsEdit(true);
@@ -20,5 +20,5 @@ export const useProfile = () => {
         }, 500);
     };
 
-    return { currentUser, isEdit, openEdit, closeEdit, animation };
+    return { user, isEdit, openEdit, closeEdit, animation };
 };

@@ -1,16 +1,16 @@
-import type { FC, ReactNode } from "react";
+import type { FC, ReactElement } from "react";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/Sidebar.module.scss';
-import { UserInfo } from "./UserInfo/UserInfo";
-import { ChatList } from "./ChatList/ChatList";
+import { SidebarHeader } from "@/sections/Chats/Sidebar/SidebarHeader/SidebarHeader";
+import { ChatList } from "@/sections/Chats/Sidebar/ChatList/ChatList";
 
 const cn = classNames.bind(styles);
 
-export const Sidebar: FC = (): ReactNode => {
+export const Sidebar: FC = (): ReactElement => {
   return (
     <aside className={cn('sidebar')}>
-        <UserInfo />
+        <SidebarHeader />
         <ChatList />
     </aside>
   )

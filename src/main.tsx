@@ -6,12 +6,15 @@ import '@/styles/global.scss';
 import '@/styles/reset.scss';
 
 import { router } from '@/routing/index.tsx';
-import { UsersListProvider } from './utils/useUsersList';
+import { UsersProvider } from './utils/useUsers';
+import { AuthProvider } from './utils/useAuth';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <UsersListProvider>
-      <RouterProvider router={router} />
-    </UsersListProvider>
+    <AuthProvider>
+      <UsersProvider>
+        <RouterProvider router={router} />
+      </UsersProvider>
+    </AuthProvider>
   </StrictMode>,
 );

@@ -1,22 +1,22 @@
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactElement } from "react";
 import Avatar from "react-avatar";
 import classNames from "classnames/bind";
 
-import styles from '@/sections/Chats/Sidebar/UserInfo/UserInfo.module.scss';
+import styles from '@/sections/Chats/Sidebar/SidebarHeader/SidebarHeader.module.scss';
 
 import { IconSearch } from "@/assets/svg";
-import { useUserInfo } from "@/sections/Chats/Sidebar/UserInfo/UserInfo.hooks";
+import { useSidebarHeader } from "@/sections/Chats/Sidebar/SidebarHeader/SidebarHeader.hooks";
 
 const cn = classNames.bind(styles);
 
-export const UserInfo: FC = (): ReactNode => {
-    const { Modal, ProfileModal, toggleOpen, toggleIsSettingsOpen, user } = useUserInfo();
+export const SidebarHeader: FC = (): ReactElement => {
+    const { Modal, ProfileModal, toggleOpen, toggleIsProfileOpen, user } = useSidebarHeader();
 
     return (
         <>
             <section className={cn('userinfo')}>
                 <div className={cn('userinfo__info')}>
-                    <button type="button" onClick={toggleIsSettingsOpen}>
+                    <button type="button" onClick={toggleIsProfileOpen}>
                         {
                             user?.photoURL ?
                             <img 

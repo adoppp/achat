@@ -1,19 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
-import { useAuthState } from "react-firebase-hooks/auth";
 
-import { auth, firestore } from "@/services";
+import { firestore } from "@/services";
 import type { Chat } from "@/types";
 import { ChatItem } from "@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem";
 import { useTimeFormat } from "@/utils/useTimeFormat";
-import { useUsersList } from "@/utils/useUsersList";
+import { useUsers } from "@/utils/useUsers";
+import { useAuth } from "@/utils/useAuth";
 
 export const useChatList = () => {
     const [chats, setChats] = useState<Chat[]>([]);
-    const [usersLoading, setUsersLoading] = useState(false);
-    const users = useUsersList();
-    const [user, loadingAuth] = useAuthState(auth);
-    const loading = loadingAuth || usersLoading;
+    const users = useUsers();
+    const { user, loading } = useAuth();
 
     const chatItems = useMemo(() => {
         return chats

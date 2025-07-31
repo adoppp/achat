@@ -15,40 +15,65 @@
 
 
 .message {
-    position: relative;
     width: fit-content;
     max-width: 380px;
     min-width: 80px;
     padding: 12px;
-    padding-bottom: 20px;
     border-radius: $border-radius;
 
     &__sender {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 4px;
         background-color: var(--outgoing-message-bg);
-        color: white;
         margin-left: auto;
+        
+        & p {
+            color: white;
+        }
 
         & span {
-            @include text(sm);
+            @include text(xs);
             color: $border-color;
+            position: relative;
+            visibility: hidden;
 
-            position: absolute;
-            bottom: 0;
-            right: 8px;
+            display: flex;
+            align-items: flex-end;
+
+            & div {
+                visibility: visible;
+                position: absolute;
+                top: 8px;
+                right: 0;
+            }
         }
     }
 
     &__receiver {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        gap: 4px;
         background-color: var(--incoming-message-bg);
-        color: var(--text-primary);
+
+        & p {
+            color: var(--text-primary);
+        }
 
         & span {
-            @include text(sm);
+            @include text(xs);
             color: var(--text-secondary);
+            position: relative;
+            visibility: hidden;
 
-            position: absolute;
-            bottom: 0;
-            right: 8px;
+            & div {
+                visibility: visible;
+                position: absolute;
+                top: 8px;
+                right: 0;
+            }
         }
     }
 }

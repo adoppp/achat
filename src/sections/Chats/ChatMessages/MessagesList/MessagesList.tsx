@@ -19,9 +19,14 @@ export const MessagesList = () => {
                     console.log(message.timeStamp)
                     return (    
                         <li key={message.id} className={cn('message', message.senderId === user?.uid ? 'message__sender' : 'message__receiver')}>
-                            {message.text}
+                            <p>
+                                {message.text}
+                            </p>
                             <span>
                                 {time}
+                                <div>
+                                    {time}
+                                </div>
                             </span>
                         </li>
                     );

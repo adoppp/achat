@@ -5,6 +5,7 @@ export interface SerializedUser {
   email: string | null;
   displayName: string | null;
   photoURL: string | null;
+  bio: string | null;
   createdAt: string | null;
 };
 

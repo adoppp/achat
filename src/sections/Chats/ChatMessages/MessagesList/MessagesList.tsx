@@ -16,7 +16,6 @@ export const MessagesList = () => {
             {
                 messages.map(message => {
                     const time = message.timeStamp ? format(new Date(message.timeStamp.seconds * 1000), 'HH:mm') : '';
-                    console.log(message.timeStamp)
                     return (    
                         <li key={message.id} className={cn('message', message.senderId === user?.uid ? 'message__sender' : 'message__receiver')}>
                             <p>

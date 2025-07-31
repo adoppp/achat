@@ -1,14 +1,13 @@
-import type { FC, ReactElement } from "react";
+import { type FC, type ReactElement } from "react";
 import Avatar from "react-avatar";
 import type { User } from "firebase/auth";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings.module.scss';
 
-import { IconArrowLeft } from "@/assets/svg";
+import { IconArrowLeft, IconCheckMark } from "@/assets/svg";
 import { useProfileSettings } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings.hooks";
 import { Input } from "@/ui/Input/Input";
-import { Button } from "@/ui/Button/Button";
 
 interface ProfileSettingsProps {
     currentUser: User | null;
@@ -18,7 +17,7 @@ interface ProfileSettingsProps {
 const cn = classNames.bind(styles);
 
 export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUser }): ReactElement => {
-    const { name, setName, handleSubmit } = useProfileSettings({ currentUser, closeEdit });
+    const { name, setName, newBio, setNewBio, handleSubmit } = useProfileSettings({ currentUser, closeEdit });
 
     return (
         <>
@@ -45,10 +44,19 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUs
                         id="new-name"
                         customClass={{ container: cn(cn('form__container')) }}
                     />
-                    <Button 
-                        label="Submit"
-                        disabled={name === ''}
+                    <Input 
+                        value={newBio}
+                        onChange={setNewBio}
+                        placeholder="New bio"
+                        id="new-bio"
+                        customClass={{ container: cn(cn('form__container')) }}
                     />
+                    {
+                        (name.trim() !== '' || newBio.trim() !== '') &&
+                        <button type="submit">
+                            {IconCheckMark}
+                        </button>
+                    }
                 </form>
             </div>
         </>

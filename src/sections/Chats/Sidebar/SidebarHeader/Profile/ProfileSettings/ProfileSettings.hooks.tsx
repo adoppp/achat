@@ -11,26 +11,44 @@ interface useProfileSettingsProps {
 
 export const useProfileSettings = ({ currentUser, closeEdit }: useProfileSettingsProps) => {
     const [name, setName] = useState<string>('');
+    const [newBio, setNewBio] = useState<string>('');
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!name.trim()) return;
+        if (!name.trim() && !newBio.trim()) return;
         if (!currentUser) return;
 
         const userRef = doc(firestore, 'users', currentUser.uid);
 
-        await updateProfile(currentUser, {
-            displayName: name
-        });
-
-        await updateDoc(userRef, {
-            displayName: name
-        });
-
-        setName('');
-        closeEdit();
+        if (name.trim()) {
+            try {
+                await updateProfile(currentUser, {
+                    displayName: name
+                });
+        
+                await updateDoc(userRef, {
+                    displayName: name,
+                });
+        
+                setName('');
+                closeEdit();
+            } catch (e) {
+                console.log('ProfileSettings hook: ', e)
+            }
+        } else if (newBio.trim()) {
+            try {          
+                await updateDoc(userRef, {
+                    bio: newBio
+                });
+        
+                setNewBio('');
+                closeEdit();
+            } catch (e) {
+                console.log('ProfileSettings hook: ', e)
+            }
+        }
     };
 
-    return { handleSubmit, name, setName, currentUser };
+    return { handleSubmit, name, setName, newBio, setNewBio };
 };

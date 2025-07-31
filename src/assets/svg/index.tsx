@@ -75,3 +75,9 @@ export const IconLogout = (
     <path d="M5.85 8.6499L2.5 11.9999L5.85 15.3499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 );
+
+export const IconCheckMark = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none">
+    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+);

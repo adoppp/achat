@@ -84,6 +84,7 @@ export const useSignUpForm = () => {
                 displayName: formState.name,
                 email: user.email,
                 photoURL: user.photoURL,
+                bio: null,
                 createdAt: serverTimestamp(),
             });
 

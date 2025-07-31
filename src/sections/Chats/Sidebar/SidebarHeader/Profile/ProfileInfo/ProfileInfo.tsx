@@ -13,12 +13,13 @@ interface ProfileInfoProps {
     displayName: string | null;
     email: string | null;
     photoURL: string | null;
+    bio: string | null;
     openEdit: () => void;
 };
 
 const cn = classNames.bind(styles);
 
-export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL, openEdit }): ReactNode => {
+export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL, bio, openEdit }): ReactNode => {
     const { logout } = useProfileInfo();
     const { setTheme, currentTheme } = useTheme();
 
@@ -46,6 +47,8 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL
                 }
                 <h2>{displayName}</h2>
                 <p>{email}</p>
+                <p>{bio ? bio : 'No bio yet'}</p>
+                
 
 
                 <select name="theme" id="theme" value={currentTheme ?? 'light'} onChange={(e) => setTheme(e.currentTarget.value as Theme)}>

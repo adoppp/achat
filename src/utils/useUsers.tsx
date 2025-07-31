@@ -1,9 +1,8 @@
 import { createContext, useContext, useEffect, useState, type FC, type ReactNode } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
+import { collection, getDocs } from "firebase/firestore";
 
-import { auth } from "@/services";
+import { firestore } from "@/services";
 import type { SerializedUser } from "@/types";
-import { getUsers } from "@/utils/useGetUsers";
 
 interface UsersProviderProps {
     children: ReactNode;
@@ -15,13 +14,18 @@ export const useUsers = () => useContext(UsersContext);
 
 export const UsersProvider: FC<UsersProviderProps> = ({ children }): ReactNode => {
     const [users, setUsers] = useState<SerializedUser[]>([]);
-    const [user] = useAuthState(auth);
+    
+    const getUsers = async () => {
+        const usersRef = collection(firestore, 'users');
+        const users = await getDocs(usersRef);
+        const clearedData = users.docs.map(user => ({...user.data()}));
+
+        setUsers(clearedData as SerializedUser[]);
+    };
 
     useEffect(() => {
-        if (!user) return;
-
-        getUsers({ setUsers });
-    }, [user]);
+        getUsers();
+    });
 
     return <UsersContext.Provider value={users}>{children}</UsersContext.Provider>
 };

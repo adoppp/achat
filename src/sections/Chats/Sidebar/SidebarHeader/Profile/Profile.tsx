@@ -16,7 +16,7 @@ interface ProfileProps {
 const cn = classNames.bind(styles);
 
 export const Profile: FC<ProfileProps> = ({ toggleOpen }): ReactElement => {
-    const { user, isEdit, animation, closeEdit, openEdit } = useProfile();
+    const { user, isEdit, animation, closeEdit, openEdit, docUser } = useProfile();
 
     return (
         <ModalPortal customContainerClass={cn('profile')}>
@@ -42,6 +42,7 @@ export const Profile: FC<ProfileProps> = ({ toggleOpen }): ReactElement => {
                             email={user?.email as string} 
                             photoURL={user?.photoURL as string}
                             openEdit={openEdit}
+                            bio={docUser!.bio}
                         />
                     </div>
                 }

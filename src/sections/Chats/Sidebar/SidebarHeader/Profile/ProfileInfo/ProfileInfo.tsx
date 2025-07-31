@@ -4,7 +4,7 @@ import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.module.scss';
 
-import { IconLogout, IconPencil } from "@/assets/svg";
+import { IconLogout, IconPencil, IconProfile } from "@/assets/svg";
 import { useProfileInfo } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.hooks";
 import type { Theme } from "@/types";
 import { useTheme } from "@/utils/useTheme";
@@ -45,9 +45,27 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL
                     /> : 
                     <Avatar name={displayName as string} size="120" textSizeRatio={1.5} round />
                 }
-                <h2>{displayName}</h2>
-                <p className={cn('profile__info__email')}>{email}</p>
-                <p className={cn('profile__info__bio')}>{bio ? bio : 'No bio yet'}</p>
+                <div className={cn('profile__info__container')}>
+                    {IconProfile}
+                    <div>
+                        <p>{displayName}</p>
+                        <p>Name</p>
+                    </div>
+                </div>
+                <div className={cn('profile__info__container')}>
+                    svg
+                    <div>
+                        <p>{email}</p>
+                        <p>Email</p>
+                    </div>
+                </div>
+                <div className={cn('profile__info__container')}>
+                    svg
+                    <div>
+                        <p>{bio ? bio : 'No bio yet'}</p>
+                        <p>Bio</p>
+                    </div>
+                </div>
                 
 
 

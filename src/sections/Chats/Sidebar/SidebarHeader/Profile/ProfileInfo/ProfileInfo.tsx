@@ -46,8 +46,8 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL
                     <Avatar name={displayName as string} size="120" textSizeRatio={1.5} round />
                 }
                 <h2>{displayName}</h2>
-                <p>{email}</p>
-                <p>{bio ? bio : 'No bio yet'}</p>
+                <p className={cn('profile__info__email')}>{email}</p>
+                <p className={cn('profile__info__bio')}>{bio ? bio : 'No bio yet'}</p>
                 
 
 

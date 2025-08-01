@@ -32,7 +32,6 @@ export const Profile: FC<ProfileProps> = ({ isOpen, toggleOpen }): ReactElement 
                     <h1>
                         Settings
                     </h1>
-
                 </div>
                 <div>
                     <button 

@@ -1,9 +1,15 @@
-0.0.1
+# First steps:
 
---add styles to no chat choosen
---add styles to no messages
---refactor messages list 
---add loading to all ui possible
 --resend email button
-
+--add styles to no chat choosen
+--refactor messages list 
+--add styles to no messages
+--add loading to all ui possible
+--notifications (for example: when error)
 --reset password
+--icon(logo)
+
+# After that steps:
+
+--phone number
+--OAuth

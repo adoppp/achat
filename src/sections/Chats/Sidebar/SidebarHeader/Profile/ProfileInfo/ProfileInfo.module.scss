@@ -43,7 +43,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // gap: 12px;
+
+    & img {
+        border-radius: 50%;
+    }
 
     &__container {
         display: flex;
@@ -107,4 +110,8 @@
 
 .name__margin {
     margin-top: 16px;
+}
+
+.container {
+    max-width: 520px;
 }

@@ -1,4 +1,4 @@
-import { type FC, type ReactNode } from "react";
+import { type FC, type ReactElement } from "react";
 import Avatar from 'react-avatar';
 import classNames from "classnames/bind";
 
@@ -7,22 +7,27 @@ import { useFriendInfo } from "@/sections/Chats/ChatMessages/FriendInfo/FriendIn
 
 const cn = classNames.bind(styles);
 
-export const FriendInfo: FC = (): ReactNode => {
-    const { friend } = useFriendInfo();
+export const FriendInfo: FC = (): ReactElement => {
+    const { friend, Modal, toggleOpen } = useFriendInfo();
 
     return (
-        <section className={cn('friend')}>
-            {
-                friend?.photoURL ? 
-                <img 
-                    src={friend?.photoURL} 
-                    alt={friend?.displayName ?? 'Not found'} 
-                /> :
-                <Avatar name={friend?.displayName as string} size="44" round  />
-            }
-            <h3>
-                {friend?.displayName}
-            </h3>
-        </section>
+        <>
+            <section className={cn('friend')}>
+                <button type="button" onClick={toggleOpen}>
+                    {
+                        friend?.photoURL ? 
+                        <img 
+                            src={friend?.photoURL} 
+                            alt={friend?.displayName ?? 'Not found'} 
+                        /> :
+                        <Avatar name={friend?.displayName as string} size="44" round  />
+                    }
+                    <h3>
+                        {friend?.displayName}
+                    </h3>
+                </button>
+            </section>
+            {Modal}
+        </>
     );
 };

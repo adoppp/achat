@@ -6,12 +6,14 @@ import { firestore } from "@/services";
 import type { Chat, SerializedUser } from "@/types";
 import { useUsers } from "@/utils/useUsers";
 import { useAuth } from "@/utils/useAuth";
+import { InfoModal } from "@/sections/Chats/ChatMessages/FriendInfo/InfoModal/InfoModal";
 
 export const useFriendInfo = () => {
     const [friend, setFriend] = useState<SerializedUser>();
+    const [isModalOpen, setIsModalOpen] = useState<boolean>();
     const { chatId } = useParams<{ chatId: string | undefined }>();
-    const users = useUsers();
     const { user: currentUser } = useAuth();
+    const users = useUsers();
 
     const getOtherParticipant = async () => {
         const chatRef = doc(firestore, 'chats', chatId!);
@@ -23,6 +25,18 @@ export const useFriendInfo = () => {
         setFriend(otherParticipant);
     };
 
+    const toggleOpen = () => setIsModalOpen(!isModalOpen);
+
+    const Modal = isModalOpen && 
+        friend && 
+        <InfoModal 
+            displayName={friend.displayName} 
+            photoURL={friend.photoURL}
+            email={friend.email}
+            bio={friend.bio}
+            toggleOpen={toggleOpen} 
+        />;
+
     useEffect(() => {
         if (!currentUser?.uid) return;
 
@@ -30,5 +44,5 @@ export const useFriendInfo = () => {
         
     }, [chatId, friend]);
 
-    return { friend };
+    return { friend, Modal, toggleOpen };
 }

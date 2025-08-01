@@ -27,7 +27,7 @@ export const Profile: FC<ProfileProps> = ({ toggleOpen }): ReactElement => {
             >
                 {IconClose}
             </button>
-            <div >
+            <div className={cn('container')}>
                 {
                     isEdit ?
                     <div className={cn(animation)}>

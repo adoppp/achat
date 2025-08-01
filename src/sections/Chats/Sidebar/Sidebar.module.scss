@@ -3,9 +3,6 @@
 @use '@/styles/variables' as *;
 
 .sidebar {
-    flex-grow: 1;
     border-right: 1px solid $border-color;
-    width: 100%;
-    max-width: 360px;
-    min-width: 360px;
+    min-width: 420px;
 }

@@ -2,19 +2,15 @@
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
 
-.modal__content {
-    & ul {
-        margin-top: 16px;
-    }
-}
-
 .modal__close {
-    display: block;
-    margin-left: auto;
-    margin-bottom: 12px;
+    margin-top: 4px;
+    margin-right: 8px;
+    height: 32px;
 
     & svg {
         stroke: var(--icons-buttons-color);
+        width: 32px;
+        height: 32px;
 
         transition: $transition;
     }
@@ -25,5 +21,35 @@
 
     &:active svg {
         stroke: var(--button-active);
+    }
+}
+
+.users {
+    background-color: var(--background-color);
+    position: absolute;
+    top: 0;
+    transform: translateX(420px);
+    max-width: 420px;
+    width: 100%;
+
+    padding: 24px 12px;
+    border-right: 1px $border-color solid;
+
+
+    height: 100%;
+
+    transition: $transition;
+
+    &__bar {
+        display: flex;
+        align-items: center;
+    }
+
+    & ul {
+        margin-top: 16px;
+    }
+
+    &__open {
+        transform: translateX(0);
     }
 }

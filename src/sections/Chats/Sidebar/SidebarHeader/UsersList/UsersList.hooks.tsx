@@ -33,6 +33,7 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
 
         if (chatSnap.exists()) {
             toggleOpen();
+            setSearch('');
             navigate(`/chats/${chatId}`)
         } else {
             try {
@@ -43,8 +44,10 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
                 });
         
                 toggleOpen();
+                setSearch('');
+                navigate(`/chats/${chatId}`);
             } catch (e) {
-                console.log('UsersList: ', e)
+                console.log('UsersList: ', e);
             }
         };
     };

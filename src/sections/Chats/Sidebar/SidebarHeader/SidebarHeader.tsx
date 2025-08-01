@@ -6,11 +6,13 @@ import styles from '@/sections/Chats/Sidebar/SidebarHeader/SidebarHeader.module.
 
 import { IconSearch } from "@/assets/svg";
 import { useSidebarHeader } from "@/sections/Chats/Sidebar/SidebarHeader/SidebarHeader.hooks";
+import { UsersList } from "@/sections/Chats/Sidebar/SidebarHeader/UsersList/UsersList";
+import { Profile } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/Profile";
 
 const cn = classNames.bind(styles);
 
 export const SidebarHeader: FC = (): ReactElement => {
-    const { Modal, ProfileModal, toggleOpen, toggleIsProfileOpen, user } = useSidebarHeader();
+    const { isOpen, toggleOpen, isProfileOpen, toggleIsProfileOpen, user, } = useSidebarHeader();
 
     return (
         <>
@@ -36,8 +38,8 @@ export const SidebarHeader: FC = (): ReactElement => {
                     {IconSearch}
                 </button>
             </section>
-            {Modal}
-            {ProfileModal}
+            <UsersList toggleOpen={toggleOpen} isOpen={isOpen}  />
+            <Profile toggleOpen={toggleIsProfileOpen} isOpen={isProfileOpen} />
         </>
     );
 };

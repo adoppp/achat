@@ -86,8 +86,6 @@
             font-weight: 500;
             color: var(--text-primary);
 
-            max-width: 400px;
-
             transition: $transition;
         }
 
@@ -110,8 +108,4 @@
 
 .name__margin {
     margin-top: 16px;
-}
-
-.container {
-    max-width: 520px;
 }

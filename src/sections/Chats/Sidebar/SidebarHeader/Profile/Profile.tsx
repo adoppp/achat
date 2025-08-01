@@ -3,30 +3,54 @@ import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/Profile.module.scss';
 
-import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
-import { IconClose } from "@/assets/svg";
+import { IconArrowLeft, IconClose, IconLogout, IconPencil } from "@/assets/svg";
 import { useProfile } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/Profile.hooks";
 import { ProfileInfo } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo";
 import { ProfileSettings } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings";
 
 interface ProfileProps {
+    isOpen: boolean;
     toggleOpen: () => void;
 };
 
 const cn = classNames.bind(styles);
 
-export const Profile: FC<ProfileProps> = ({ toggleOpen }): ReactElement => {
-    const { user, isEdit, animation, closeEdit, openEdit, docUser } = useProfile();
+export const Profile: FC<ProfileProps> = ({ isOpen, toggleOpen }): ReactElement => {
+    const { logout, user, isEdit, animation, closeEdit, openEdit, docUser } = useProfile();
 
     return (
-        <ModalPortal customContainerClass={cn('profile')}>
-            <button 
-                type="button" 
-                className={cn('profile__close')}
-                onClick={toggleOpen}
-            >
-                {IconClose}
-            </button>
+        <section className={cn('profile', isOpen && 'profile__open')}>
+            <div className={cn('profile__bar')}>
+                <div>
+                    <button 
+                        type="button" 
+                        className={cn('profile__close')}
+                        onClick={toggleOpen}
+                    >
+                        {IconArrowLeft}
+                    </button>
+                    <h1>
+                        Settings
+                    </h1>
+
+                </div>
+                <div>
+                    <button 
+                        type="button" 
+                        onClick={logout}
+                        className={cn('profile__button')}
+                    >
+                        {IconLogout}
+                    </button>
+                    <button 
+                        type='button' 
+                        onClick={openEdit}
+                        className={cn('profile__button')}
+                    >
+                        {IconPencil}
+                    </button>
+                </div>
+            </div>
             <div className={cn('container')}>
                 {
                     isEdit ?
@@ -47,6 +71,6 @@ export const Profile: FC<ProfileProps> = ({ toggleOpen }): ReactElement => {
                     </div>
                 }
             </div>
-        </ModalPortal>
+        </section>
     );
 };

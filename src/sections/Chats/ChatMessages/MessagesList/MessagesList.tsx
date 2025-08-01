@@ -14,6 +14,7 @@ export const MessagesList = () => {
     return (
         <ul className={cn('messages')} ref={listRef}>
             {
+                messages.length !== 0 ?
                 messages.map(message => {
                     const time = message.timeStamp ? format(new Date(message.timeStamp.seconds * 1000), 'HH:mm') : '';
                     return (    
@@ -29,7 +30,8 @@ export const MessagesList = () => {
                             </span>
                         </li>
                     );
-                })
+                }) :
+                <h1>No messages yet</h1>
             }
         </ul>
     );

@@ -17,7 +17,7 @@ interface ProfileSettingsProps {
 const cn = classNames.bind(styles);
 
 export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUser }): ReactElement => {
-    const { name, setName, newBio, setNewBio, handleSubmit } = useProfileSettings({ currentUser, closeEdit });
+    const { name, setName, newBio, setNewBio, handleSubmit, docUser } = useProfileSettings({ currentUser, closeEdit });
 
     return (
         <>
@@ -52,7 +52,10 @@ export const ProfileSettings: FC<ProfileSettingsProps> = ({ closeEdit, currentUs
                         customClass={{ container: cn(cn('form__container')) }}
                     />
                     {
-                        (name.trim() !== '' || newBio.trim() !== '') &&
+                        (
+                            (name.trim() !== '' && name.trim() !== currentUser?.displayName) || 
+                            (newBio.trim() !== '' && newBio.trim() !== docUser.bio)
+                        ) &&
                         <button type="submit">
                             {IconCheckMark}
                         </button>

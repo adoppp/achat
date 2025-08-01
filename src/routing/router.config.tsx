@@ -32,6 +32,7 @@ export const RouterConfig: RouteItem[] = [
         path: 'chats',
         element: withPrivateRoute(Chats),
         children: [
+            { index: true, element: <h1>choose chat</h1>},
             { path: ':chatId', element: <Chat />}
         ]
     },

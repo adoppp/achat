@@ -28,6 +28,8 @@ export const useAuth = () => {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }): ReactElement => {
     const [user, loading, error] = useAuthState(auth);
 
+    console.log(user)
+
     return (
         <AuthContext.Provider value={{ user: user ?? null, loading, error}}>
             {children}

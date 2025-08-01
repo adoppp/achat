@@ -76,5 +76,5 @@ export const useProfileSettings = ({ currentUser, closeEdit }: useProfileSetting
         setNewBio(docUser.bio ?? '');
     }, [docUser]);
 
-    return { handleSubmit, name, setName, newBio, setNewBio };
+    return { handleSubmit, name, setName, newBio, setNewBio, docUser };
 };

@@ -1,3 +1,12 @@
 @use '@/styles/typography' as *;
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
+
+.chats {
+    &__message {
+        @include heading;
+        color: var(--text-primary);
+        text-align: center;
+        margin-top: 24px;
+    }
+}

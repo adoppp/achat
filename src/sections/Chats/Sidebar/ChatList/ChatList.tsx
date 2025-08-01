@@ -13,7 +13,7 @@ export const ChatList: FC = (): ReactNode => {
     return (
         <section className={cn('chats')}>
             <ul>
-                {loading ? <Loader /> : chatItems}
+                {loading ? <Loader /> : (chatItems.length !== 0 ? chatItems : <p className={cn('chats__message')}>No chats yet</p>)}
             </ul>
         </section>
     );

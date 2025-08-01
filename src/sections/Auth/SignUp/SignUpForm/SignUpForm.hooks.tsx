@@ -1,9 +1,14 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signOut } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import classNames from "classnames/bind";
+
+import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
 
 import { auth, firestore } from "@/services";
+import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
+import { IconClose, IconEmail } from "@/assets/svg";
+import { Loader } from "@/components/Loader/Loader";
 
 interface FormStateProps {
     name: string;
@@ -16,6 +21,8 @@ interface ErrorsProps {
     emailError: string;
     passwordError: string;
 };
+
+const cn = classNames.bind(styles);
 
 const initialFormState: FormStateProps = {
     name: '',
@@ -33,7 +40,9 @@ export const useSignUpForm = () => {
     const [formState, setFormState] = useState<FormStateProps>(initialFormState);
     const [errors, setErrors] = useState<ErrorsProps>(initialErrorState);
     const [disabled, setDisabled] = useState<boolean>(true);
-    const navigate = useNavigate();
+    const [email, setEmail] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
         validation(value, field);
@@ -69,6 +78,7 @@ export const useSignUpForm = () => {
         if (disabled) return;
 
         try {
+            setLoading(true);
             const userCredentials = await createUserWithEmailAndPassword(
                 auth, formState.email, formState.password
             );
@@ -88,11 +98,44 @@ export const useSignUpForm = () => {
                 createdAt: serverTimestamp(),
             });
 
-            navigate('/chats');
+            setEmail(user.email as string);
+
+            await sendEmailVerification(user, {
+                url: 'http://localhost:5173/signin'
+            });
+
+            await signOut(auth)
+
+            setLoading(false);
+            setIsOpen(true);
         } catch (e) {
+            setLoading(false);
             console.log('Error ', e);
         }
     };
+
+    const handeClose = () => setIsOpen(false);
+
+    const Modal = isOpen &&
+        <ModalPortal>
+            <button 
+                type="button" 
+                className={cn('form__close')}
+                onClick={handeClose}
+            >
+                {IconClose}
+            </button>
+            <div className={cn('form__content')}>
+                {IconEmail}
+                <p>
+                    We have sent an email to: 
+                    <span>{email}</span>
+                    Click the link to confirm your email
+                </p>
+            </div>
+        </ModalPortal>;
+    
+    const isLoading = loading && <Loader />;
 
     useEffect(() => {
         const hasErrors =
@@ -108,5 +151,5 @@ export const useSignUpForm = () => {
         setDisabled(hasErrors || hasEmptyFields);
     }, [formState, errors]);
 
-    return { formState, errors, handleChange, handleSubmit, disabled };
+    return { formState, errors, handleChange, handleSubmit, disabled, Modal, isLoading };
 };

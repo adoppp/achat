@@ -9,12 +9,12 @@ export const useTheme = () => {
         if (!theme) return;
         
         html.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
+        localStorage.setItem('achat-theme', theme);
         setCurrentTheme(theme);
     };
 
     useEffect(() => {
-        const localStorageTheme = localStorage.getItem('theme') as Theme;
+        const localStorageTheme = localStorage.getItem('achat-theme') as Theme;
 
         if (!localStorageTheme) return;
 

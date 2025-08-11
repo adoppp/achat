@@ -1,5 +1,8 @@
 # First steps:
 
+
+--email send styles
+--reset password
 --resend email button
 --add styles to no chat choosen
 --refactor messages list 

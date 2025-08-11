@@ -4,8 +4,7 @@ import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.module.scss';
 
-import { IconEmail, IconInfo, IconLogout, IconPencil, IconProfile } from "@/assets/svg";
-import { useProfileInfo } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo.hooks";
+import { IconEmail, IconInfo, IconProfile } from "@/assets/svg";
 import type { Theme } from "@/types";
 import { useTheme } from "@/utils/useTheme";
 
@@ -19,8 +18,7 @@ interface ProfileInfoProps {
 
 const cn = classNames.bind(styles);
 
-export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL, bio, openEdit }): ReactNode => {
-    const { logout } = useProfileInfo();
+export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL, bio }): ReactNode => {
     const { setTheme, currentTheme } = useTheme();
 
     return (

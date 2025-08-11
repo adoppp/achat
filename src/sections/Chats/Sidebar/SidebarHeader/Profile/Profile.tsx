@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 
 import styles from '@/sections/Chats/Sidebar/SidebarHeader/Profile/Profile.module.scss';
 
-import { IconArrowLeft, IconClose, IconLogout, IconPencil } from "@/assets/svg";
+import { IconArrowLeft, IconLogout, IconPencil } from "@/assets/svg";
 import { useProfile } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/Profile.hooks";
 import { ProfileInfo } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileInfo/ProfileInfo";
 import { ProfileSettings } from "@/sections/Chats/Sidebar/SidebarHeader/Profile/ProfileSettings/ProfileSettings";
@@ -22,16 +22,33 @@ export const Profile: FC<ProfileProps> = ({ isOpen, toggleOpen }): ReactElement 
         <section className={cn('profile', isOpen && 'profile__open')}>
             <div className={cn('profile__bar')}>
                 <div>
-                    <button 
-                        type="button" 
-                        className={cn('profile__close')}
-                        onClick={toggleOpen}
-                    >
-                        {IconArrowLeft}
-                    </button>
-                    <h1>
-                        Settings
-                    </h1>
+                    {
+                        isEdit ?
+                        <>
+                            <button 
+                                type="button" 
+                                className={cn('profile__close')}
+                                onClick={closeEdit}
+                            >
+                                {IconArrowLeft}
+                            </button>
+                            <h1>
+                                Edit Profile
+                            </h1>
+                        </> :
+                        <>
+                            <button 
+                                type="button" 
+                                className={cn('profile__close')}
+                                onClick={toggleOpen}
+                            >
+                                {IconArrowLeft}
+                            </button>
+                            <h1>
+                                Settings
+                            </h1> 
+                        </> 
+                    }
                 </div>
                 <div>
                     <button 
@@ -50,7 +67,7 @@ export const Profile: FC<ProfileProps> = ({ isOpen, toggleOpen }): ReactElement 
                     </button>
                 </div>
             </div>
-            <div className={cn('container')}>
+            <div>
                 {
                     isEdit ?
                     <div className={cn(animation)}>

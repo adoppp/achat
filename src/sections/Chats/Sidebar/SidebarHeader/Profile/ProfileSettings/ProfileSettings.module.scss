@@ -2,43 +2,11 @@
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
 
-.profile__heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-bottom: 16px;
-
-    & h1 {
-        @include heading(lg);
-        color: var(--text-primary);
-    }
-
-    & button {
-        height: 20px;
-
-        & svg {
-            width: 20px;
-            height: 20px;
-            stroke: var(--icons-buttons-color);
-
-            transition: $transition;
-        }
-
-        &:hover svg {
-            stroke: var(--button-hover);
-        }
-
-        &:active svg {
-            stroke: var(--button-active);
-        }
-    }
-}
-
 .profile__info {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
     position: relative;
 
     & h2 {
@@ -94,5 +62,9 @@
             width: 16px;
             height: 16px;
         }
+    }
+
+    &__padding {
+        height: fit-content;
     }
 }

@@ -24,57 +24,44 @@ export const ProfileInfo: FC<ProfileInfoProps> = ({ displayName, email, photoURL
     const { setTheme, currentTheme } = useTheme();
 
     return (
-        <>
-            <div className={cn('profile__heading')}>
-                <h1>Settings</h1>
+        <div className={cn('profile__info')}>
+            {
+                photoURL ?
+                <img
+                    src={photoURL}
+                    alt={displayName as string}
+                /> : 
+                <Avatar name={displayName as string} size="120" textSizeRatio={1.5} round />
+            }
+            <div className={cn('profile__info__container', 'name__margin')}>
+                {IconProfile}
                 <div>
-                    <button type="button" onClick={logout}>
-                        {IconLogout}
-                    </button>
-                    <button type='button' onClick={openEdit}>
-                        {IconPencil}
-                    </button>
+                    <p>{displayName}</p>
+                    <p>Name</p>
                 </div>
             </div>
-            <div className={cn('profile__info')}>
-                {
-                    photoURL ?
-                    <img
-                        src={photoURL}
-                        alt={displayName as string}
-                    /> : 
-                    <Avatar name={displayName as string} size="120" textSizeRatio={1.5} round />
-                }
-                <div className={cn('profile__info__container', 'name__margin')}>
-                    {IconProfile}
-                    <div>
-                        <p>{displayName}</p>
-                        <p>Name</p>
-                    </div>
+            <div className={cn('profile__info__container')}>
+                {IconEmail}
+                <div>
+                    <p>{email}</p>
+                    <p>Email</p>
                 </div>
-                <div className={cn('profile__info__container')}>
-                    {IconEmail}
-                    <div>
-                        <p>{email}</p>
-                        <p>Email</p>
-                    </div>
-                </div>
-                <div className={cn('profile__info__container')}>
-                    {IconInfo}
-                    <div>
-                        <p>{bio ? bio : 'No bio yet'}</p>
-                        <p>Bio</p>
-                    </div>
-                </div>
-                
-
-
-                <select name="theme" id="theme" value={currentTheme ?? 'light'} onChange={(e) => setTheme(e.currentTarget.value as Theme)}>
-                    <option value="light">light</option>
-                    <option value="dark">dark</option>
-                    <option value="lavender">lavender</option>
-                </select>
             </div>
-        </>
+            <div className={cn('profile__info__container')}>
+                {IconInfo}
+                <div>
+                    <p>{bio ? bio : 'No bio yet'}</p>
+                    <p>Bio</p>
+                </div>
+            </div>
+            
+
+
+            <select name="theme" id="theme" value={currentTheme ?? 'light'} onChange={(e) => setTheme(e.currentTarget.value as Theme)}>
+                <option value="light">light</option>
+                <option value="dark">dark</option>
+                <option value="lavender">lavender</option>
+            </select>
+        </div>
     );
 };

@@ -15,12 +15,12 @@ interface UsersListProps {
 const cn = classNames.bind(styles);
 
 export const UsersList: FC<UsersListProps> = ({ isOpen, toggleOpen }): ReactElement => {
-    const { UserListItems, search, setSearch } = useUsersList({ toggleOpen });
+    const { UserListItems, search, setSearch, usersToggleOpen } = useUsersList({ toggleOpen });
 
     return (
         <section className={cn('users', isOpen && 'users__open')}>
             <div className={cn('users__bar')}>
-                <button onClick={toggleOpen} className={cn('modal__close')}>
+                <button onClick={usersToggleOpen} className={cn('modal__close')}>
                     {IconArrowLeft}
                 </button>
                 <Input 

@@ -52,6 +52,11 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
         };
     };
 
+    const usersToggleOpen = () => {
+        toggleOpen();
+        setSearch('');
+    };
+
     const UserListItems = filteredUsersList.map(user => 
         <UserItem 
             key={user.uid}
@@ -62,5 +67,5 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
         />
     );
 
-    return { UserListItems, search, setSearch };
+    return { UserListItems, search, setSearch, usersToggleOpen };
 };

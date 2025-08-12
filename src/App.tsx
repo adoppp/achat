@@ -8,10 +8,8 @@ export const App = () => {
     useTheme();
     
     return (
-        <>
-            <Suspense fallback={<Loader />}>
-                <Outlet />
-            </Suspense>
-        </>
+        <Suspense fallback={<Loader />}>
+            <Outlet />
+        </Suspense>
     );
 };

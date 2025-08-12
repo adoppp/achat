@@ -1,0 +1,25 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.chatindex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    & h1 {
+        @include heading(xl);
+
+        color: var(--text-primary);
+
+        margin-bottom: 12px
+    }
+
+    & p {
+        @include text;
+
+        color: var(--icons-buttons-color);
+    }
+}

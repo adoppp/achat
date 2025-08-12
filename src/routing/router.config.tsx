@@ -15,6 +15,7 @@ type RoutePath = CommonRoute & { path: string, index?: never };
 type RouteItem = RouteIndex | RoutePath;
 
 const Chats = lazy(() => import('@/pages/Chats/Chats'));
+const ChatIndex = lazy(() => import('@/pages/Chats/ChatIndex/ChatIndex'));
 const Chat = lazy(() => import('@/pages/Chats/Chat/Chat'));
 const SignIn = lazy(() => import('@/pages/Auth/SignIn/SignIn'));
 const SignUp = lazy(() => import('@/pages/Auth/SignUp/SignUp'));
@@ -32,7 +33,7 @@ export const RouterConfig: RouteItem[] = [
         path: 'chats',
         element: withPrivateRoute(Chats),
         children: [
-            { index: true, element: <h1>choose chat</h1>},
+            { index: true, element: <ChatIndex />},
             { path: ':chatId', element: <Chat />}
         ]
     },

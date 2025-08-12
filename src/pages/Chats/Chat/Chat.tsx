@@ -15,4 +15,4 @@ const Chat: FC = (): ReactElement => {
   );
 };
 
-export default Chat
+export default Chat;

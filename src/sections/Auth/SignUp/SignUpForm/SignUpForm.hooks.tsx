@@ -138,10 +138,11 @@ export const useSignUpForm = () => {
             </button>
             <div className={cn('form__content')}>
                 {IconEmail}
+                    <h1>Email Confirmation</h1>
                 <p>
-                    We have sent an email to: 
-                    <span>{email}</span>
-                    Click the link to confirm your email
+                    We have sent an email to 
+                    <a href={`mailto:${email}`}> {email}</a>,
+                    to confirm your account click the link to confirm your email
                 </p>
             </div>
         </ModalPortal>;

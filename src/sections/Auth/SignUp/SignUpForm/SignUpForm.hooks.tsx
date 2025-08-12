@@ -9,6 +9,7 @@ import { auth, firestore } from "@/services";
 import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
 import { IconClose, IconEmail } from "@/assets/svg";
 import { Loader } from "@/components/Loader/Loader";
+import { useUsers } from "@/utils/useUsers";
 
 interface FormStateProps {
     name: string;
@@ -43,6 +44,7 @@ export const useSignUpForm = () => {
     const [email, setEmail] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const users = useUsers();
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
         validation(value, field);
@@ -79,6 +81,15 @@ export const useSignUpForm = () => {
 
         try {
             setLoading(true);
+
+            const isNameInUse = users.find(user => user.displayName === formState.name);
+
+            if (isNameInUse) {
+                setLoading(false);
+                setErrors((prev) => ({ ...prev, nameError: 'Name is already in use'}))
+                return;
+            };
+
             const userCredentials = await createUserWithEmailAndPassword(
                 auth, formState.email, formState.password
             );

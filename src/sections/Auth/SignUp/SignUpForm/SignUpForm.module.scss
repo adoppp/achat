@@ -86,6 +86,33 @@
                     color: var(--button-active)
                 }
             }
+
+        }
+
+        & div {
+            width: 80%;
+
+            margin-top: 64px;
+            padding-top: 16px;
+            border-top: 1px $border-color solid;
+
+            & p {
+                @include text(sm);
+            }
+
+            & button {
+                color: var(--outgoing-message-bg);
+
+                transition: $transition;
+
+                &:hover {
+                    color: var(--button-hover)
+                }
+
+                &:active {
+                    color: var(--button-active)
+                }
+            }
         }
     }
 

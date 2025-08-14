@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import classNames from "classnames/bind";
 
@@ -44,7 +44,9 @@ export const useSignUpForm = () => {
     const [email, setEmail] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [isResended, setIsResended] = useState<boolean>(false);
     const users = useUsers();
+    const user = auth.currentUser;
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
         validation(value, field);
@@ -112,10 +114,8 @@ export const useSignUpForm = () => {
             setEmail(user.email as string);
 
             await sendEmailVerification(user, {
-                url: 'http://localhost:5173/signin'
+                url: 'http://localhost:5173/signin',
             });
-
-            await signOut(auth)
 
             setLoading(false);
             setIsOpen(true);
@@ -123,6 +123,15 @@ export const useSignUpForm = () => {
             setLoading(false);
             console.log('Error ', e);
         }
+    };
+
+    const resendEmail = async () => {
+        if (!user) return;
+        if (isResended) return;
+
+        await sendEmailVerification(user, {
+            url: 'http://localhost:5173/signin',
+        });
     };
 
     const handeClose = () => setIsOpen(false);
@@ -138,12 +147,23 @@ export const useSignUpForm = () => {
             </button>
             <div className={cn('form__content')}>
                 {IconEmail}
-                    <h1>Email Confirmation</h1>
+                <h1>Email Confirmation</h1>
                 <p>
                     We have sent an email to 
                     <a href={`mailto:${email}`}> {email}</a>,
                     to confirm your account click the link to confirm your email
                 </p>
+                <div hidden={isResended}>
+                    <p>
+                        If you not got any email&nbsp;
+                        <button 
+                            type="button"
+                            onClick={resendEmail}
+                        >
+                            Resend verification email
+                        </button>
+                    </p>
+                </div>
             </div>
         </ModalPortal>;
     

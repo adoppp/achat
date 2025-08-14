@@ -19,21 +19,21 @@ export const useMessagesList = () => {
     const listRef = useRef<HTMLUListElement>(null); 
 
     const messageItems = messages.map(message => {
-            const time = message.timeStamp ? format(new Date(message.timeStamp.seconds * 1000), 'HH:mm') : '';
-            return (    
-                <li key={message.id} className={cn('message', message.senderId === user?.uid ? 'message__sender' : 'message__receiver')}>
-                    <p>
-                        {message.text}
-                    </p>
-                    <span>
+        const time = message.timeStamp ? format(new Date(message.timeStamp.seconds * 1000), 'HH:mm') : '';
+        return (    
+            <li key={message.id} className={cn('message', message.senderId === user?.uid ? 'message__sender' : 'message__receiver')}>
+                <p>
+                    {message.text}
+                </p>
+                <span>
+                    {time}
+                    <div>
                         {time}
-                        <div>
-                            {time}
-                        </div>
-                    </span>
-                </li>
-            );
-        });
+                    </div>
+                </span>
+            </li>
+        );
+    });
 
     useEffect(() => {
         if (!chatId) return;

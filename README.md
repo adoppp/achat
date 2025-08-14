@@ -1,6 +1,6 @@
 # First steps:
 
---resend email button
+--resend email button (timer 1:30)
 --reset password
 --add loading to all ui possible
 --notifications (for example: when error)

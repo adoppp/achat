@@ -132,6 +132,8 @@ export const useSignUpForm = () => {
         await sendEmailVerification(user, {
             url: 'http://localhost:5173/signin',
         });
+
+        setIsResended(true);
     };
 
     const handeClose = () => setIsOpen(false);

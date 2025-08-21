@@ -8,11 +8,7 @@ import { SignUpForm } from "@/sections/Auth/SignUp/SignUpForm/SignUpForm";
 const cn = classNames.bind(styles);
 
 const SignUp: FC = (): ReactElement => {
-    return (
-        <section className={cn('signup')}>
-            <SignUpForm />
-        </section>
-    );
+    return <SignUpForm />;
 };
 
 export default SignUp;

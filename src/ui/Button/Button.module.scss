@@ -5,8 +5,8 @@
 .button {
     @include text;
 
-    background-color: var(--button-bg);
-    color: whitesmoke;
+    background-color: var(--accent);
+    color: var(--bg-primary);
 
     width: 100%;
 
@@ -16,15 +16,15 @@
     transition: $transition;
 
     &:hover {
-        background-color: var(--button-hover);
+        background-color: var(--accent-hover);
     }
 
     &:active {
-        background-color: var(--button-active);
+        background-color: var(--accent-active);
     }
 
     &:disabled {
-        background-color: var(--button-disabled);
+        background-color: var(--accent-fog);
         cursor: not-allowed;
     }
 }

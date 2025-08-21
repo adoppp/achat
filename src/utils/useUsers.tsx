@@ -25,7 +25,7 @@ export const UsersProvider: FC<UsersProviderProps> = ({ children }): ReactNode =
 
     useEffect(() => {
         getUsers();
-    });
+    }, []);
 
     return <UsersContext.Provider value={users}>{children}</UsersContext.Provider>
 };

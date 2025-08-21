@@ -17,8 +17,6 @@
 
     &__element {
         @include text(sm);
-
-        background-color: var(--input-field-bg);
         color: var(--text-primary);
 
         padding: 12px;
@@ -32,11 +30,11 @@
         }
 
         &:hover {
-            border-color: var(--icons-buttons-color);
+            border-color: var(--accent-hover);
         }
 
         &:focus {
-            border-color: var(--outgoing-message-bg);
+            border-color: var(--accent-active);
             padding-left: 8px;
         }
     }

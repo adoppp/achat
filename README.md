@@ -10,3 +10,11 @@
 
 --phone number
 --OAuth
+
+
+
+### now
+--disabled button pi and password
+--validating password
+--next step after signin
+--email page

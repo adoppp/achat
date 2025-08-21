@@ -80,7 +80,7 @@ export const useSignUpForm = () => {
         event.preventDefault();  
 
         if (disabled) return;
-
+        
         try {
             setLoading(true);
 

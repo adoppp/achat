@@ -1,0 +1,64 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.button {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+
+    &:hover {
+        & span {
+            color: var(--accent-hover)
+        }
+
+        & svg {
+            stroke: var(--accent-hover);
+        }
+    }
+
+    &:active {
+        & span {
+            color: var(--accent-active)
+        }
+
+        & svg {
+            stroke: var(--accent-active);
+        }
+    }
+
+    &:disabled {
+        & span {
+            color: var(--accent-fog)
+        }
+
+        & svg {
+            stroke: var(--accent-fog);
+        }
+
+        cursor: not-allowed;
+    }
+
+    & span {
+        @include text;
+        color: var(--text-secondary);
+        text-align: center;
+        width: 100%;
+
+        transition: $transition;
+    }
+
+    & svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+
+        margin-top: 2px;
+
+        stroke: var(--text-secondary);
+
+        transition: $transition;
+    }
+}

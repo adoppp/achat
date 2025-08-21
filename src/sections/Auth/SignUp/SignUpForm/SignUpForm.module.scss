@@ -2,6 +2,164 @@
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
 
+.signup {
+    &__header {
+        padding: 24px 32px;
+        border-bottom: 1px solid var(--border-color);
+
+        & div {
+            position: relative;
+            display: flex;
+            margin: 0 auto;
+
+            & button {
+                position: absolute;
+                margin-top: 2px;
+                width: fit-content;                
+            }
+
+            & h1 {
+                @include heading(lg);
+
+                color: var(--text-primary);
+
+                text-align: center;
+                width: 100%;
+            }
+        }
+    }
+
+    &__content {
+        max-width: 480px;
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 24px;
+        padding: 0 24px;
+        height: 82vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    &__progress {
+        margin: 0 auto;
+        width: 100%;
+        margin-bottom: 32px;
+
+        & ul {
+            display: flex;
+            justify-content: space-between;
+
+            & li {
+                position: relative;
+                display: flex;
+
+                & span {
+                    background-color: var(--accent-fog);
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    @include text;
+                    color: var(--bg-primary);
+
+                    width: 24px;
+                    height: 24px;
+
+                    margin-right: 4px;
+                    border-radius: 50%;
+
+                    transition: $transition;
+
+                    & svg {
+                        height: 16px;
+                        width: 16px;
+
+                        stroke: var(--bg-primary)
+                    }
+                }
+
+                & p {
+                    @include text;
+                    color: var(--text-primary);
+                }
+
+                &.active span {
+                    background-color: var(--accent);
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    height: 2px;
+                    width: 20px;
+                    background-color: var(--accent-fog);
+                    left: -36px;
+                    bottom: 11px;
+                    transition: $transition;
+                }
+
+                &.active::before {
+                    background-color: var(--accent);
+                }
+
+                &:first-child::before {
+                    height: 0;
+                    width: 0;
+                }
+            }
+        }
+    }
+
+    &__icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background-color: var(--accent-fog);
+
+        width: 100px;
+        height: 100px;
+
+        margin: 0 auto;
+        border-radius: $border-radius;
+
+        & svg {
+            width: 60px;
+            height: 60px;
+
+            stroke: var(--accent);
+        }
+    }
+
+    &__info {
+        margin: 12px 0;
+
+        & h2 {
+            @include heading(xl);
+            color: var(--text-primary);
+            text-align: center;
+
+            margin-bottom: 8px;
+        }
+
+        & p {
+            @include text(sm);
+            color: var(--text-secondary);
+            text-align: center;
+        }
+    }
+
+    &__form {
+        margin: 24px 0;
+    }
+
+    &__continue {
+        margin-bottom: 12px;
+    }
+}
+
 .form {
     background-color: var(--message-bg);
 

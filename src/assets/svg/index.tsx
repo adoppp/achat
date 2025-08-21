@@ -78,7 +78,7 @@ export const IconLogout = (
 
 export const IconCheckMark = (
   <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 8" fill="none">
-    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M0.75 4.00004L3.58 6.83004L9.25 1.17004" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 );
 
@@ -102,4 +102,21 @@ export const IconInfo = (
     <circle cx="8" cy="11.25" r="0.75" fill="inherit"/>
     <path d="M15.3499 7.9999C15.3499 3.94061 12.0592 0.649902 7.9999 0.649902C3.94061 0.649902 0.649902 3.94061 0.649902 7.9999C0.649902 12.0592 3.94061 15.3499 7.9999 15.3499C12.0592 15.3499 15.3499 12.0592 15.3499 7.9999Z" stroke-width="1.2" stroke-miterlimit="10"/>
   </svg>
-)
+);
+
+export const IconUser = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+);
+
+export const IconLock = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <path d="M6 10V8C6 4.69 7 2 12 2C17 2 18 4.69 18 8V10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M17 22H7C3 22 2 21 2 17V15C2 11 3 10 7 10H17C21 10 22 11 22 15V17C22 21 21 22 17 22Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M15.9965 16H16.0054" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M11.9955 16H12.0045" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.99451 16H8.00349" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+);

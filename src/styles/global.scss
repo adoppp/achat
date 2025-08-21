@@ -1,18 +1,15 @@
 /* 1. Светлая тема */
 :root[data-theme="light"] {
-  --background-color: #F8F8F8;
-  --message-bg: #FFFFFF;
-  --text-primary: #333333;
+  --bg-primary: #F8F8F8;
+  --bg-secondary: #FFFFFF;
+  --text-primary: #1E1E1E;
   --text-secondary: #6E6E6E;
-  --incoming-message-bg: #E6E6E6;
-  --outgoing-message-bg: #3B82F6;
-  --icons-buttons-color: #9CA3AF;
-  --input-field-bg: #FFFFFF;
+}
 
-  --button-bg: #3B82F6;
-  --button-hover: #2563EB;
-  --button-active: #1D4ED8;
-  --button-disabled: #E5E7EB;
+:root[data-accent="default"] {
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --accent-active: #1D4ED8;
 }
 
 /* 2. Тёмная тема */

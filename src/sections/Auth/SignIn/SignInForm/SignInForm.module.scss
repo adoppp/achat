@@ -3,7 +3,7 @@
 @use '@/styles/variables' as *;
 
 .form {
-    background-color: var(--message-bg);
+    background-color: inherit;
 
     width: 100%;
     max-width: 520px;

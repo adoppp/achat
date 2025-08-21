@@ -4,6 +4,7 @@ import type { LazyExoticComponent, ComponentType, ReactNode } from 'react';
 import { PrivateRoute } from '@/routing/PrivateRoute';
 import type { RouteObject } from 'react-router';
 import { RestrictedRoute } from './RestrictedRoute';
+import ChatsV2 from '@/pages/ChatsV2/ChatsV2';
 
 interface CommonRoute {
   element: ReactNode;
@@ -20,6 +21,8 @@ const ChatIndex = lazy(() => import('@/pages/Chats/ChatIndex/ChatIndex'));
 const Chat = lazy(() => import('@/pages/Chats/Chat/Chat'));
 const SignIn = lazy(() => import('@/pages/Auth/SignIn/SignIn'));
 const SignUp = lazy(() => import('@/pages/Auth/SignUp/SignUp'));
+
+const Signin = lazy(() => import('@/pages/AuthV2/SignUp/SignUp'));
 
 const withPrivateRoute = (Component: LazyExoticComponent<ComponentType<any>>): ReactNode => {
   return (
@@ -51,6 +54,17 @@ export const RouterConfig: RouteItem[] = [
     element: <SignUp />,
   },
 ];
+
+export const RouterConfigV2: RouteItem[] = [
+  {
+    path: 'chats',
+    element: <ChatsV2 />
+  },
+  {
+    path: 'signin',
+    element: <Signin />
+  }
+]
 
 export const mapRoutes = (routes: RouteItem[]): RouteObject[] => {
   return routes.map(route => {

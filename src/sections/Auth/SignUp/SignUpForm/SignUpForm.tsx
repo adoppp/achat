@@ -15,7 +15,7 @@ import { TextButton } from "@/ui/TextButton/TextButton";
 const cn = classNames.bind(styles);
 
 export const SignUpForm: FC = (): ReactElement => {
-    const { formState, errors, handleChange, handleSubmit, disabled, Modal, isLoading } = useSignUpForm();
+    const { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, Modal, isLoading } = useSignUpForm();
 
     const [step, setStep] = useState<number>(1);
     const navigate = useNavigate();
@@ -108,9 +108,33 @@ export const SignUpForm: FC = (): ReactElement => {
                                         onChange={handleChange('password')}
                                         placeholder="Password"
                                         id="password"
-                                        error={errors.passwordError}
                                         customClass={{ container: cn('input__margin__last')}}
                                     />
+                                    <div className={cn('signup__passwd')}>
+                                        <h3>Password must contain:</h3>
+                                        <ul>
+                                            <li>
+                                                <span className={cn(passwdErrors.isEightCharacters ? 'signup__correct' : 'signup__mistake')}></span>
+                                                At least 8 characters
+                                            </li>
+                                            <li>
+                                                <span className={cn(passwdErrors.isOneUppercase ? 'signup__correct' : 'signup__mistake')}></span>
+                                                One uppercase letter
+                                            </li>
+                                            <li>
+                                                <span className={cn(passwdErrors.isOneLowercase ? 'signup__correct' : 'signup__mistake')}></span>
+                                                One lowercase letter
+                                            </li>
+                                            <li>
+                                                <span className={cn(passwdErrors.isOneNumber ? 'signup__correct' : 'signup__mistake')}></span>
+                                                One number
+                                            </li>
+                                            <li>
+                                                <span className={cn(passwdErrors.isOneSpecialSymbol ? 'signup__correct' : 'signup__mistake')}></span>
+                                                One special character
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </> : 
                                 <div>Email</div>
                             }
@@ -120,9 +144,9 @@ export const SignUpForm: FC = (): ReactElement => {
                 <div>
                     {
                         step === 1 ?
-                        <Button label="Continue" type='button' onClick={_next} customClass={cn('signup__continue')} /> :
+                        <Button label="Continue" type='button' onClick={_next} customClass={cn('signup__continue')} disabled={disabledPI} /> :
                         step === 2 ?
-                        <Button label="Sign in" type='submit' customClass={cn('signup__continue')} form="signup-form" disabled={disabled} /> :
+                        <Button label="Sign in" type='submit' customClass={cn('signup__continue')} form="signup-form" disabled={disabledPasswd} /> :
                         <></>
 
                     }

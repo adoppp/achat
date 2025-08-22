@@ -10,7 +10,7 @@ interface InputPasswordProps {
     placeholder?: string;
     value: string;
     onChange: (value: string) => void;
-    error: string | null;
+    error?: string | null;
     id: string;
     customClass?: {
         container?: string,

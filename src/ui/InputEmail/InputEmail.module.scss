@@ -20,7 +20,7 @@
         color: var(--text-primary);
 
         padding: 12px;
-        border: 1px $border-color solid;
+        border: 1px var(--border-color) solid;
         border-radius: $border-radius;
 
         transition: $transition;
@@ -41,6 +41,6 @@
 
     &__error {
         @include text(sm);
-        color: $red;
+        color: $error;
     }
 }

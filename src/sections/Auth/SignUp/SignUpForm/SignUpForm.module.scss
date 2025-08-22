@@ -4,6 +4,7 @@
 
 .signup {
     &__header {
+        background-color: var(--bg-secondary);
         padding: 24px 32px;
         border-bottom: 1px solid var(--border-color);
 
@@ -158,142 +159,194 @@
     &__continue {
         margin-bottom: 12px;
     }
-}
 
-.form {
-    background-color: var(--message-bg);
+    &__passwd {
+        background-color: var(--bg-secondary);
 
-    width: 100%;
-    max-width: 520px;
+        padding: 12px 24px;
+        border: 1px var(--border-color) solid;
+        border-radius: $border-radius;
 
-    padding: 24px 16px;
-    border-radius: $border-radius;
-
-    &__heading {
-        @include heading(xl);
-        margin-bottom: 24px;
-        color: var(--text-primary);
-
-        text-align: center;
-    }
-
-    &__navigation {
-        @include text(sm);
-        color: var(--text-primary);
-
-        text-align: center;
-
-        margin-top: 12px;
-
-        & a {
-            margin-left: 4px;
-            color: $border-color;
-
-            transition: $transition;
-
-            &:hover {
-                color: var(--button-hover);
-            }
-
-            &:active {
-                color: var(--button-active);
-            }
-        }
-    }
-
-    &__content {
-        margin-top: 16px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-width: 520px;
-
-        & svg {
-            stroke: var(--button-bg);
-            width: 120px;
-            height: 120px;
-            margin-bottom: 20px;
-        }
-
-        & h1 {
-            @include heading(xl);
+        & h3 {
+            @include heading;
+            font-weight: 600;
             color: var(--text-primary);
-
-            margin-bottom: 8px;
+            margin-bottom: 12px
         }
 
-        & p {
-            @include text;
+        & ul {
+            & li {
+                @include text;
+                color: var(--text-secondary);
+                display: flex;
+                align-items: center;
+                gap: 8px;
 
-            text-align: center;
-            color: var(--text-secondary);
-
-            max-width: 480px;
-
-            & a {
-                color: var(--outgoing-message-bg);
+                margin-bottom: 4px;
 
                 transition: $transition;
 
-                &:hover {
-                    color: var(--button-hover)
+                & span {
+                    display: block;
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    transition: $transition;
                 }
 
-                &:active {
-                    color: var(--button-active)
-                }
-            }
-
-        }
-
-        & div {
-            width: 80%;
-
-            margin-top: 64px;
-            padding-top: 16px;
-            border-top: 1px $border-color solid;
-
-            & p {
-                @include text(sm);
-            }
-
-            & button {
-                color: var(--outgoing-message-bg);
-
-                transition: $transition;
-
-                &:hover {
-                    color: var(--button-hover)
+                &:has(.signup__correct) {
+                    color: var(--text-primary);
                 }
 
-                &:active {
-                    color: var(--button-active)
+                &:last-child {
+                    margin-bottom: 0;
                 }
             }
         }
     }
 
-    &__close {
-        display: block;
-        margin-left: auto;
-        margin-bottom: 12px;
-
-        & svg {
-            stroke: var(--icons-buttons-color);
-
-            transition: $transition;
-        }
-
-        &:hover svg {
-            stroke: var(--button-hover);
-        }
-
-        &:active svg {
-            stroke: var(--button-active);
-        }
+    &__mistake {
+        background-color: $error;
+    }
+    &__correct {
+        background-color: $success;
     }
 }
+
+// .form {
+//     background-color: var(--message-bg);
+
+//     width: 100%;
+//     max-width: 520px;
+
+//     padding: 24px 16px;
+//     border-radius: $border-radius;
+
+//     &__heading {
+//         @include heading(xl);
+//         margin-bottom: 24px;
+//         color: var(--text-primary);
+
+//         text-align: center;
+//     }
+
+//     &__navigation {
+//         @include text(sm);
+//         color: var(--text-primary);
+
+//         text-align: center;
+
+//         margin-top: 12px;
+
+//         & a {
+//             margin-left: 4px;
+//             color: $border-color;
+
+//             transition: $transition;
+
+//             &:hover {
+//                 color: var(--button-hover);
+//             }
+
+//             &:active {
+//                 color: var(--button-active);
+//             }
+//         }
+//     }
+
+//     &__content {
+//         margin-top: 16px;
+//         display: flex;
+//         flex-direction: column;
+//         justify-content: center;
+//         align-items: center;
+//         min-width: 520px;
+
+//         & svg {
+//             stroke: var(--button-bg);
+//             width: 120px;
+//             height: 120px;
+//             margin-bottom: 20px;
+//         }
+
+//         & h1 {
+//             @include heading(xl);
+//             color: var(--text-primary);
+
+//             margin-bottom: 8px;
+//         }
+
+//         & p {
+//             @include text;
+
+//             text-align: center;
+//             color: var(--text-secondary);
+
+//             max-width: 480px;
+
+//             & a {
+//                 color: var(--outgoing-message-bg);
+
+//                 transition: $transition;
+
+//                 &:hover {
+//                     color: var(--button-hover)
+//                 }
+
+//                 &:active {
+//                     color: var(--button-active)
+//                 }
+//             }
+
+//         }
+
+//         & div {
+//             width: 80%;
+
+//             margin-top: 64px;
+//             padding-top: 16px;
+//             border-top: 1px $border-color solid;
+
+//             & p {
+//                 @include text(sm);
+//             }
+
+//             & button {
+//                 color: var(--outgoing-message-bg);
+
+//                 transition: $transition;
+
+//                 &:hover {
+//                     color: var(--button-hover)
+//                 }
+
+//                 &:active {
+//                     color: var(--button-active)
+//                 }
+//             }
+//         }
+//     }
+
+//     &__close {
+//         display: block;
+//         margin-left: auto;
+//         margin-bottom: 12px;
+
+//         & svg {
+//             stroke: var(--icons-buttons-color);
+
+//             transition: $transition;
+//         }
+
+//         &:hover svg {
+//             stroke: var(--button-hover);
+//         }
+
+//         &:active svg {
+//             stroke: var(--button-active);
+//         }
+//     }
+// }
 
 .input__margin {
     margin-bottom: 8px;

@@ -20,7 +20,14 @@ interface FormStateProps {
 interface ErrorsProps {
     nameError: string;
     emailError: string;
-    passwordError: string;
+};
+
+interface PasswdErrorsProps {
+    isEightCharacters: boolean;
+    isOneUppercase: boolean;
+    isOneLowercase: boolean;
+    isOneNumber: boolean;
+    isOneSpecialSymbol: boolean;
 };
 
 const cn = classNames.bind(styles);
@@ -34,13 +41,22 @@ const initialFormState: FormStateProps = {
 const initialErrorState: ErrorsProps = {
     nameError: '',
     emailError: '',
-    passwordError: '',
+};
+
+const initialPasswdErrors = {
+    isEightCharacters: false,
+    isOneUppercase: false,
+    isOneLowercase: false,
+    isOneNumber: false,
+    isOneSpecialSymbol: false,
 };
 
 export const useSignUpForm = () => {
     const [formState, setFormState] = useState<FormStateProps>(initialFormState);
     const [errors, setErrors] = useState<ErrorsProps>(initialErrorState);
-    const [disabled, setDisabled] = useState<boolean>(true);
+    const [passwdErrors, setPasswdErrors] = useState<PasswdErrorsProps>(initialPasswdErrors);
+    const [disabledPI, setDisabledPI] = useState<boolean>(true);
+    const [disabledPasswd, setDisabledPasswd] = useState<boolean>(true);
     const [email, setEmail] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
     const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -49,48 +65,61 @@ export const useSignUpForm = () => {
     const user = auth.currentUser;
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
-        validation(value, field);
-        setFormState((prev) => ({ ...prev, [field]: value }));
+        setFormState(prev => {
+            const newState = { ...prev, [field]: value };
+            validation(newState, field);
+            return newState;
+        });
     };
 
-    const validation = (value: string, field: keyof FormStateProps) => {
+    const validatePassword = (password: string): PasswdErrorsProps => {
+        return {
+            isEightCharacters: password.length >= 8,
+            isOneUppercase: /[A-Z]/.test(password),
+            isOneLowercase: /[a-z]/.test(password),
+            isOneNumber: /[0-9]/.test(password),
+            isOneSpecialSymbol: /[^A-Za-z0-9]/.test(password),
+        };
+    };
+
+    const validation = (formProps: FormStateProps, field: keyof FormStateProps) => {
         const errorField = `${field}Error` as keyof ErrorsProps;
 
         setErrors((prev) => ({ ...prev, [errorField]: ''}));
 
-        if (value.trim().length === 0) {
-            setErrors((prev) => ({ 
-                ...prev, 
-                [errorField]: 'Field can not be empty'
-            }));
-        } else if (field === 'email' && value.length > 0 && !value.includes('@')) {
+        if (field === 'name') {
+            const isNameInUse = users.find(user => user.displayName === formProps.name);
+            if (isNameInUse) {
+                setErrors((prev) => ({ ...prev, [errorField]: 'Name is already in use'}))
+            }
+        } else if (field === 'email' && formProps[field].length > 0 && !formProps[field].includes('@')) {
             setErrors((prev) => ({
                 ...prev,
                 emailError: '"@" is required',
             }));
-        } else if (field === 'password' && value.length < 8) {
-            setErrors((prev) => ({
-                ...prev,
-                [errorField]: 'Min lenght is 8 characters'
-            }))
-        };
+        } else if (field === 'password') {
+            if (formProps.password.trim().length === 0) {
+                console.log(1)
+                setPasswdErrors(initialPasswdErrors);
+            } else {
+                const checkedPasswd = validatePassword(formProps.password.trim());
+
+                setPasswdErrors(checkedPasswd);
+            }
+        } else {
+            setErrors((prev) => ({ 
+                ...prev, 
+                [errorField]: 'Field can not be empty'
+            }));
+        }
     };
+
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();  
 
-        if (disabled) return;
-        
         try {
             setLoading(true);
-
-            const isNameInUse = users.find(user => user.displayName === formState.name);
-
-            if (isNameInUse) {
-                setLoading(false);
-                setErrors((prev) => ({ ...prev, nameError: 'Name is already in use'}))
-                return;
-            };
 
             const userCredentials = await createUserWithEmailAndPassword(
                 auth, formState.email, formState.password
@@ -172,18 +201,13 @@ export const useSignUpForm = () => {
     const isLoading = loading && <Loader />;
 
     useEffect(() => {
-        const hasErrors =
-            errors.nameError !== '' ||
-            errors.emailError !== '' ||
-            errors.passwordError !== '';
+        const hasPIErrors = errors.nameError !== '' || errors.emailError !== '';
+        const hasPIEmptyFields = formState.name.trim() === '' || formState.email.trim() === '';
+        const hasPasswdErrors = Object.values(passwdErrors).filter(rule => rule === false).length > 0;
 
-        const hasEmptyFields =
-            formState.name.trim() === '' ||
-            formState.email.trim() === '' ||
-            formState.password.trim() === '';
+        setDisabledPI(hasPIErrors || hasPIEmptyFields);
+        setDisabledPasswd(hasPasswdErrors);
+    }, [formState, errors, passwdErrors]);
 
-        setDisabled(hasErrors || hasEmptyFields);
-    }, [formState, errors]);
-
-    return { formState, errors, handleChange, handleSubmit, disabled, Modal, isLoading };
+    return { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, Modal, isLoading };
 };

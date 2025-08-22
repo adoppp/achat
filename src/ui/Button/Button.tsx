@@ -5,7 +5,7 @@ import styles from '@/ui/Button/Button.module.scss';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label: string;
-    customClass: string;
+    customClass?: string;
 };
 
 const cn = classNames.bind(styles);

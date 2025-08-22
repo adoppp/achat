@@ -1,5 +1,4 @@
-import { useState, type FC, type ReactElement } from "react";
-import { Link, useNavigate } from "react-router";
+import { type FC, type ReactElement } from "react";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
@@ -9,19 +8,13 @@ import { InputEmail } from "@/ui/InputEmail/InputEmail";
 import { InputPassword } from "@/ui/InputPassword/InputPassword";
 import { useSignUpForm } from "@/sections/Auth/SignUp/SignUpForm/SignUpForm.hooks";
 import { Button } from "@/ui/Button/Button";
-import { IconArrowLeft, IconCheckbox, IconCheckMark, IconEmail, IconLock, IconUser } from "@/assets/svg";
+import { IconArrowLeft, IconCheckMark, IconClose, IconEmail, IconLock, IconUser } from "@/assets/svg";
 import { TextButton } from "@/ui/TextButton/TextButton";
 
 const cn = classNames.bind(styles);
 
 export const SignUpForm: FC = (): ReactElement => {
-    const { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, Modal, isLoading } = useSignUpForm();
-
-    const [step, setStep] = useState<number>(1);
-    const navigate = useNavigate();
-
-    const _prev = () => setStep(step - 1);
-    const _next = () => setStep(step + 1);
+    const { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, strength, step, _next, _prev, navigate, email, resendEmail, isResended, timeLeft, isLoading } = useSignUpForm();
 
     return (
         <div className={cn('signup')}>
@@ -76,7 +69,7 @@ export const SignUpForm: FC = (): ReactElement => {
                         </h2>
                         <p>
                             {
-                                step === 1 ? 'All users can see your name and email' : step === 2 ? 'Choose a strong password to secure your account' : `We have sent a link to EMAIL, open it to verify your account`
+                                step === 1 ? 'All users can see your name and email' : step === 2 ? 'Choose a strong password to secure your account' : `We have sent a link to ${email}, open it to verify your account.`
                             }
                         </p>
                     </div>
@@ -108,35 +101,46 @@ export const SignUpForm: FC = (): ReactElement => {
                                         onChange={handleChange('password')}
                                         placeholder="Password"
                                         id="password"
+                                        strength={strength}
                                         customClass={{ container: cn('input__margin__last')}}
                                     />
                                     <div className={cn('signup__passwd')}>
                                         <h3>Password must contain:</h3>
                                         <ul>
                                             <li>
-                                                <span className={cn(passwdErrors.isEightCharacters ? 'signup__correct' : 'signup__mistake')}></span>
+                                                <span className={cn(passwdErrors.isEightCharacters ? 'signup__correct' : 'signup__mistake')}>
+                                                    {passwdErrors.isEightCharacters ? IconCheckMark : IconClose}
+                                                </span>
                                                 At least 8 characters
                                             </li>
                                             <li>
-                                                <span className={cn(passwdErrors.isOneUppercase ? 'signup__correct' : 'signup__mistake')}></span>
+                                                <span className={cn(passwdErrors.isOneUppercase ? 'signup__correct' : 'signup__mistake')}>
+                                                    {passwdErrors.isOneUppercase ? IconCheckMark : IconClose}
+                                                </span>
                                                 One uppercase letter
                                             </li>
                                             <li>
-                                                <span className={cn(passwdErrors.isOneLowercase ? 'signup__correct' : 'signup__mistake')}></span>
+                                                <span className={cn(passwdErrors.isOneLowercase ? 'signup__correct' : 'signup__mistake')}>
+                                                    {passwdErrors.isOneLowercase ? IconCheckMark : IconClose}
+                                                </span>
                                                 One lowercase letter
                                             </li>
                                             <li>
-                                                <span className={cn(passwdErrors.isOneNumber ? 'signup__correct' : 'signup__mistake')}></span>
+                                                <span className={cn(passwdErrors.isOneNumber ? 'signup__correct' : 'signup__mistake')}>
+                                                    {passwdErrors.isOneNumber ? IconCheckMark : IconClose}
+                                                </span>
                                                 One number
                                             </li>
                                             <li>
-                                                <span className={cn(passwdErrors.isOneSpecialSymbol ? 'signup__correct' : 'signup__mistake')}></span>
+                                                <span className={cn(passwdErrors.isOneSpecialSymbol ? 'signup__correct' : 'signup__mistake')}>
+                                                    {passwdErrors.isOneSpecialSymbol ? IconCheckMark : IconClose}
+                                                </span>
                                                 One special character
                                             </li>
                                         </ul>
                                     </div>
                                 </> : 
-                                <div>Email</div>
+                                <Button label={timeLeft > 0 ? timeLeft.toString() : 'Resend email'} type="button" disabled={timeLeft > 0 || isResended} onClick={resendEmail} />
                             }
                         </form>
                     </div>
@@ -144,55 +148,19 @@ export const SignUpForm: FC = (): ReactElement => {
                 <div>
                     {
                         step === 1 ?
-                        <Button label="Continue" type='button' onClick={_next} customClass={cn('signup__continue')} disabled={disabledPI} /> :
+                        <Button label="Continue" type='button' onClick={_next} disabled={disabledPI} /> :
                         step === 2 ?
-                        <Button label="Sign in" type='submit' customClass={cn('signup__continue')} form="signup-form" disabled={disabledPasswd} /> :
+                        <Button label="Sign in" type='submit' form="signup-form" disabled={disabledPasswd} /> :
                         <></>
 
                     }
-                    <TextButton label="Back to the previous step" onClick={_prev} disabled={step === 1} iconLeft={IconArrowLeft} />
+                    {
+                        step === 2 &&
+                        <TextButton label="Back to the previous step" customClass={cn('signup__continue')} onClick={_prev} disabled={isResended} iconLeft={IconArrowLeft} />
+                    }
                 </div>
             </div>
-                        {/* <div className={cn('form')}>
-                            <h1 className={cn('form__heading')}>Sign Up</h1>
-                            <form className={cn('form__element')} onSubmit={handleSubmit}>
-                                <Input 
-                                    value={formState.name}
-                                    onChange={handleChange('name')}
-                                    placeholder="Name"
-                                    id="name"
-                                    error={errors.nameError}
-                                    customClass={{ container: cn('input__margin')}}
-                                />
-                                <InputEmail 
-                                    value={formState.email}
-                                    onChange={handleChange('email')}
-                                    placeholder="Email"
-                                    id="email"
-                                    error={errors.emailError}
-                                    customClass={{ container: cn('input__margin')}}
-                                />
-                                <InputPassword 
-                                    value={formState.password}
-                                    onChange={handleChange('password')}
-                                    placeholder="Password"
-                                    id="password"
-                                    error={errors.passwordError}
-                                    customClass={{ container: cn('input__margin__last')}}
-                                />
-                                <Button 
-                                    label="Sign up" 
-                                    type="submit"
-                                    disabled={disabled}
-                                />
-                            </form>
-                            <p className={cn('form__navigation')}>
-                                Already have an account?
-                                <Link to="/signin">Sign in</Link>
-                            </p>
-                        </div>
-                        {isLoading}
-                        {Modal} */}
+            {isLoading!}
         </div>
     )
 };

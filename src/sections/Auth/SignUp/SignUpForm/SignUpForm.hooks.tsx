@@ -1,14 +1,13 @@
 import { useEffect, useState, type FormEvent } from "react";
+import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import Notiflix from "notiflix";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
 
 import { auth, firestore } from "@/services";
-import { ModalPortal } from "@/components/ModalPortal/ModalPortal";
-import { IconClose, IconEmail } from "@/assets/svg";
-import { Loader } from "@/components/Loader/Loader";
 import { useUsers } from "@/utils/useUsers";
 
 interface FormStateProps {
@@ -57,12 +56,18 @@ export const useSignUpForm = () => {
     const [passwdErrors, setPasswdErrors] = useState<PasswdErrorsProps>(initialPasswdErrors);
     const [disabledPI, setDisabledPI] = useState<boolean>(true);
     const [disabledPasswd, setDisabledPasswd] = useState<boolean>(true);
+    const [strength, setStrength] = useState<1 | 2 | 3>(1);
     const [email, setEmail] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
-    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [timeLeft, setTimeLeft] = useState<number>(60); 
     const [isResended, setIsResended] = useState<boolean>(false);
+    const [step, setStep] = useState<number>(1);
+    const navigate = useNavigate();
     const users = useUsers();
     const user = auth.currentUser;
+    
+    const _prev = () => setStep(step - 1);
+    const _next = () => setStep(step + 1);
 
     const handleChange = (field: keyof FormStateProps) => (value: string) => {
         setFormState(prev => {
@@ -106,14 +111,13 @@ export const useSignUpForm = () => {
 
                 setPasswdErrors(checkedPasswd);
             }
-        } else {
+        } else if (formProps[field].trim().length === 0) {
             setErrors((prev) => ({ 
                 ...prev, 
                 [errorField]: 'Field can not be empty'
             }));
         }
     };
-
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();  
@@ -147,7 +151,7 @@ export const useSignUpForm = () => {
             });
 
             setLoading(false);
-            setIsOpen(true);
+            _next();
         } catch (e) {
             setLoading(false);
             console.log('Error ', e);
@@ -158,56 +162,51 @@ export const useSignUpForm = () => {
         if (!user) return;
         if (isResended) return;
 
-        await sendEmailVerification(user, {
-            url: 'http://localhost:5173/signin',
-        });
+        try {
+            setLoading(true);
+
+            await sendEmailVerification(user, {
+                url: 'http://localhost:5173/signin',
+            });
+
+            setLoading(false);
+        } catch (e) {
+            setLoading(false);
+            console.log('Error ', e);
+        }
 
         setIsResended(true);
     };
-
-    const handeClose = () => setIsOpen(false);
-
-    const Modal = isOpen &&
-        <ModalPortal>
-            <button 
-                type="button" 
-                className={cn('form__close')}
-                onClick={handeClose}
-            >
-                {IconClose}
-            </button>
-            <div className={cn('form__content')}>
-                {IconEmail}
-                <h1>Email Confirmation</h1>
-                <p>
-                    We have sent an email to 
-                    <a href={`mailto:${email}`}> {email}</a>,
-                    to confirm your account click the link to confirm your email
-                </p>
-                <div hidden={isResended}>
-                    <p>
-                        If you not got any email&nbsp;
-                        <button 
-                            type="button"
-                            onClick={resendEmail}
-                        >
-                            Resend verification email
-                        </button>
-                    </p>
-                </div>
-            </div>
-        </ModalPortal>;
     
-    const isLoading = loading && <Loader />;
+    const isLoading = loading ? Notiflix.Loading.standard() :  Notiflix.Loading.remove();
 
     useEffect(() => {
         const hasPIErrors = errors.nameError !== '' || errors.emailError !== '';
         const hasPIEmptyFields = formState.name.trim() === '' || formState.email.trim() === '';
-        const hasPasswdErrors = Object.values(passwdErrors).filter(rule => rule === false).length > 0;
+        const hasPasswdErrors = Object.values(passwdErrors).filter(rule => rule === false).length;
 
         setDisabledPI(hasPIErrors || hasPIEmptyFields);
-        setDisabledPasswd(hasPasswdErrors);
+        setDisabledPasswd(hasPasswdErrors > 0);
+
+        if (formState.password.length < 8) {
+            setStrength(1); 
+        } else if (formState.password.length >= 8 && hasPasswdErrors > 0) {
+            setStrength(2);
+        } else if (formState.password.length >= 8 && hasPasswdErrors === 0) {
+            setStrength(3); 
+        };
     }, [formState, errors, passwdErrors]);
 
-    return { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, Modal, isLoading };
+    useEffect(() => {
+        if (step !== 3) return;
+        if (timeLeft <= 0) return;
+
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => prev - 1);
+        }, 1000);
+
+        return () => clearInterval(timer); 
+    }, [timeLeft, step]);
+
+    return { formState, errors, passwdErrors, handleChange, handleSubmit, disabledPI, disabledPasswd, strength, step, _next, _prev, navigate, email, resendEmail, isResended, timeLeft, isLoading };
 };

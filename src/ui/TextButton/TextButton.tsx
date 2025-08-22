@@ -7,13 +7,14 @@ interface TextButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     label?: string;
     iconLeft?:  JSX.Element;
     iconRight?:  JSX.Element;
+    customClass?: string;
 };
 
 const cn = classNames.bind(styles);
 
-export const TextButton: FC<TextButtonProps> = ({ label, iconLeft, iconRight, ...props }): ReactElement => {
+export const TextButton: FC<TextButtonProps> = ({ label, iconLeft, iconRight, customClass, ...props }): ReactElement => {
     return (
-        <button className={cn('button')} {...props}>
+        <button className={cn('button', customClass)} {...props}>
             {iconLeft}
             <span>
                 {label}  

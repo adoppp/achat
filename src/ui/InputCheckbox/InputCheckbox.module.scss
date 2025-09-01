@@ -23,7 +23,7 @@
 
     &:checked + .input__label .checkbox {
       --newBrdr: calc(var(--size, 1) * 2);
-      --newBrdrClr: var(--button-bg);
+      --newBrdrClr: var(--accent);
     }
 
     &:checked + .input__label .checkbox svg {
@@ -42,13 +42,13 @@
     width: calc(var(--size) * 22px);
     height: calc(var(--size) * 22px);
     position: relative;
-    border: calc(var(--newBrdr, var(--size)) * 1px) solid var(--newBrdrClr, $border-color);
+    border: calc(var(--newBrdr, var(--size)) * 1px) solid var(--newBrdrClr, var(--border-color));
     border-radius: calc(var(--size) * 4px);
-    background-color: var(--background-color);
+    background-color: var(--bg-color);
     transition: $transition;
 
     &:hover {
-        background-color: var(--message-bg);
+        background-color: var(--accent-fog);
     }
 
     svg {
@@ -57,7 +57,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      stroke: var(--button-bg);
+      stroke: var(--accent);
       stroke-dasharray: var(--dashArray);
       stroke-dashoffset: var(--dashOffset);
       stroke-linecap: round;

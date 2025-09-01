@@ -3,9 +3,6 @@ import { useNavigate } from "react-router";
 import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification } from "firebase/auth";
 import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 import Notiflix from "notiflix";
-import classNames from "classnames/bind";
-
-import styles from '@/sections/Auth/SignUp/SignUpForm/SignUpForm.module.scss';
 
 import { auth, firestore } from "@/services";
 import { useUsers } from "@/utils/useUsers";
@@ -28,8 +25,6 @@ interface PasswdErrorsProps {
     isOneNumber: boolean;
     isOneSpecialSymbol: boolean;
 };
-
-const cn = classNames.bind(styles);
 
 const initialFormState: FormStateProps = {
     name: '',

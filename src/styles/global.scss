@@ -1,8 +1,10 @@
 /* 1. Светлая тема */
 :root[data-theme="light"] {
+  color-scheme: light;
+  
   --bg-primary: #F8F8F8;
   --bg-secondary: #FFFFFF;
-  --text-primary: #18181d;
+  --text-primary: #333333;
   --text-secondary: #6E6E6E;
   --border-color: #c7cacd;
 }
@@ -16,6 +18,8 @@
 
 /* 2. Тёмная тема */
 :root[data-theme="dark"] {
+  color-scheme: dark;
+  
   --background-color: #121212;
   --message-bg: #1E1E1E;
   --text-primary: #E4E4E4;

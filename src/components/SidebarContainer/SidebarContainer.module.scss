@@ -3,8 +3,11 @@
 @use '@/styles/variables' as *;
 
 .sidebar {
-    border-right: 1px solid var(--border-color);
-    min-width: 380px;
     position: relative;
-    overflow-y: hidden;
+
+    min-width: 300px;
+    max-width: 360px;
+    width: 100%;
+
+    border-right: 1px solid var(--border-color);
 }

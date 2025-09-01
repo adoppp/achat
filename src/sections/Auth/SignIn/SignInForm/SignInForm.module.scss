@@ -39,21 +39,21 @@
 
         max-width: 420px;
         width: 100%;
+    }
 
-        & h1 {
-            @include heading(xl);
-            font-size: 28px;
-            color: var(--text-primary);
+    &__title {
+        @include heading(xl);
+        font-size: 28px;
+        color: var(--text-primary);
 
-            margin: 24px 0 4px 0;
-        }
+        margin: 24px 0 4px 0;
+    }
 
-        & p {
-            @include text;
-            color: var(--text-secondary);
+    &__subtitle {
+        @include text;
+        color: var(--text-secondary);
 
-            margin-bottom: 36px;
-        }
+        margin-bottom: 36px;
     }
 
     &__form {

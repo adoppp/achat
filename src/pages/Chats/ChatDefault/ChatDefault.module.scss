@@ -2,7 +2,7 @@
 @use '@/styles/colors' as *;
 @use '@/styles/variables' as *;
 
-.chatindex {
+.chatdefault {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,6 +20,6 @@
     & p {
         @include text;
 
-        color: var(--icons-buttons-color);
+        color: var(--text-secondary);
     }
 }

@@ -4,15 +4,15 @@ import classNames from "classnames/bind";
 
 import styles from '@/pages/Chats/Chats.module.scss';
 
-import { Sidebar } from "@/sections/Chats/Sidebar/Sidebar";
 import { Loader } from "@/components/Loader/Loader";
+import { ChatsSidebar } from "@/sections/Chats/ChatsSidebar/ChatsSidebar";
 
 const cn = classNames.bind(styles);
 
 const Chats: FC = (): ReactElement => {
     return (
         <section className={cn('chats')}>
-            <Sidebar />   
+            <ChatsSidebar />   
 
             <Suspense fallback={<Loader />}>
                 <Outlet />

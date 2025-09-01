@@ -59,10 +59,10 @@ export const SignInForm: FC = (): ReactElement => {
                 <div className={cn('signin__logo')}>
                     {IconLogo}
                 </div>
-                <h1>
+                <h1 className={cn('signin__title')}>
                     Welcome back
                 </h1>
-                <p>
+                <p className={cn('signin__subtitle')}>
                     Sign in to continue
                 </p>
                 <div className={cn('signin__form')}>

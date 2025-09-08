@@ -8,7 +8,8 @@
         justify-content: space-between;
         text-decoration: none;
     
-        padding: 12px;
+        padding: 12px 4px;
+        border-radius: $border-radius;
     
         width: 100%;
         cursor: pointer;
@@ -16,15 +17,15 @@
         transition: $transition;
 
         &.active {
-            background-color: var(--button-disabled);
+            background-color: var(--accent-fog);
         }
 
         &:hover {
-            background-color: var(--incoming-message-bg);
+            background-color: var(--accent-fog);
         }
 
         &:active {
-            background-color: var(--outgoing-message-bg);
+            background-color: var(--accent-active);
         }
 
         &:active p {

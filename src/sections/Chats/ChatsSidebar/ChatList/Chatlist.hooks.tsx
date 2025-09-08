@@ -3,7 +3,7 @@ import { collection, onSnapshot, orderBy, query, where } from "firebase/firestor
 
 import { firestore } from "@/services";
 import type { Chat } from "@/types";
-import { ChatItem } from "@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem";
+import { ChatItem } from "@/sections/Chats/ChatsSidebar/ChatList/ChatItem/ChatItem";
 import { useTimeFormat } from "@/utils/useTimeFormat";
 import { useUsers } from "@/utils/useUsers";
 import { useAuth } from "@/utils/useAuth";

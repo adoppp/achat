@@ -1,19 +1,20 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 import { firestore } from "@/services";
-import { UserItem } from "@/sections/Chats/Sidebar/SidebarHeader/UsersList/UserItem/UserItem";
+import { UserItem } from "@/sections/Chats/ChatsSidebar/Searchbar/UsersList/UserItem/UserItem";
 import { useUsers } from "@/utils/useUsers";
 import { useAuth } from "@/utils/useAuth";
 
 interface useUsersListProps {
-    toggleOpen: () => void;
+    closeSearchBar: () => void;
+    search: string;
+    setSearch: (value: string) => void;
 }
 
-export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
+export const useUsersList = ({ closeSearchBar, search }: useUsersListProps) => {
     const users = useUsers();
-    const [search, setSearch] = useState<string>('');
     const navigate = useNavigate();
     const { user: currentUser } = useAuth();
 
@@ -32,8 +33,7 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
         const chatSnap = await getDoc(chatRef);
 
         if (chatSnap.exists()) {
-            toggleOpen();
-            setSearch('');
+            closeSearchBar();
             navigate(`/chats/${chatId}`)
         } else {
             try {
@@ -43,18 +43,12 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
                     updatedAt: serverTimestamp(),
                 });
         
-                toggleOpen();
-                setSearch('');
+                closeSearchBar();
                 navigate(`/chats/${chatId}`);
             } catch (e) {
                 console.log('UsersList: ', e);
             }
         };
-    };
-
-    const usersToggleOpen = () => {
-        toggleOpen();
-        setSearch('');
     };
 
     const UserListItems = filteredUsersList.map(user => 
@@ -67,5 +61,5 @@ export const useUsersList = ({ toggleOpen }: useUsersListProps) => {
         />
     );
 
-    return { UserListItems, search, setSearch, usersToggleOpen };
+    return { UserListItems };
 };

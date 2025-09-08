@@ -1,0 +1,19 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.users {
+    background-color: var(--bg-color);
+    width: 100%;
+
+    padding: 16px 0;
+
+    height: auto;
+
+    transition: $transition;
+
+    &__bar {
+        display: flex;
+        align-items: center;
+    }
+}

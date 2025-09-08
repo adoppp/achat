@@ -2,7 +2,7 @@ import type { FC, ReactNode } from "react";
 import { NavLink } from "react-router";
 import classNames from "classnames/bind";
 
-import styles from '@/sections/Chats/Sidebar/ChatList/ChatItem/ChatItem.module.scss';
+import styles from '@/sections/Chats/ChatsSidebar/ChatList/ChatItem/ChatItem.module.scss';
 
 import Avatar from "react-avatar";
 

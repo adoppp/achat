@@ -1,0 +1,55 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.searchbar {
+    position: relative;
+
+    height: auto;
+    width: 100%;
+
+    margin: 8px 0;
+
+    transition: $transition;
+    interpolate-size: allow-keywords;
+
+    &.active {
+        position: absolute;
+        top: 0;
+
+        background-color: var(--bg-secondary);
+
+        height: 100vh;
+
+        padding: 24px 12px;
+    }
+
+    &__button {
+        height: 24px;
+        
+        & svg {
+            stroke: var(--border-color);
+            width: 24px;
+            height: 24px;
+
+            transition: $transition;
+        }
+
+        &:hover svg {
+            stroke: var(--accent-hover);
+        }
+
+        &:active svg {
+            stroke: var(--accent-active);
+        }
+    }
+
+    &__form {
+        display: flex;
+        align-items: center;
+    }
+
+    &__input {
+        background-color: var(--bg-primary);
+    }
+}

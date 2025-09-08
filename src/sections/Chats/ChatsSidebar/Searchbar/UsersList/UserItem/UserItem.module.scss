@@ -3,21 +3,22 @@
 @use '@/styles/variables' as *;
 
 .user {
+    background-color: var(--bg-primary);
     display: flex;
     align-items: center;
 
-    padding: 8px 4px;
+    padding: 12px 8px;
     border-radius: $border-radius;
     cursor: pointer;
 
     transition: $transition;
 
     &:hover {
-        background-color: var(--incoming-message-bg);
+        background-color: var(--accent-fog);
     }
 
     &:active {
-        background-color: var(--outgoing-message-bg);
+        background-color: var(--accent);
     }
 
     &:active h3 {

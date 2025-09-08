@@ -2,7 +2,7 @@ import type { FC, ReactElement } from "react";
 import classNames from "classnames/bind";
 import Avatar from "react-avatar";
 
-import styles from '@/sections/Chats/Sidebar/SidebarHeader/UsersList/UserItem/UserItem.module.scss';
+import styles from '@/sections/Chats/ChatsSidebar/Searchbar/UsersList/UserItem/UserItem.module.scss';
 
 interface UserItemProps {
     displayName: string | null; 

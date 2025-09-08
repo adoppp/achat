@@ -150,7 +150,7 @@ export const SignUpForm: FC = (): ReactElement => {
                         step === 1 ?
                         <Button label="Continue" type='button' onClick={_next} disabled={disabledPI} /> :
                         step === 2 ?
-                        <Button label="Sign in" type='submit' form="signup-form" disabled={disabledPasswd} /> :
+                        <Button label="Sign up" type='submit' form="signup-form" disabled={disabledPasswd} /> :
                         <></>
 
                     }

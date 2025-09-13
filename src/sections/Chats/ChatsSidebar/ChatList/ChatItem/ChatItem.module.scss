@@ -8,7 +8,7 @@
         justify-content: space-between;
         text-decoration: none;
     
-        padding: 12px 4px;
+        padding: 12px 12px;
         border-radius: $border-radius;
     
         width: 100%;
@@ -21,7 +21,7 @@
         }
 
         &:hover {
-            background-color: var(--accent-fog);
+            background-color: var(--border-color);
         }
 
         &:active {

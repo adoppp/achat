@@ -34,16 +34,16 @@
         justify-content: space-between;
         align-items: flex-end;
         gap: 4px;
-        background-color: var(--outgoing-message-bg);
+        background-color: var(--bg-secondary);
         margin-left: auto;
         
         & p {
-            color: white;
+            color: var(--text-primary);
         }
 
         & span {
             @include text(xs);
-            color: $border-color;
+            color: var(--border-color);
             position: relative;
             visibility: hidden;
 
@@ -64,7 +64,7 @@
         justify-content: space-between;
         align-items: flex-end;
         gap: 4px;
-        background-color: var(--incoming-message-bg);
+        background-color: var(--accent);
 
         & p {
             color: var(--text-primary);

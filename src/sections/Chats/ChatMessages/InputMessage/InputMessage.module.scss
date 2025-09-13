@@ -19,7 +19,7 @@
 
         padding: 12px;
         padding-left: 44px;
-        border: 1px $border-color solid;
+        border: 1px var(--border-color) solid;
         border-radius: $border-radius;
 
         transition: $transition;

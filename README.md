@@ -20,3 +20,9 @@
 --email page
 
 COLORS!!!!!!!!!!!
+
+1Daniil\
+
+lagoka2142@merumart.com
+
+xocevih197@merumart.com

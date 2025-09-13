@@ -1,5 +1,4 @@
 import { type FC, type ReactElement } from "react";
-import { Link } from "react-router";
 import classNames from "classnames/bind";
 
 import styles from '@/sections/Auth/SignIn/SignInForm/SignInForm.module.scss';
@@ -17,43 +16,6 @@ export const SignInForm: FC = (): ReactElement => {
     const { formState, errors, handleChange, handleSubmit, disabled, rememberMe, setRememberMe } = useSignInForm();
 
     return (
-        // <div className={cn('form')}>
-        //     <h1 className={cn('form__heading')}>Sign In</h1>
-        //     <form className={cn('form__element')} onSubmit={handleSubmit}>
-        //         <InputEmail 
-        //             value={formState.email}
-        //             onChange={handleChange('email')}
-        //             placeholder="Email"
-        //             id="email"
-        //             error={errors.emailError}
-        //             customClass={{ container: cn('input__margin')}}
-        //         />
-        //         <InputPassword 
-        //             value={formState.password}
-        //             onChange={handleChange('password')}
-        //             placeholder="Password"
-        //             id="password"
-        //             error={errors.passwordError}
-        //             customClass={{ container: cn('input__margin')}}
-        //         />
-        //         <InputCheckbox 
-        //             id="remember"
-        //             label="Remember me" 
-        //             checked={rememberMe} 
-        //             onChange={setRememberMe} 
-        //             customClass={{ container: cn('input__margin__last')}}
-        //         />
-        //         <Button 
-        //             label="Sign in" 
-        //             type="submit"
-        //             disabled={disabled}
-        //         />
-        //     </form>
-        //     <p className={cn('form__navigation')}>
-        //         Don't have an account?
-        //         <Link to="/signup">Sign up</Link>
-        //     </p>
-        // </div>
         <section className={cn('signin')}>
             <div className={cn('signin__container')}>
                 <div className={cn('signin__logo')}>
@@ -66,14 +28,14 @@ export const SignInForm: FC = (): ReactElement => {
                     Sign in to continue
                 </p>
                 <div className={cn('signin__form')}>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <InputEmail 
                             value={formState.email}
                             onChange={handleChange('email')}
                             placeholder="Email"
                             id="email"
                             error={errors.emailError}
-                            customClass={{ container: cn('input__margin')}}
+                            customClass={{ container: cn('input__margin'), input: cn('input__bg')}}
                         />
                         <InputPassword 
                             value={formState.password}
@@ -81,7 +43,7 @@ export const SignInForm: FC = (): ReactElement => {
                             placeholder="Password"
                             id="password"
                             error={errors.passwordError}
-                            customClass={{ container: cn('input__margin')}}
+                            customClass={{ container: cn('input__margin'), input: cn('input__bg') }}
                         />
                         <InputCheckbox 
                             id="remember"

@@ -32,6 +32,16 @@
     }
 
     &__icon {
-        stroke: var(--border-color)
+        stroke: var(--border-color);
+
+        transition: $transition;
+
+        &:hover {
+            stroke: var(--accent-hover);
+        }
+
+        &:active {
+            stroke: var(--accent-active);
+        }
     }
 }

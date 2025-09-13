@@ -33,10 +33,10 @@ export const InputCheckbox: FC<InputCheckboxProps> = ({ id, label, checked, onCh
                 className={cn('input__element')}
             />
             <label htmlFor={id} className={cn('input__label', customClass?.label)}>
-                <span className={cn('input__text')}>{label}</span>
                 <span className={cn('checkbox')}>
                     {IconCheckbox}
                 </span>
+                <span className={cn('input__text')}>{label}</span>
             </label>
         </div>
     );

@@ -53,18 +53,30 @@
         @include text;
         color: var(--text-secondary);
 
-        margin-bottom: 36px;
+        margin-bottom: 28px;
     }
 
     &__form {
+        background-color: var(--bg-secondary);
+
         width: inherit;
+
+        padding: 24px;
+        border-radius: $border-radius;
     }
 }
 
-.input__margin {
-    margin-bottom: 8px;
+.input {
+    &__bg {
+        background-color: var(--bg-primary);
+    }
+    
+    &__margin {
+        margin-bottom: 8px;
 
-    &__last {
-        margin-bottom: 60px;
+        &__last {
+            margin-top: 16px;
+            margin-bottom: 60px;
+        }
     }
 }

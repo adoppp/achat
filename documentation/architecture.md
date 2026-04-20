@@ -175,3 +175,100 @@ flowchart TD
     SVC --> STORE
     STORE --> UI
 ```
+
+## DB
+
+```
+Firestore (main data)
+ ├── users
+ ├── chats
+    └── messages (subcollection)
+    └── reads (subcollection)
+
+RTDB (реaltime signals)
+ ├── typing
+ └── presence
+```
+
+*users*
+```ts
+users/{userId} {
+    username: "daniil",
+    phone: "121213"
+    createdAt: timestamp,
+    lastSeen: timestamp
+}
+```
+role:
+- профиль
+- lastSeen (No realtime)
+
+*chats*
+```ts
+chats/{chatId} {
+    members: ["user1", "user2"],
+    lastMessage: {
+        text: "hello",
+        userId: "user1",
+        createdAt: timestamp
+    },
+    lastActivity: timestamp,
+    createdAt: timestamp,
+    type: "private" // or group
+}
+```
+
+indexes:
+- members array-contains
+- lastActivity desc
+
+*messages (subcollection)*
+```ts
+chats/{chatId}/messages/{messageId} {
+    text: "hello",
+    senderId: "user1",
+    type: "text" // "audio"
+    createdAt: timestamp,
+    edited: true,
+    editedAt: timestamp
+}
+```
+
+rules:
+- only append (dont reduct too oft)
+- sort by createdAt
+
+*reads (subcollection)*
+```ts
+chats/{chatId}/reads/{userId} {
+    lastReadAt: timestamp
+}
+```
+
+*typing*
+```ts
+typing/{chatId} {
+    user1: true,
+    user2: false
+}
+```
+
+details:
+- oft updates
+- ephemeral (temp data)
+
+*presence*
+```ts
+presence/{userId} {
+    state: "online", // offline
+    lastChanged: timestamp
+}
+```
+
+*relations*
+
+```
+users ↔ chats (members array)
+chats → messages (subcollection)
+chats → reads (subcollection)
+```

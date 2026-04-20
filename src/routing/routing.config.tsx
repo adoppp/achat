@@ -1,8 +1,15 @@
+/* eslint-disable react-refresh/only-export-components */
+
 import { lazy } from 'react';
 import type { RouteObject } from 'react-router';
 
+// Layouts
 const MainLayout = lazy(() => import('@/layouts/MainLayout/MainLayout'));
 const SettingsLayout = lazy(() => import('@/layouts/SettingsLayout/SettingsLayout'));
+
+// Pages
+const ChatPage = lazy(() => import('@/pages/ChatPage/ChatPage'));
+const ChatsPage = lazy(() => import('@/pages/ChatsPage/ChatsPage'));
 
 export const routerConfig: RouteObject[] = [
     {
@@ -10,17 +17,17 @@ export const routerConfig: RouteObject[] = [
         children: [
             {
                 path: 'chats',
-                element: <div>chats</div>
+                element: <ChatsPage />,
             },
             {
                 path: 'chat/:chatId',
-                element: <div>chat</div>
-            }
-        ]
+                element: <ChatPage />,
+            },
+        ],
     },
     {
         path: 'settings',
         element: <SettingsLayout />,
-        children: []
-    }
+        children: [],
+    },
 ];

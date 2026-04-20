@@ -7,6 +7,6 @@ export const router = createBrowserRouter([
     {
         path: '/app',
         element: <AppLayout />,
-        children: routerConfig
-    }
+        children: routerConfig,
+    },
 ]);

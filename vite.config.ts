@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import babel from '@rolldown/plugin-babel'
 import path from 'path'
 
@@ -8,12 +7,12 @@ import path from 'path'
 export default defineConfig({
   plugins: [
     react(),
-    babel({ presets: [reactCompilerPreset()] }),
-    tsconfigPaths()
+    babel({ presets: [reactCompilerPreset()] })
   ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src')
-    }
+    },
+    tsconfigPaths: true
   }
 })

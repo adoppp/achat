@@ -1,14 +1,48 @@
 # Achat architecture
 
-1. [Routing](#routing)
-2. [User & Data Flow](#user--data-flow)
-3. [STATE LAYER](#state-layer)
-4. [Service Layer](#service-layer)
-5. [Two types of persistence](#two-types-of-persistence)
-6. [Architecture system](#architecture-system)
-7. [Critical constraints](#critical-constraints-important-for-correctness)
-8. [Simple workflow](#simple-workflow)
+1. [File system]()
+2. [Routing](#routing)
+3. [User & Data Flow](#user--data-flow)
+4. [STATE LAYER](#state-layer)
+5. [Service Layer](#service-layer)
+6. [Two types of persistence](#two-types-of-persistence)
+7. [Architecture system](#architecture-system)
+8. [Critical constraints](#critical-constraints-important-for-correctness)
+9. [Simple workflow](#simple-workflow)
+10. [DB](#db)
 
+
+## File system
+
+```c#
+----/src
+    ----/assets
+        ----/img
+        ----/svg
+    ----/components
+        // shared
+    ----/constants
+    ----/firebase
+        // config
+    ----/hooks
+    ----/layouts
+    ----/pages
+    ----/routing
+        // config
+        ----/routes
+            // restricted, private routes etc.
+    ----/services
+    ----/store
+        ----/authSlice
+        ----/chatsSlice
+        ----/messagesSlice
+        ----/uiSlice
+    ----/styles
+    ----/types
+    ----/ui
+        // ui components (for example: button, input etc.)
+    ----/utils
+```
 
 ## Routing
 ```

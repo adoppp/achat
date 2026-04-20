@@ -8,10 +8,13 @@ const MainLayout = lazy(() => import('@/layouts/MainLayout/MainLayout'));
 const SettingsLayout = lazy(() => import('@/layouts/SettingsLayout/SettingsLayout'));
 
 // Pages
-const ChatPage = lazy(() => import('@/pages/ChatPage/ChatPage'));
-const ChatsPage = lazy(() => import('@/pages/ChatsPage/ChatsPage'));
+const ChatPage = lazy(() => import('@/pages/app/ChatPage/ChatPage'));
+const ChatsPage = lazy(() => import('@/pages/app/ChatsPage/ChatsPage'));
+const SignInPage = lazy(() => import('@/pages/auth/SignInPage/SignInPage'));
+const SignUpPage = lazy(() => import('@/pages/auth/SignUpPage/SignUpPage'));
+const ProfilePage = lazy(() => import('@/pages/app/settings/ProfilePage/ProfilePage'));
 
-export const routerConfig: RouteObject[] = [
+export const appConfig: RouteObject[] = [
     {
         element: <MainLayout />,
         children: [
@@ -28,6 +31,22 @@ export const routerConfig: RouteObject[] = [
     {
         path: 'settings',
         element: <SettingsLayout />,
-        children: [],
+        children: [
+            {
+                path: 'profile',
+                element: <ProfilePage />,
+            },
+        ],
+    },
+];
+
+export const authConfig: RouteObject[] = [
+    {
+        path: 'signin',
+        element: <SignInPage />,
+    },
+    {
+        path: 'signup',
+        element: <SignUpPage />,
     },
 ];

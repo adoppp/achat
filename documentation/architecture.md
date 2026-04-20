@@ -11,7 +11,6 @@
 9. [Simple workflow](#simple-workflow)
 10. [DB](#db)
 
-
 ## File system
 
 ```c#
@@ -45,31 +44,34 @@
 ```
 
 ## Routing
+
 ```
 /auth
-  /login
-  /register
+    /signin
+    /signup
 
 /app
-  /chats
-  /chat/:chatId
-  /settings
-  /profile/:userId
+    (layout)
+        /chats
+        /chat/:chatId
+    /settings (layout)
+
 ```
 
 **Access logic:**
 | Route | Access |
 |-------|--------|
-| /auth/* | without auth |
-| /app/* | with auth | 
+| /auth/_ | without auth |
+| /app/_ | with auth |
 
 **Routes protection**
+
 - user isn't logged in -> redirect /auth/login
 - user is logged in -> /app/chats
 
 ## User & Data Flow
 
-1. *Chats list (user logged in):*
+1. _Chats list (user logged in):_
     - App start
     - Auth check
     - subscribe(chats where userId)
@@ -77,24 +79,25 @@
     - UI renders sorted by lastActivity
 
 Notes:
+
 - lastActivity = primary sorting key
 - chat list is global subscription (App Shell level)
 
-2. *Open chat (user logged in):*
+2. _Open chat (user logged in):_
     - click chat
     - check cache (store.messages[chatId])
     - if empty → attach Firestore subscription
     - subscribe messages(chatId)
     - subscribe reads(chatId)
 
-3. *Send message (user logged in):*
+3. _Send message (user logged in):_
     - user types message
     - optimistic update (store)
     - write Firestore message
     - update chat.lastMessage
     - update chat.lastActivity
 
-3. *Read receipts (user logged in):*
+4. _Read receipts (user logged in):_
     - open chat
     - update reads/{userId}
     - UI recalculates "read/unread"
@@ -122,6 +125,7 @@ ui:
 ```
 
 Cache rules:
+
 - Chats:
     - always cached globally
     - updated via onSnapshot
@@ -130,22 +134,26 @@ Cache rules:
     - lifecycle-bound (enter/leave chat)
 
 ## Service Layer
+
 **Responsibilities:**
+
 - subscriptions
 - queries
 - writes
 - normalization
 
 **Example responsibilities:**
+
 ```ts
-subscribeChats()
-subscribeMessages()
-sendMessage()
-updateLastActivity()
-updateReadState()
+subscribeChats();
+subscribeMessages();
+sendMessage();
+updateLastActivity();
+updateReadState();
 ```
 
 ## Two types of persistence
+
 1. Redux (RAM cache)
     - lost on reload
 2. Firestore IndexedDB cache
@@ -157,15 +165,18 @@ Firestore SDK
 IndexedDB (browser)
 sync on reconnect
 ```
-**Offline / Reconnect behavior (NEW)**
-- *offline:*
-  - UI -> Redux cache -> IndexedDB fallback
 
-- *online:*
-  - IndexedDB -> Firestore sync -> onSnapshot -> Redux update
+**Offline / Reconnect behavior (NEW)**
+
+- _offline:_
+    - UI -> Redux cache -> IndexedDB fallback
+
+- _online:_
+    - IndexedDB -> Firestore sync -> onSnapshot -> Redux update
 
 ## Architecture system
-```Mermaid
+
+```mermaid
 flowchart TD
     UI[UI / React Components] --> RG[Route Guards]
     RG --> AS[App Shell]
@@ -184,6 +195,7 @@ flowchart TD
 ```
 
 ## Critical constraints (important for correctness)
+
 1. Forbidden patterns:
     - Firebase calls inside components directly
     - no cache layer
@@ -195,8 +207,9 @@ flowchart TD
     - subscriptions = lifecycle-bound
     - read state = cursor-based
 
-## Simple workflow 
-```Mermaid
+## Simple workflow
+
+```mermaid
 flowchart TD
     UI[React UI]
 
@@ -224,7 +237,8 @@ RTDB (реaltime signals)
  └── presence
 ```
 
-*users*
+_users_
+
 ```ts
 users/{userId} {
     username: "daniil",
@@ -233,11 +247,14 @@ users/{userId} {
     lastSeen: timestamp
 }
 ```
+
 role:
+
 - профиль
 - lastSeen (No realtime)
 
-*chats*
+_chats_
+
 ```ts
 chats/{chatId} {
     members: ["user1", "user2"],
@@ -253,10 +270,12 @@ chats/{chatId} {
 ```
 
 indexes:
+
 - members array-contains
 - lastActivity desc
 
-*messages (subcollection)*
+_messages (subcollection)_
+
 ```ts
 chats/{chatId}/messages/{messageId} {
     text: "hello",
@@ -269,17 +288,20 @@ chats/{chatId}/messages/{messageId} {
 ```
 
 rules:
+
 - only append (dont reduct too oft)
 - sort by createdAt
 
-*reads (subcollection)*
+_reads (subcollection)_
+
 ```ts
 chats/{chatId}/reads/{userId} {
     lastReadAt: timestamp
 }
 ```
 
-*typing*
+_typing_
+
 ```ts
 typing/{chatId} {
     user1: true,
@@ -288,10 +310,12 @@ typing/{chatId} {
 ```
 
 details:
+
 - oft updates
 - ephemeral (temp data)
 
-*presence*
+_presence_
+
 ```ts
 presence/{userId} {
     state: "online", // offline
@@ -299,7 +323,7 @@ presence/{userId} {
 }
 ```
 
-*relations*
+_relations_
 
 ```
 users ↔ chats (members array)

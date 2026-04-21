@@ -1,30 +1,30 @@
 import { 
-    // useState, 
+    useState, 
     type FC 
 } from 'react';
-// import classNames from 'classnames/bind';
+import classNames from 'classnames/bind';
 
-// import { Button } from '@/ui/Button/Button';
+import { Button } from '@/ui/Button/Button';
 
-// import styles from '@/pages/app/ChatsPage/ChatsPage.module.scss';
+import styles from '@/pages/app/ChatsPage/ChatsPage.module.scss';
 
-// const cn = classNames.bind(styles);
+const cn = classNames.bind(styles);
 
 const ChatsPage: FC = () => {
-    // const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    // const handleOnClickTest = () => {
-    //     setIsLoading(true);
+    const handleOnClickTest = () => {
+        setIsLoading(true);
 
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //     }, 5000);
-    // }
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 5000);
+    }
 
     return (
         <div>
             Select a chat
-            {/* <Button 
+            <Button 
                 isLoading={isLoading} 
                 onClick={handleOnClickTest}
                 size='s'
@@ -43,7 +43,7 @@ const ChatsPage: FC = () => {
                 onClick={handleOnClickTest}
             >
                 Click3
-            </Button> */}
+            </Button>
         </div>
     );
 };

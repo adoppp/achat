@@ -3,11 +3,9 @@ import classNames from 'classnames/bind';
 
 import styles from '@/ui/Button/Button.module.scss';
 
-type Size = 's' | 'm' | 'l';
-
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary';
-    size?: Size;
+    size?: 's' | 'm' | 'l';
     customClassName?: string;
 
     isLoading?: boolean;

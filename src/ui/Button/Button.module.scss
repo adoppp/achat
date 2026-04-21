@@ -1,0 +1,202 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.default {
+    position: relative;
+
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+
+    transition: $transition-smooth;
+
+    color: var(--text-primary);
+
+    &:hover:not(:disabled) {
+        transform: translateY(-1px);
+
+        & .content svg {
+            transform: scale(1.1);
+        }
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(1px);
+
+        & .content svg {
+            transform: scale(0.9);
+        }
+    }
+
+    &:disabled {
+        opacity: 0.5;
+
+        cursor: not-allowed;
+    }
+}
+
+.s {
+    @include ui(xs);
+    padding: 6px 10px;
+
+    & .loader::after {
+        width: 14px;
+        height: 14px;
+    }
+
+    & .content svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+.m {
+    @include ui(sm);
+    padding: 10px 16px;
+
+    & .loader::after {
+        width: 18px;
+        height: 18px;
+    }
+
+    & .content svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+.l {
+    @include ui();
+    padding: 12px 20px;
+
+    & .loader::after {
+        width: 22px;
+        height: 22px;
+    }
+
+    & .content svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.primary {
+    background-color: var(--accent-base);
+    color: #fff;
+
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+    &:hover:not(:disabled) {
+        background-color: var(--accent-hover);
+        border-color: rgba(255, 255, 255, 0.15);
+
+        box-shadow: 0 2px 6px 4px var(--accent-fog);
+    }
+
+    &:active:not(:disabled) {
+        background-color: var(--accent-active);
+
+        box-shadow: 0 1px 6px 8px var(--accent-fog);
+    }
+
+    &:disabled {
+        color: #fff;
+    }
+
+    & .loader::after {
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+    }
+
+    & .content svg {
+        stroke: #fff;
+    }
+}
+
+.secondary {
+    background-color: var(--bg-primary);
+
+    border: 1px solid var(--accent-base);
+    box-shadow: 0 1px 2px 0 var(--accent-fog);
+
+    &:hover:not(:disabled) {
+        border-color: var(--accent-hover);
+
+        box-shadow: 0 2px 12px 8px var(--accent-fog);
+
+        & .content svg {
+            stroke: var(--accent-hover);
+        }
+    }
+
+    &:active:not(:disabled) {
+        border-color: var(--accent-active);
+
+        box-shadow:
+            0 2px 4px var(--accent-fog),
+            inset 0 0 6px 3px var(--accent-fog);
+
+        & .content svg {
+            stroke: var(--accent-active);
+        }
+    }
+
+    &:disabled {
+        color: var(--accent-fog);
+        border-color: var(--accent-fog);
+    }
+
+    & .loader::after {
+        border: 2px solid var(--accent-fog);
+        border-top-color: var(--accent-base);
+    }
+
+    & .content svg {
+        stroke: var(--accent-base);
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+
+    & svg {
+        transition: $transition-smooth;
+    }
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.loading {
+    pointer-events: none;
+
+    & > :has:not(.loader) {
+        opacity: 0;
+    }
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.loader::after {
+    content: '';
+    display: block;
+
+    border-radius: 50%;
+
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,92 @@
+:root {
+    color-scheme: light dark;
+
+    --bg-primary: light-dark(#f8f8f8, #111010);
+    --bg-secondary: light-dark(#ffffff, #181717);
+    --text-primary: light-dark(#333333, #e4e4e4);
+    --text-secondary: light-dark(#6e6e6e, #9ca3af);
+    --border-color: light-dark(#c7cacd, #2c3034);
+}
+
+/* Blue accent */
+:root[data-accent='blue'] {
+    --accent: #4387f3;
+    --accent-fog: light-dark(#c5dbff, #202835);
+    --accent-hover: #3b6bd3;
+    --accent-active: #3252a8;
+}
+
+/* 2. Dark theme */
+:root[data-theme='dark'] {
+    color-scheme: dark;
+
+    --background-color: #121212;
+    --message-bg: #1e1e1e;
+    --text-primary: #e4e4e4;
+    --text-secondary: #9ca3af;
+    --incoming-message-bg: #2c2c2c;
+    --outgoing-message-bg: #60a5fa;
+    --icons-buttons-color: #d1d5db;
+    --input-field-bg: #1f2937;
+
+    --button-bg: #374151;
+    --button-hover: #4b5563;
+    --button-active: #6b7280;
+    --button-disabled: #374151;
+}
+
+/* 3. Lavander theme */
+:root[data-theme='lavender'] {
+    --background-color: #f4f2fa;
+    --message-bg: #ffffff;
+    --text-primary: #3f3a60;
+    --text-secondary: #7d7c95;
+    --incoming-message-bg: #e2d9f3;
+    --outgoing-message-bg: #a78bfa;
+    --icons-buttons-color: #c4b5fd;
+    --input-field-bg: #ffffff;
+
+    --button-bg: #a78bfa;
+    --button-hover: #8b5cf6;
+    --button-active: #7c3aed;
+    --button-disabled: #ddd6f3;
+}
+
+/* 4. Red theme */
+:root[data-theme='burgundy'] {
+    --background-color: #3b0b0b;
+    --message-bg: #5c1212;
+    --text-primary: #f8edeb;
+    --text-secondary: #b84a4a;
+    --incoming-message-bg: #7a1f1f;
+    --outgoing-message-bg: #a33434;
+    --icons-buttons-color: #d8b4b4;
+    --input-field-bg: #5c1212;
+
+    --button-bg: #a33434;
+    --button-hover: #911f1f;
+    --button-active: #7a1f1f;
+    --button-disabled: #6b2c2c;
+}
+
+/* 5. Violet theme */
+:root[data-theme='purple'] {
+    --background-color: #2e0854;
+    --message-bg: #422a76;
+    --text-primary: #e6e0f8;
+    --text-secondary: #a394c7;
+    --incoming-message-bg: #5c47a3;
+    --outgoing-message-bg: #8c6ef1;
+    --icons-buttons-color: #b9a8f4;
+    --input-field-bg: #422a76;
+
+    --button-bg: #8c6ef1;
+    --button-hover: #7c5ad1;
+    --button-active: #6b47b1;
+    --button-disabled: #5e4780;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+}

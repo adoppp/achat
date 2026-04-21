@@ -6,16 +6,16 @@ import styles from '@/ui/Button/Button.module.scss';
 type Size = 's' | 'm' | 'l';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary',
-    size?: Size,
-    customClassName?: string,
+    variant?: 'primary' | 'secondary';
+    size?: Size;
+    customClassName?: string;
 
-    isLoading?: boolean,
-    isDisabled?: boolean,
+    isLoading?: boolean;
+    isDisabled?: boolean;
 
-    leftIcon?: ReactNode,
-    rightIcon?: ReactNode
-};
+    leftIcon?: ReactNode;
+    rightIcon?: ReactNode;
+}
 
 const cn = classNames.bind(styles);
 
@@ -26,21 +26,15 @@ export const Button: FC<ButtonProps> = ({
     isLoading = false,
     isDisabled = false,
     leftIcon,
-    rightIcon, 
+    rightIcon,
     children,
-    ...props 
+    ...props
 }) => {
     const isButtonDisabled = isDisabled || isLoading;
 
-    return(
+    return (
         <button
-            className={cn(
-                'default',
-                variant,
-                isLoading && 'loading',
-                size,
-                customClassName
-            )}
+            className={cn('default', variant, isLoading && 'loading', size, customClassName)}
             disabled={isButtonDisabled}
             {...props}
         >

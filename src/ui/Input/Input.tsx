@@ -54,33 +54,43 @@ export const Input: FC<InputProps> = ({
     customClass
 }) => {
 
-    const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => { 
-        onChange(e.target.value)
-    };
-
+    const inputId = id || `input-${Math.random()}`;
     const hasError = !!error;
 
     return (
-        <div className={cn('input__wrapper', customClass?.container)}>
-            {label && <div className={cn('input__label', customClass?.label)}>{label}</div>}
+        <div
+            className={cn(
+                'input',
+                `input--${size}`,
+                `input--${variant}`,
+                hasError && 'input--error',
+                customClass?.container,
+            )}
+        >
+            {label && (
+                <span className={cn('input__label', customClass?.label)}>
+                    {label}
+                </span>
+            )}
 
-            <label className={cn('input__container')} htmlFor={id}>
+            <label className={cn('input__container')} htmlFor={inputId}>
                 {leftIcon && <span className={cn('icon__left')}>{leftIcon}</span>}
 
                 <input
-                    id={id}
+                    id={inputId}
                     type={type}
-                    placeholder={placeholder}
                     value={value}
-                    onChange={handleOnChange}
+                    onChange={(e) => onChange(e.target.value)}
+                    placeholder={placeholder}
                     disabled={disabled}
                     autoComplete={autoComplete}
-                    className={cn('input__element', variant, customClass?.input)}
+                    aria-invalid={hasError}
+                    className={cn('input__element', customClass?.input)}
                 />
 
                 {rightIcon && <span className={cn('icon__right')}>{rightIcon}</span>}
             </label>
-            
+
             {hasError && <span className={cn('input__error', customClass?.error)}>{error}</span>}
         </div>
     );

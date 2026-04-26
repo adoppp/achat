@@ -49,13 +49,22 @@ const ChatsPage: FC = () => {
             >
                 Click3
             </Button>
-
             <Input
                 value={text}
                 onChange={setText}
-
-                label='Name'
-                
+                size="m"
+                label="Name"
+                placeholder="John doe"
+                variant="ghost"
+            />
+            <Input
+                value={text}
+                onChange={setText}
+                size="l"
+                label="Name"
+                placeholder="Ask a question"
+                rightIcon={IconArrowRight}
+                leftIcon={IconArrowLeft}
             />
         </div>
     );

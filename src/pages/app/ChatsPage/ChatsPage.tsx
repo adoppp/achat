@@ -5,11 +5,13 @@ import { Button } from '@/ui/Button/Button';
 
 // import styles from '@/pages/app/ChatsPage/ChatsPage.module.scss';
 import { IconArrowLeft, IconArrowRight } from '@/assets/svg';
+import { Input } from '@/ui/Input/Input';
 
 // const cn = classNames.bind(styles);
 
 const ChatsPage: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [text, setText] = useState<string>('');
 
     const handleOnClickTest = () => {
         setIsLoading(true);
@@ -47,6 +49,14 @@ const ChatsPage: FC = () => {
             >
                 Click3
             </Button>
+
+            <Input
+                value={text}
+                onChange={setText}
+
+                label='Name'
+                
+            />
         </div>
     );
 };

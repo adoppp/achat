@@ -52,10 +52,10 @@ const ChatsPage: FC = () => {
             <Input
                 value={text}
                 onChange={setText}
-                size="m"
+                size="s"
                 label="Name"
                 placeholder="John doe"
-                variant="ghost"
+                error="Error smth went wrong. Please try again"
             />
             <Input
                 value={text}

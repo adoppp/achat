@@ -3,8 +3,7 @@
 @use '@/styles/variables' as *;
 
 .input {
-    --font-size: 1rem;
-    --py: 6px;
+    --py: 6px; 
     --px: 10px;
 
     display: flex;
@@ -12,7 +11,6 @@
     gap: 4px;
 
     &__label {
-        @include ui(sm);
         color: var(--text-primary);
     }
 
@@ -43,7 +41,6 @@
         background: transparent;
 
         padding: var(--py) var(--px);
-        font-size: var(--font-size);
 
         &::placeholder {
             color: var(--text-secondary);
@@ -56,40 +53,59 @@
     }
 
     &__error {
-        font-size: 12px;
         color: $error;
     }
 }
 
 .input--s {
-    --font-size: 0.875rem;
-    --py: 4px;
+    --py: 4px; 
     --px: 8px;
+    
+    & .input__label, 
+    & .input__element {
+        @include ui(sm);
+    }
+
+    & .input__error {
+        @include ui(xs);
+    }
 }
 
 .input--m {
-    --font-size: 1rem;
+    & .input__label, 
+    & .input__element {
+        @include ui(base);
+    }
+
+    & .input__error {
+        @include ui(sm);
+    }
 }
 
 .input--l {
-    --font-size: 1.125rem;
-    --py: 8px;
+    --py: 8px; 
     --px: 14px;
-}
+    
+    & .input__label, 
+    & .input__element {
+        @include ui(md);
+    }
 
-.input--ghost .input__container {
-    border: none;
-    border-bottom: 1px solid var(--accent-fog);
-    border-radius: 0;
-
-    &:focus-within {
-        border-color: var(--accent-active);
-        box-shadow: none;
+    & .input__error {
+        @include ui(base);
     }
 }
 
 .input--error .input__container {
     border-color: $error;
+
+    &:hover {
+        box-shadow: 0 0 8px 4px $error;
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 8px 2px $error;
+    }
 }
 
 .icon__left {

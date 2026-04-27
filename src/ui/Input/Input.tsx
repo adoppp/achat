@@ -1,4 +1,4 @@
-import type { ChangeEvent, FC, InputHTMLAttributes, ReactNode } from 'react';
+import { useId, type FC, type InputHTMLAttributes, type ReactNode } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from '@/ui/Input/Input.module.scss';
@@ -11,7 +11,6 @@ interface InputProps {
     value: string;
     onChange: (value: string) => void;
 
-    variant?: 'primary' | 'ghost';
     size?: 's' | 'm' | 'l';
     type?: InputHTMLAttributes<HTMLInputElement>['type'];
 
@@ -22,7 +21,6 @@ interface InputProps {
     rightIcon?: ReactNode;
 
     autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
-    // className?: string;
     customClass?: {
         container?: string;
         label?: string;
@@ -40,7 +38,6 @@ export const Input: FC<InputProps> = ({
     onChange,
     id,
 
-    variant = 'primary',
     size = 'm',
     type = 'text',
 
@@ -54,7 +51,7 @@ export const Input: FC<InputProps> = ({
     customClass
 }) => {
 
-    const inputId = id || `input-${Math.random()}`;
+    const inputId = id || useId();
     const hasError = !!error;
 
     return (
@@ -62,18 +59,17 @@ export const Input: FC<InputProps> = ({
             className={cn(
                 'input',
                 `input--${size}`,
-                `input--${variant}`,
                 hasError && 'input--error',
                 customClass?.container,
             )}
         >
             {label && (
-                <span className={cn('input__label', customClass?.label)}>
+                <label htmlFor={inputId} className={cn('input__label', customClass?.label)}>
                     {label}
-                </span>
+                </label>
             )}
 
-            <label className={cn('input__container')} htmlFor={inputId}>
+            <div className={cn('input__container')} >
                 {leftIcon && <span className={cn('icon__left')}>{leftIcon}</span>}
 
                 <input
@@ -89,7 +85,7 @@ export const Input: FC<InputProps> = ({
                 />
 
                 {rightIcon && <span className={cn('icon__right')}>{rightIcon}</span>}
-            </label>
+            </div>
 
             {hasError && <span className={cn('input__error', customClass?.error)}>{error}</span>}
         </div>

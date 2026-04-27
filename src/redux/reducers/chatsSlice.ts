@@ -5,12 +5,14 @@ interface ChatsState {
     items: Record<string, Chat>;
     activeChatId: string | null;
     loading: 'loading' | 'success' | 'error';
+    readsByChat: Record<string, Record<string, number>>;
 };
 
 const initialState: ChatsState = {
     items: {},
     activeChatId: null,
-    loading: 'loading'
+    loading: 'loading',
+    readsByChat: {}
 };
 
 const chatsSlice = createSlice({
@@ -32,10 +34,23 @@ const chatsSlice = createSlice({
         },
         removeChat(state, action: PayloadAction<string>) {
             delete state.items[action.payload];
+            delete state.readsByChat[action.payload]
 
             if (state.activeChatId === action.payload) {
                 state.activeChatId = null;
             }
+        },
+        setRead(
+            state,
+            action: PayloadAction<{ chatId: string; userId: string; lastReadAt: number }>
+        ) {
+            const { chatId, userId, lastReadAt } = action.payload;
+
+            if (!state.readsByChat[chatId]) {
+                state.readsByChat[chatId] = {};
+            }
+
+            state.readsByChat[chatId][userId] = lastReadAt;
         }
     }
 });
@@ -46,5 +61,6 @@ export const {
     setActiveChat,
     setChatsLoading,
     updateChat,
-    removeChat
+    removeChat,
+    setRead
 } = chatsSlice.actions;

@@ -47,7 +47,7 @@ export const Input: FC<InputProps> = ({
             )}
 
             <div className={cn('input__container')} >
-                {leftIcon && <span className={cn('icon__left')} onClick={onClickleft}>{leftIcon}</span>}
+                {leftIcon && <button className={cn('icon__left')} onClick={onClickleft}>{leftIcon}</button>}
 
                 <input
                     id={inputId}
@@ -61,7 +61,7 @@ export const Input: FC<InputProps> = ({
                     className={cn('input__element', customClass?.input)}
                 />
 
-                {rightIcon && <span className={cn('icon__right')} onClick={onClickright}>{rightIcon}</span>}
+                {rightIcon && <button className={cn('icon__right')} onClick={onClickright}>{rightIcon}</button>}
             </div>
 
             {hasError && <span className={cn('input__error', customClass?.error)}>{error}</span>}

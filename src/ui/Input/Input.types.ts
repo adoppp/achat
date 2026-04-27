@@ -16,8 +16,8 @@ export interface InputProps {
 
     leftIcon?: ReactNode;
     rightIcon?: ReactNode;
-    onClickleft?: (e: MouseEvent<HTMLSpanElement>) => void;
-    onClickright?: (e: MouseEvent<HTMLSpanElement>) => void;
+    onClickleft?: (e: MouseEvent<HTMLButtonElement>) => void;
+    onClickright?: (e: MouseEvent<HTMLButtonElement>) => void;
 
     autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
     customClass?: {

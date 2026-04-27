@@ -3,8 +3,13 @@
 @use '@/styles/variables' as *;
 
 .default {
+    --svg-size: 18px;
+    --py: 10px;
+    --px: 16px;
+
     position: relative;
 
+    padding: var(--py) var(--px);
     border-radius: $border-radius;
 
     transition: $transition-smooth;
@@ -32,54 +37,31 @@
         opacity: 0.5;
     }
 
-    &:disabled.loading  {
+    &:disabled[data-loading]  {
         cursor: wait;
     }
 }
 
-.s {
-    @include ui(xs);
-    padding: 6px 10px;
-
-    & .loader::after {
-        width: 14px;
-        height: 14px;
-    }
-
-    & .content svg {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-.m {
+.button--s {
     @include ui(sm);
-    padding: 10px 16px;
 
-    & .loader::after {
-        width: 18px;
-        height: 18px;
-    }
+    --py: 6px;
+    --px: 10px;
 
-    & .content svg {
-        width: 18px;
-        height: 18px;
-    }
+    --svg-size: 14px;
 }
 
-.l {
-    @include ui();
-    padding: 12px 20px;
+.button--m {
+    @include ui(base);
+}
 
-    & .loader::after {
-        width: 22px;
-        height: 22px;
-    }
+.button--l {
+    @include ui(md);
 
-    & .content svg {
-        width: 22px;
-        height: 22px;
-    }
+    --py: 12px;
+    --px: 20px;
+
+    --svg-size: 22px;
 }
 
 .primary {
@@ -201,17 +183,14 @@
 
     & svg {
         transition: $transition-smooth;
+
+        width: var(--svg-size);
+        height: var(--svg-size);
     }
 }
 
 .hidden {
     opacity: 0;
-}
-
-.loading {
-    & > :has:not(.loader) {
-        opacity: 0;
-    }
 }
 
 .loader {
@@ -226,6 +205,9 @@
     display: block;
 
     border-radius: 50%;
+
+    width: var(--svg-size);
+    height: var(--svg-size);
 
     animation: spin 0.9s linear infinite;
 }

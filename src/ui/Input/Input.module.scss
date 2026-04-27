@@ -1,0 +1,139 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+
+.input {
+    --py: 6px; 
+    --px: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    &__label {
+        color: var(--text-primary);
+    }
+
+    &__container {
+        display: flex;
+        align-items: center;
+
+        border: 1px solid var(--accent-fog);
+        border-radius: $border-radius;
+        background: var(--bg-primary);
+
+        transition: $transition-smooth;
+
+        &:hover {
+            border-color: var(--accent-hover);
+            box-shadow: 0 0 12px 8px var(--accent-fog);
+        }
+
+        &:focus-within {
+            border-color: var(--accent-active);
+            box-shadow: 0 0 8px 2px var(--accent-active);
+        }
+    }
+
+    &__element {
+        border: none;
+        outline: none;
+        background: transparent;
+
+        padding: var(--py) var(--px);
+
+        &::placeholder {
+            color: var(--text-secondary);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    }
+
+    &__error {
+        color: $error;
+    }
+}
+
+.input--s {
+    --py: 4px; 
+    --px: 8px;
+    
+    & .input__label, 
+    & .input__element {
+        @include ui(sm);
+    }
+
+    & .input__error {
+        @include ui(xs);
+    }
+}
+
+.input--m {
+    & .input__label, 
+    & .input__element {
+        @include ui(base);
+    }
+
+    & .input__error {
+        @include ui(sm);
+    }
+}
+
+.input--l {
+    --py: 8px; 
+    --px: 14px;
+    
+    & .input__label, 
+    & .input__element {
+        @include ui(md);
+    }
+
+    & .input__error {
+        @include ui(base);
+    }
+}
+
+.input--error .input__container {
+    border-color: $error;
+
+    &:hover {
+        box-shadow: 0 0 8px 4px $error;
+    }
+
+    &:focus-within {
+        box-shadow: 0 0 8px 2px $error;
+    }
+}
+
+.icon__left {
+    margin-left: 8px;
+}
+
+.icon__right {
+    margin-right: 8px;
+}
+
+.icon__left,
+.icon__right {
+    cursor: pointer;
+
+    stroke: var(--accent-fog);
+    
+    width: 24px;
+    height: 24px;
+
+    transition: $transition-smooth;
+
+    &:hover,
+    &:hover {
+        stroke: var(--accent-hover);
+    }
+
+    &:active,
+    &:active {
+        stroke: var(--accent-active);
+    }
+}

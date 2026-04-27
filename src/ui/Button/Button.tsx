@@ -32,7 +32,13 @@ export const Button: FC<ButtonProps> = ({
 
     return (
         <button
-            className={cn('default', variant, isLoading && 'loading', size, customClassName)}
+            className={cn(
+                'default', 
+                variant, 
+                `button--${size}`, 
+                customClassName
+            )}
+            data-loading={isLoading || undefined}
             disabled={isButtonDisabled}
             {...props}
         >

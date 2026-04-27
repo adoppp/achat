@@ -5,11 +5,14 @@ import { Button } from '@/ui/Button/Button';
 
 // import styles from '@/pages/app/ChatsPage/ChatsPage.module.scss';
 import { IconArrowLeft, IconArrowRight } from '@/assets/svg';
+import { Input } from '@/ui/Input/Input';
+import { InputPassword } from '@/ui/InputPassword/InputPassword';
 
 // const cn = classNames.bind(styles);
 
 const ChatsPage: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [text, setText] = useState<string>('');
 
     const handleOnClickTest = () => {
         setIsLoading(true);
@@ -47,6 +50,28 @@ const ChatsPage: FC = () => {
             >
                 Click3
             </Button>
+            <Input
+                value={text}
+                onChange={setText}
+                size="s"
+                label="Name"
+                placeholder="John doe"
+                error="Error smth went wrong. Please try again"
+            />
+            <Input
+                value={text}
+                onChange={setText}
+                size="l"
+                label="Name"
+                placeholder="Ask a question"
+                rightIcon={IconArrowRight}
+                leftIcon={IconArrowLeft}
+            />
+            <InputPassword 
+                value={text}
+                onChange={setText}
+                size="l"
+            />
         </div>
     );
 };

@@ -3,9 +3,14 @@
 @use '@/styles/variables' as *;
 
 .default {
-    position: relative;
+    --svg-size: 18px;
+    --py: 10px;
+    --px: 16px;
 
-    border: 1px solid transparent;
+    position: relative;
+    cursor: pointer;
+
+    padding: var(--py) var(--px);
     border-radius: $border-radius;
 
     transition: $transition-smooth;
@@ -29,73 +34,55 @@
     }
 
     &:disabled {
-        opacity: 0.5;
-
         cursor: not-allowed;
+        opacity: 0.5;
+    }
+
+    &:disabled[data-loading]  {
+        cursor: wait;
     }
 }
 
-.s {
-    @include ui(xs);
-    padding: 6px 10px;
-
-    & .loader::after {
-        width: 14px;
-        height: 14px;
-    }
-
-    & .content svg {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-.m {
+.button--s {
     @include ui(sm);
-    padding: 10px 16px;
 
-    & .loader::after {
-        width: 18px;
-        height: 18px;
-    }
+    --py: 6px;
+    --px: 10px;
 
-    & .content svg {
-        width: 18px;
-        height: 18px;
-    }
+    --svg-size: 14px;
 }
 
-.l {
-    @include ui();
-    padding: 12px 20px;
+.button--m {
+    @include ui(base);
+}
 
-    & .loader::after {
-        width: 22px;
-        height: 22px;
-    }
+.button--l {
+    @include ui(md);
 
-    & .content svg {
-        width: 22px;
-        height: 22px;
-    }
+    --py: 12px;
+    --px: 20px;
+
+    --svg-size: 22px;
 }
 
 .primary {
+    position: relative;
+
     background-color: var(--accent-base);
     color: #fff;
+
+    overflow: hidden;
 
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
 
     &:hover:not(:disabled) {
         background-color: var(--accent-hover);
-        border-color: rgba(255, 255, 255, 0.15);
 
-        box-shadow: 0 2px 6px 4px var(--accent-fog);
+        box-shadow: 0 2px 6px 8px var(--accent-fog);
     }
 
     &:active:not(:disabled) {
         background-color: var(--accent-active);
-
         box-shadow: 0 1px 6px 8px var(--accent-fog);
     }
 
@@ -111,12 +98,45 @@
     & .content svg {
         stroke: #fff;
     }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+
+        background: linear-gradient(
+            0deg,
+            transparent 20%,
+            rgba(255, 255, 255, 0.5) 50%,
+            transparent 80%
+        );
+        background-size: 100% 200%;
+        background-position: 0 0;
+
+        filter: blur(8px);
+        opacity: 0.9;
+
+        pointer-events: none;
+        transition: $transition-smooth;
+    }
+
+    &:hover:not(:disabled)::after {
+        opacity: 0.6;
+
+        background-position: 0 100%;
+    }
+
+    &:active:not(:disabled)::after {
+        opacity: 0.4;
+
+        background-position: 0 50%;
+    }
 }
 
 .secondary {
     background-color: var(--bg-primary);
 
-    border: 1px solid var(--accent-base);
+    border: 1px solid var(--accent-fog);
     box-shadow: 0 1px 2px 0 var(--accent-fog);
 
     &:hover:not(:disabled) {
@@ -152,7 +172,7 @@
     }
 
     & .content svg {
-        stroke: var(--accent-base);
+        stroke: var(--accent-fog);
     }
 }
 
@@ -164,19 +184,14 @@
 
     & svg {
         transition: $transition-smooth;
+
+        width: var(--svg-size);
+        height: var(--svg-size);
     }
 }
 
 .hidden {
     opacity: 0;
-}
-
-.loading {
-    pointer-events: none;
-
-    & > :has:not(.loader) {
-        opacity: 0;
-    }
 }
 
 .loader {
@@ -191,6 +206,9 @@
     display: block;
 
     border-radius: 50%;
+
+    width: var(--svg-size);
+    height: var(--svg-size);
 
     animation: spin 0.9s linear infinite;
 }

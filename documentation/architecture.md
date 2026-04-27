@@ -1,6 +1,6 @@
 # Achat architecture
 
-1. [File system]()
+1. [File system](#file-system)
 2. [Routing](#routing)
 3. [User & Data Flow](#user--data-flow)
 4. [STATE LAYER](#state-layer)
@@ -31,11 +31,8 @@
         ----/routes
             // restricted, private routes etc.
     ----/services
-    ----/store
-        ----/authSlice
-        ----/chatsSlice
-        ----/messagesSlice
-        ----/uiSlice
+    ----/redux
+        ----/reducers
     ----/styles
     ----/types
     ----/ui

@@ -1,33 +1,8 @@
-import { useId, type FC, type InputHTMLAttributes, type ReactNode } from 'react';
+import { useId, type FC } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from '@/ui/Input/Input.module.scss';
-
-interface InputProps {
-    id?: string;
-
-    label?: string;
-    placeholder?: string;
-    value: string;
-    onChange: (value: string) => void;
-
-    size?: 's' | 'm' | 'l';
-    type?: InputHTMLAttributes<HTMLInputElement>['type'];
-
-    error?: string | null;
-    disabled?: boolean;
-
-    leftIcon?: ReactNode;
-    rightIcon?: ReactNode;
-
-    autoComplete?: InputHTMLAttributes<HTMLInputElement>['autoComplete'];
-    customClass?: {
-        container?: string;
-        label?: string;
-        input?: string;
-        error?: string;
-    };
-};
+import type { InputProps } from '@/ui/Input/Input.types';
 
 const cn = classNames.bind(styles);
 
@@ -46,6 +21,8 @@ export const Input: FC<InputProps> = ({
 
     leftIcon,
     rightIcon,
+    onClickleft,
+    onClickright,
 
     autoComplete = 'off',
     customClass
@@ -70,7 +47,7 @@ export const Input: FC<InputProps> = ({
             )}
 
             <div className={cn('input__container')} >
-                {leftIcon && <span className={cn('icon__left')}>{leftIcon}</span>}
+                {leftIcon && <span className={cn('icon__left')} onClick={onClickleft}>{leftIcon}</span>}
 
                 <input
                     id={inputId}
@@ -84,7 +61,7 @@ export const Input: FC<InputProps> = ({
                     className={cn('input__element', customClass?.input)}
                 />
 
-                {rightIcon && <span className={cn('icon__right')}>{rightIcon}</span>}
+                {rightIcon && <span className={cn('icon__right')} onClick={onClickright}>{rightIcon}</span>}
             </div>
 
             {hasError && <span className={cn('input__error', customClass?.error)}>{error}</span>}

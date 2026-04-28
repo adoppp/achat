@@ -17,6 +17,7 @@ export const SignUpForm: FC = () => {
         step, 
         maxStep,
         StepComponent,
+        canGoNext,
         _prev, 
         _next, 
         handleOnChange, 
@@ -55,7 +56,7 @@ export const SignUpForm: FC = () => {
                         size="s"
                         variant="secondary"
                         onClick={_next}
-                        disabled={step === maxStep}
+                        disabled={step === maxStep || !canGoNext()}
                     >
                         Next step
                     </Button>

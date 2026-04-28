@@ -1,9 +1,6 @@
-import type { FC, ReactNode } from 'react';
+import type { PasswdErrors, StepProps } from '@/sections/auth/SignUpForm/SignUpForm.types';
 import { Input } from '@/ui/Input/Input';
-import type {
-    PasswdErrors,
-} from '@/sections/auth/SignUpForm/SignUpForm.types';
-import type { StepProps } from '@/sections/auth/SignUpForm/steps/steps.types';
+import type { FC, ReactNode } from 'react';
 
 const passwordErrorMessages: Record<keyof PasswdErrors, string> = {
     isEightCharacters: 'At least 8 characters',
@@ -14,9 +11,9 @@ const passwordErrorMessages: Record<keyof PasswdErrors, string> = {
 };
 
 export const StepPassword: FC<StepProps> = ({ formState, passwdErrors, onChange }) => {
-    const items: ReactNode = Object.entries(passwdErrors).map(([key, isValid]) => { 
+    const items: ReactNode = Object.entries(passwdErrors).map(([key, isValid]) => {
         const typedKey = key as keyof PasswdErrors;
-        
+
         return (
             <li key={key}>
                 {isValid ? '✔' : '✖'} {passwordErrorMessages[typedKey]}

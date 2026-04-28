@@ -1,6 +1,6 @@
-import type { FC } from 'react';
+import type { StepProps } from '@/sections/auth/SignUpForm/SignUpForm.types';
 import { Input } from '@/ui/Input/Input';
-import type { StepProps } from '@/sections/auth/SignUpForm/steps/steps.types';
+import type { FC } from 'react';
 
 export const StepPersonal: FC<StepProps> = ({ formState, errorState, onChange }) => {
     return (

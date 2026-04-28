@@ -1,8 +1,12 @@
-import { useState, type FormEvent } from "react";
-import type { ErrorFields, ErrorState, FieldTypes, FormState, PasswdErrors } from "@/sections/auth/SignUpForm/SignUpForm.types";
-import { StepPersonal } from '@/sections/auth/SignUpForm/steps/StepPersonal/StepPersonal';
-import { StepPassword } from '@/sections/auth/SignUpForm/steps/StepPassword/StepPassword';
-import { StepVerify } from '@/sections/auth/SignUpForm/steps/StepVerify/StepVerify';
+import { useState, type FormEvent } from 'react';
+import { STEPS, stepsMap, type Step } from './SignUpForm.config';
+import type {
+    ErrorFields,
+    ErrorState,
+    FieldTypes,
+    FormState,
+    PasswdErrors,
+} from './SignUpForm.types';
 
 const initialFormState: FormState = {
     username: '',
@@ -23,36 +27,13 @@ const initialPasswdErrors: PasswdErrors = {
     isOneSpecialSymbol: false,
 };
 
-// const prevMap = {
-//     1: 1,
-//     2: 1,
-//     3: 2,
-// } as const;
-
-// const nextMap = {
-//     1: 2,
-//     2: 3,
-//     3: 3,
-// } as const;
-
-const STEPS = [1, 2, 3] as const;
-export type Step = (typeof STEPS)[number];
-
-const stepsMap = {
-    1: StepPersonal,
-    2: StepPassword,
-    3: StepVerify,
-} as const;
-
-export const  useSignUpForm = () => {
+export const useSignUpForm = () => {
     const [formState, setFormState] = useState<FormState>(initialFormState);
     const [errorState, setErrorState] = useState<ErrorState>(initialErrorsState);
     const [passwdErrors, setPasswdErrors] = useState<PasswdErrors>(initialPasswdErrors);
     const [step, setStep] = useState<Step>(1);
     const maxStep = STEPS.length;
     const StepComponent = stepsMap[step];
-
-    console.log(step)
 
     const _prev = () => setStep((s) => Math.max(1, s - 1) as Step);
 
@@ -75,7 +56,6 @@ export const  useSignUpForm = () => {
 
         return true;
     };
-
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {
         setFormState((prev) => {
@@ -106,7 +86,7 @@ export const  useSignUpForm = () => {
     const validation = (field: ErrorFields, state: FormState) => {
         const error = validateField(field, state);
 
-        setErrorState(prev => ({ ...prev, [field]: error }));
+        setErrorState((prev) => ({ ...prev, [field]: error }));
     };
 
     const validateField = (field: ErrorFields, state: FormState): string | null => {
@@ -125,17 +105,16 @@ export const  useSignUpForm = () => {
                 if (!value.includes('@')) return 'Invalid email';
                 return null;
 
-            
             default:
-            return null;
+                return null;
         }
     };
-    
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const isValid = Object.values(passwdErrors).every(Boolean);
-        alert('Submited')
+        alert('Submited');
         // write later
     };
 
@@ -146,9 +125,10 @@ export const  useSignUpForm = () => {
         step,
         maxStep,
         StepComponent,
+        canGoNext,
         _prev,
         _next,
         handleOnChange,
-        handleSubmit
+        handleSubmit,
     };
 };

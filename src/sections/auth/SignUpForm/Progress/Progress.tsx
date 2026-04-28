@@ -1,19 +1,19 @@
-import type { FC } from 'react';
 import classNames from 'classnames/bind';
+import type { FC } from 'react';
 
-import { STEPS_UI } from '@/sections/auth/SignUpForm/steps/steps.types';
-import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
 import { IconCheckMark } from '@/assets/svg';
-import type { Step } from '@/sections/auth/SignUpForm/SignUpForm.hooks';
+import type { Step } from '@/sections/auth/SignUpForm/SignUpForm.config';
+import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
+import { STEPS_UI } from '@/sections/auth/SignUpForm/SignUpForm.types';
 
 interface ProgressProps {
     step: Step;
-};
+}
 
 const cn = classNames.bind(styles);
 
 export const Progress: FC<ProgressProps> = ({ step }) => {
-    const items = STEPS_UI.map((s, index) => {
+    const items = STEPS_UI.map((s) => {
         const isActive = step === s.id;
         const isDone = step > s.id;
 

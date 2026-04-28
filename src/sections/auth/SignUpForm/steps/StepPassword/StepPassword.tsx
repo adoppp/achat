@@ -1,5 +1,6 @@
 import type { PasswdErrors, StepProps } from '@/sections/auth/SignUpForm/SignUpForm.types';
 import { Input } from '@/ui/Input/Input';
+import { InputPassword } from '@/ui/InputPassword/InputPassword';
 import type { FC, ReactNode } from 'react';
 
 const passwordErrorMessages: Record<keyof PasswdErrors, string> = {
@@ -23,9 +24,8 @@ export const StepPassword: FC<StepProps> = ({ formState, passwdErrors, onChange 
 
     return (
         <>
-            <Input
+            <InputPassword
                 label="Password"
-                type="password"
                 value={formState.password}
                 onChange={onChange('password')}
             />

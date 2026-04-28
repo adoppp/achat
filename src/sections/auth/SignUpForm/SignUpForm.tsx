@@ -38,7 +38,7 @@ export const SignUpForm: FC = () => {
                 </div>
 
                 <div className={'signup__content'}>
-                    <form className={'signup__form'} onSubmit={handleSubmit}>
+                    <form className={'signup__form'}>
                         <StepComponent
                             formState={formState}
                             errorState={errorState}

@@ -76,6 +76,12 @@
                 height: 16px;
 
                 transition: $transition-smooth;
+
+                opacity: 0;
+
+                .step__done & {
+                    opacity: 1;
+                }
             }
 
             .step__done & {

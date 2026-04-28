@@ -27,11 +27,8 @@ export const Progress: FC<ProgressProps> = ({ step }) => {
                 )}
             >
                 <span className={cn('signup__progress--box')}>
-                    {isDone ? (
-                        IconCheckMark
-                    ) : (
                         <span className={cn('signup__progress--number')}>{s.id}</span>
-                    )}
+                        {IconCheckMark}
                 </span>
 
                 <span className={cn('signup__progress--title')}>{s.title}</span>

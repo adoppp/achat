@@ -1,5 +1,8 @@
 import { useState, type FormEvent } from "react";
 import type { ErrorFields, ErrorState, FieldTypes, FormState, PasswdErrors } from "@/sections/auth/SignUpForm/SignUpForm.types";
+import { StepPersonal } from '@/sections/auth/SignUpForm/steps/StepPersonal/StepPersonal';
+import { StepPassword } from '@/sections/auth/SignUpForm/steps/StepPassword/StepPassword';
+import { StepVerify } from '@/sections/auth/SignUpForm/steps/StepVerify/StepVerify';
 
 const initialFormState: FormState = {
     username: '',
@@ -20,40 +23,74 @@ const initialPasswdErrors: PasswdErrors = {
     isOneSpecialSymbol: false,
 };
 
-const prevMap = {
-    1: 1,
-    2: 1,
-    3: 2,
-} as const;
+// const prevMap = {
+//     1: 1,
+//     2: 1,
+//     3: 2,
+// } as const;
 
-const nextMap = {
-    1: 2,
-    2: 3,
-    3: 3,
+// const nextMap = {
+//     1: 2,
+//     2: 3,
+//     3: 3,
+// } as const;
+
+const STEPS = [1, 2, 3] as const;
+export type Step = (typeof STEPS)[number];
+
+const stepsMap = {
+    1: StepPersonal,
+    2: StepPassword,
+    3: StepVerify,
 } as const;
 
 export const  useSignUpForm = () => {
     const [formState, setFormState] = useState<FormState>(initialFormState);
     const [errorState, setErrorState] = useState<ErrorState>(initialErrorsState);
     const [passwdErrors, setPasswdErrors] = useState<PasswdErrors>(initialPasswdErrors);
-    const [step, setStep] = useState<1 | 2 | 3>(1);
+    const [step, setStep] = useState<Step>(1);
+    const maxStep = STEPS.length;
+    const StepComponent = stepsMap[step];
 
-    const _prev = () => setStep(prevMap[step]);
+    console.log(step)
 
-    const _next = () => setStep(nextMap[step]);
+    const _prev = () => setStep((s) => Math.max(1, s - 1) as Step);
+
+    const _next = () => {
+        if (!canGoNext()) return;
+
+        setStep((s) => Math.min(maxStep, s + 1) as Step);
+    };
+
+    const canGoNext = () => {
+        if (step === 1) {
+            return (
+                !errorState.username && !errorState.email && formState.username && formState.email
+            );
+        }
+
+        if (step === 2) {
+            return Object.values(passwdErrors).every(Boolean);
+        }
+
+        return true;
+    };
+
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {
-        const newState = { ...formState, [field]: value };
+        setFormState((prev) => {
+            const next = { ...prev, [field]: value };
 
-        setFormState(newState);
+            queueMicrotask(() => {
+                if (field === 'password') {
+                    setPasswdErrors(validatePassword(value));
+                } else {
+                    validation(field, next);
+                }
+            });
 
-        if (field === 'password') {
-            const checked = validatePassword(value);
-
-            setPasswdErrors(checked);
-        } else {
-            validation(field, newState);
-        }
+            return next;
+        });
     };
 
     const validatePassword = (password: string): PasswdErrors => {
@@ -107,6 +144,8 @@ export const  useSignUpForm = () => {
         errorState,
         passwdErrors,
         step,
+        maxStep,
+        StepComponent,
         _prev,
         _next,
         handleOnChange,

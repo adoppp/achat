@@ -37,3 +37,14 @@ export const IconClosedEye = (
     <path d="M22 2L14.53 9.47" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 );
+
+export const IconCheckMark = (
+    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="8" viewBox="0 0 10 6" fill="none">
+        <path
+            d="M0.75 4.00004L3.58 6.83004L9.25 1.17004"
+            stroke-width="1"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        />
+    </svg>
+);

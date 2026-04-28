@@ -8,8 +8,6 @@ const cn = classNames.bind(styles);
 export const SignUpForm: FC = () => {
     return (
         <div className={cn('signup')}>
-            
-
             <div className={cn('signup__content')}>
                 <div className={cn('signup__progress')}>
                     <ul className={'signup__progress--list'}>

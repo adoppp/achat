@@ -3,7 +3,10 @@
 @use '@/styles/variables' as *;
 
 .signup {
-    &__header {
-        
+    display: flex;
+    justify-content: center;
+    
+    &__content {
+
     }
 }

@@ -4,6 +4,8 @@
 @use '@/styles/mixins' as *;
 
 .auth {
+    height: 100dvh;
+    
     &__header {
         border-bottom: 1px solid var(--accent-fog);
         

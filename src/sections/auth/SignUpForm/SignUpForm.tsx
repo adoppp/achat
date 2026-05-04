@@ -16,7 +16,7 @@ export const SignUpForm: FC = () => {
         passwdErrors, 
         step, 
         maxStep,
-        StepComponent,
+        ActiveStepComponent,
         canGoNext,
         _prev, 
         _next, 
@@ -31,36 +31,18 @@ export const SignUpForm: FC = () => {
                     <Progress step={step} />
                 </div>
 
-                <div className={'signup__description'}>
-                    <div className={'signup__description--container'}>icon</div>
-                    <h2 className={'signup__description--title'}>todo for user</h2>
-                    <p className={'signup__description--description'}>description</p>
-                </div>
-
-                <div className={'signup__content'}>
-                    <form className={'signup__form'}>
-                        <StepComponent
-                            formState={formState}
-                            errorState={errorState}
-                            passwdErrors={passwdErrors}
-                            onChange={handleOnChange}
-                        />
-                    </form>
-                </div>
-
-                <div className={cn('signup__button')}>
-                    <Button size="s" onClick={_prev} disabled={step === 1}>
-                        Previous
-                    </Button>
-                    <Button
-                        size="s"
-                        variant="secondary"
-                        onClick={_next}
-                        disabled={step === maxStep || !canGoNext()}
-                    >
-                        Next step
-                    </Button>
-                </div>
+                <ActiveStepComponent
+                    formState={formState}
+                    errorState={errorState}
+                    passwdErrors={passwdErrors}
+                    step={step}
+                    maxStep={maxStep}
+                    _next={_next}
+                    _prev={_prev}
+                    canGoNext={canGoNext}
+                    onChange={handleOnChange}
+                    onSubmit={handleSubmit}
+                />
             </div>
         </div>
     );

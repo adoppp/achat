@@ -1,3 +1,6 @@
+import type { FormEvent } from "react";
+import type { Step } from "./SignUpForm.config";
+
 export interface FormState {
     username: string;
     email: string;
@@ -21,17 +24,35 @@ export interface PasswdErrors {
     isOneSpecialSymbol: boolean;
 }
 
-export type StepId = 1 | 2 | 3;
-
-export type StepProps = {
-    formState: FormState;
-    errorState: ErrorState;
+export type StepPassword = Omit<StepFormProps, 'errorState'> & {
     passwdErrors: PasswdErrors;
+    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+};
+
+export type BaseStepProps = {
+    step: Step;
+    maxStep: number;
+    _next: () => void;
+    _prev: () => void;
+    canGoNext: () => boolean;
+};
+
+export type BaseStepFormProps = BaseStepProps & {
+    formState: FormState;
     onChange: (field: FieldTypes) => (value: string) => void;
+}
+
+export type StepFormProps = BaseStepFormProps & {
+    errorState: ErrorState;
+};
+
+export type StepPasswordProps = BaseStepFormProps & {
+    passwdErrors: PasswdErrors;
+    onSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
 export type StepMeta = {
-    id: StepId;
+    id: Step;
     title: string;
 };
 

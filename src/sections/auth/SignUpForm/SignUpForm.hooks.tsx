@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from 'react';
-import { STEPS, stepsMap, type Step } from './SignUpForm.config';
+import { useState, type FC, type FormEvent } from 'react';
+import { STEPS, stepComponents, type Step } from './SignUpForm.config';
 import type {
+    BaseStepProps,
     ErrorFields,
     ErrorState,
     FieldTypes,
@@ -33,7 +34,7 @@ export const useSignUpForm = () => {
     const [passwdErrors, setPasswdErrors] = useState<PasswdErrors>(initialPasswdErrors);
     const [step, setStep] = useState<Step>(1);
     const maxStep = STEPS.length;
-    const StepComponent = stepsMap[step];
+    const ActiveStepComponent = stepComponents[step];
 
     const _prev = () => setStep((s) => Math.max(1, s - 1) as Step);
 
@@ -45,7 +46,7 @@ export const useSignUpForm = () => {
 
     const canGoNext = () => {
         if (step === 1) {
-            return (
+            return Boolean(
                 !errorState.username && !errorState.email && formState.username && formState.email
             );
         }
@@ -124,7 +125,7 @@ export const useSignUpForm = () => {
         passwdErrors,
         step,
         maxStep,
-        StepComponent,
+        ActiveStepComponent,
         canGoNext,
         _prev,
         _next,

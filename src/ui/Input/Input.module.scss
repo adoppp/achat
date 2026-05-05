@@ -20,7 +20,7 @@
 
         border: 1px solid var(--accent-fog);
         border-radius: $border-radius;
-        background: var(--bg-primary);
+        background: transparent;
 
         transition: $transition-smooth;
 
@@ -32,6 +32,10 @@
         &:focus-within {
             border-color: var(--accent-active);
             box-shadow: 0 0 8px 2px var(--accent-active);
+
+            & + .input__error {
+                opacity: 1;
+            }
         }
     }
 
@@ -54,6 +58,9 @@
 
     &__error {
         color: $error;
+        opacity: 0.7;
+
+        transition: $transition-smooth;
     }
 }
 

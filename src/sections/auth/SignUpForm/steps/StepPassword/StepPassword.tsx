@@ -1,10 +1,11 @@
 import type { PasswdErrors, StepPasswordProps } from '@/sections/auth/SignUpForm/SignUpForm.types';
 import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
-import { Input } from '@/ui/Input/Input';
 import { InputPassword } from '@/ui/InputPassword/InputPassword';
 import classNames from 'classnames/bind';
-import type { FC, ReactNode } from 'react';
+import { useId, type FC, type ReactNode } from 'react';
 import { Button } from '@/ui/Button/Button';
+import { stepIcons } from '../../SignUpForm.config';
+import { IconCheckMark, IconClose } from '@/assets/svg';
 
 const passwordErrorMessages: Record<keyof PasswdErrors, string> = {
     isEightCharacters: 'At least 8 characters',
@@ -27,48 +28,52 @@ export const StepPassword: FC<StepPasswordProps> = ({
     onChange,
     onSubmit,
  }) => {
+    const formId = useId();
     const items: ReactNode = Object.entries(passwdErrors).map(([key, isValid]) => {
         const typedKey = key as keyof PasswdErrors;
 
         return (
-            <li key={key}>
-                {isValid ? '✔' : '✖'} {passwordErrorMessages[typedKey]}
+            <li key={key} className={cn('password__item', isValid && 'password__item--valid')}>
+                <span className={cn('password__item--icon')}>
+
+                    {isValid ? IconCheckMark : IconClose} 
+                </span>
+                <span className={cn('password__item--rule')}>{passwordErrorMessages[typedKey]}</span>
             </li>
         );
     });
 
     return (
-        <>
+        <div className={cn('signup__container')}>
             <div className={cn('signup__description')}>
-                <div className={cn('signup__description--container')}>icon</div>
-                <h2 className={cn('signup__description--title')}>todo for user</h2>
-                <p className={cn('signup__description--description')}>description</p>
+                <div className={cn('signup__description--icon')}>{stepIcons[step]}</div>
+                <h2 className={cn('signup__description--title')}>Create a password</h2>
+                <p className={cn('signup__description--description')}>Choose a strong password to secure your account</p>
             </div>
 
             <div className={cn('signup__content')}>
-                <form className={cn('signup__form')} onSubmit={onSubmit}>
+                <form className={cn('signup__form')} id={formId} onSubmit={onSubmit}>
                     <InputPassword
                         label="Password"
                         value={formState.password}
                         onChange={onChange('password')}
                     />
                 </form>
-                <ul>{items}</ul>
+                <ul className={cn('password__list')}>{items}</ul>
             </div>
 
             <div className={cn('signup__button')}>
-                <Button size="s" onClick={_prev} disabled={step === 1}>
+                <Button variant="secondary" onClick={_prev} disabled={step === 1}>
                     Previous
                 </Button>
                 <Button
-                    size="s"
-                    variant="secondary"
-                    onClick={_next}
+                    form={formId}
+                    type='submit'
                     disabled={step === maxStep || !canGoNext()}
                 >
-                    Next step
+                    Submit
                 </Button>
             </div>
-        </>
+        </div>
     );
 };

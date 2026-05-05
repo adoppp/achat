@@ -3,6 +3,7 @@ import type { BaseStepProps } from '../../SignUpForm.types';
 import { Button } from '@/ui/Button/Button';
 import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
 import classNames from 'classnames/bind';
+import { stepIcons } from '../../SignUpForm.config';
 
 const cn = classNames.bind(styles);
 
@@ -14,17 +15,22 @@ export const StepVerify: FC<BaseStepProps> = ({
     canGoNext,
 }) => {
     return (
-        <>
+        <div className={cn('signup__container')}>
+            <div className={cn('signup__description')}>
+                <div className={cn('signup__description--icon')}>{stepIcons[step]}</div>
+                <h2 className={cn('signup__description--title')}>Type your name and email</h2>
+                <p className={cn('signup__description--description')}>All users can see your name and email</p>
+            </div>
+            
             <div>
                 <p>Check your email for verification link</p>
             </div>
 
             <div className={cn('signup__button')}>
-                <Button size="s" onClick={_prev} disabled={step === 1}>
+                <Button onClick={_prev} disabled={step === 1}>
                     Previous
                 </Button>
                 <Button
-                    size="s"
                     variant="secondary"
                     onClick={_next}
                     disabled={step === maxStep || !canGoNext()}
@@ -32,6 +38,6 @@ export const StepVerify: FC<BaseStepProps> = ({
                     Next step
                 </Button>
             </div>
-        </>
+        </div>
     );
 };

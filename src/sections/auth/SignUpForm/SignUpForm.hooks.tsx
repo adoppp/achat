@@ -8,6 +8,11 @@ import type {
     FormState,
     PasswdErrors,
 } from './SignUpForm.types';
+import { emailRegex } from '@/constants/regex';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth, firestore } from '@/firebase';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { signUpAuth } from '@/services/auth.service';
 
 const initialFormState: FormState = {
     username: '',
@@ -20,6 +25,7 @@ const initialErrorsState: ErrorState = {
     email: null,
 };
 
+// false means error. true -> rule passed
 const initialPasswdErrors: PasswdErrors = {
     isEightCharacters: false,
     isOneUppercase: false,
@@ -103,7 +109,7 @@ export const useSignUpForm = () => {
                 return null;
 
             case 'email':
-                if (!value.includes('@')) return 'Invalid email';
+                if (!value.toLowerCase().match(emailRegex)) return 'Invalid email'
                 return null;
 
             default:
@@ -115,7 +121,20 @@ export const useSignUpForm = () => {
         event.preventDefault();
 
         const isValid = Object.values(passwdErrors).every(Boolean);
-        alert('Submited');
+        const isErrors = Object.values(errorState).some(value => value !== null);
+
+        
+        if (isValid && !isErrors) {
+            try {
+                await signUpAuth(formState);
+
+                _next();
+            } catch (error) {
+
+            } finally {
+
+            }
+        }
         // write later
     };
 

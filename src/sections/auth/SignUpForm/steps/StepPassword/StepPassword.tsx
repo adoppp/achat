@@ -22,7 +22,6 @@ export const StepPassword: FC<StepPasswordProps> = ({
     passwdErrors,
     step,
     maxStep,
-    _next,
     _prev,
     canGoNext,
     onChange,

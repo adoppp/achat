@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $font-family-basic: 'Inter', sans-serif;
 
 $font-weights: (
@@ -18,8 +20,8 @@ $font-scale: (
 
 @mixin font($size, $weight: regular, $line: 1.4) {
     font-family: $font-family-basic;
-    font-size: map-get($font-scale, $size);
-    font-weight: map-get($font-weights, $weight);
+    font-size: map.get($font-scale, $size);
+    font-weight: map.get($font-weights, $weight);
     line-height: $line;
 }
 

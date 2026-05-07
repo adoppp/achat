@@ -1,7 +1,8 @@
-import { auth } from "@/firebase";
+import { auth, firestore } from "@/firebase";
 
 import type { User } from "@/types/global.types";
-import { onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
+import { doc, serverTimestamp, setDoc } from "firebase/firestore";
 
 export const subscribeAuth = (cb: (user: User | null) => void) => {
     return onAuthStateChanged(auth, (firebaseUser) => {
@@ -19,3 +20,35 @@ export const subscribeAuth = (cb: (user: User | null) => void) => {
         });
     });
 };
+
+export const signUpAuth = async (
+    { 
+        username, 
+        email, 
+        password 
+    }: 
+    { 
+        username: string, 
+        email: string, 
+        password: string 
+    }
+) => {
+    const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+    );
+
+    await updateProfile(userCredentials.user, { displayName: username });
+
+    const userRef = doc(firestore, 'users', userCredentials.user.uid);
+
+    await setDoc(userRef, {
+        uid: userCredentials.user.uid,
+        displayName: username,
+        email: userCredentials.user.email,
+        photoURL: userCredentials.user.photoURL,
+        bio: null,
+        createdAt: serverTimestamp(),
+    });
+}

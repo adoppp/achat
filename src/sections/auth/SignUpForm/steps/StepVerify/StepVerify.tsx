@@ -27,15 +27,11 @@ export const StepVerify: FC<BaseStepProps> = ({
             </div>
 
             <div className={cn('signup__button')}>
-                <Button onClick={_prev} disabled={step === 1}>
-                    Previous
-                </Button>
                 <Button
-                    variant="secondary"
                     onClick={_next}
                     disabled={step === maxStep || !canGoNext()}
                 >
-                    Next step
+                    Resend
                 </Button>
             </div>
         </div>

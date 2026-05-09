@@ -36,5 +36,10 @@ export const Progress: FC<ProgressProps> = ({ step }) => {
         );
     });
 
-    return <ul className={cn('signup__progress--list')}>{items}</ul>;
+    return (
+        <div className={cn('signup__progress')}>
+
+            <ul className={cn('signup__progress--list')}>{items}</ul>
+        </div>
+    );
 };

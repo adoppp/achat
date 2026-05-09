@@ -1,3 +1,5 @@
+import type { ErrorWrapperProps } from '@/components/ErrorWrapper/ErrorWrapper';
+import { emailRegex } from '@/constants/regex';
 import { useState, type FormEvent } from 'react';
 import { STEPS, stepComponents, type Step } from './SignUpForm.config';
 import type {
@@ -7,9 +9,6 @@ import type {
     FormState,
     IsPasswordValid,
 } from './SignUpForm.types';
-import { emailRegex } from '@/constants/regex';
-import { signUpAuth } from '@/services/auth.service';
-import { sendEmailVerification } from 'firebase/auth';
 
 const initialFormState: FormState = {
     username: '',
@@ -36,6 +35,10 @@ export const useSignUpForm = () => {
     const [passwdErrors, setPasswdErrors] = useState<IsPasswordValid>(initialIsPasswordValid);
     const [step, setStep] = useState<Step>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [globalError, setGlobalError] = useState<Omit<ErrorWrapperProps, 'cb'>>({
+        title: null,
+        message: null,
+    });
     const maxStep = STEPS.length;
     const ActiveStepComponent = stepComponents[step];
 
@@ -50,7 +53,7 @@ export const useSignUpForm = () => {
     const canGoNext = () => {
         if (step === 1) {
             return Boolean(
-                !errorState.username && !errorState.email && formState.username && formState.email
+                !errorState.username && !errorState.email && formState.username && formState.email,
             );
         }
 
@@ -60,6 +63,8 @@ export const useSignUpForm = () => {
 
         return true;
     };
+
+    const resetError = () => setGlobalError({ title: null, message: null });
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {
         setFormState((prev) => {
@@ -76,7 +81,7 @@ export const useSignUpForm = () => {
             return next;
         });
 
-        console.log(passwdErrors)
+        console.log(passwdErrors);
     };
 
     const validatePassword = (password: string): IsPasswordValid => {
@@ -108,7 +113,7 @@ export const useSignUpForm = () => {
                 return null;
 
             case 'email':
-                if (!value.toLowerCase().match(emailRegex)) return 'Invalid email'
+                if (!value.toLowerCase().match(emailRegex)) return 'Invalid email';
                 return null;
 
             default:
@@ -120,9 +125,10 @@ export const useSignUpForm = () => {
         event.preventDefault();
 
         const isValid = Object.values(passwdErrors).every(Boolean);
-        const isErrors = Object.values(errorState).some(value => value !== null);
+        const isErrors = Object.values(errorState).some((value) => value !== null);
 
-        setIsLoading(true)
+        setGlobalError({ title: 'error', message: 'error' });
+        // setIsLoading(true);
         // if (isValid && !isErrors) {
         //     try {
         //         setIsLoading(true);
@@ -136,8 +142,14 @@ export const useSignUpForm = () => {
         //         setIsLoading(false);
 
         //         _next();
-        //     } catch (error) {
+        //     } catch (error: unknown) {
         //         setIsLoading(false);
+
+        //         if (error instanceof Error) {
+        //             setGlobalError({ title: 'Unexcepted error', message: error.message })
+        //         } else if (error instanceof FirebaseError) {
+        //             setGlobalError({ title: `${error.name}; ${error.code}`, message: error.message });
+        //         }
         //     } finally {
         //         setIsLoading(false);
         //     }
@@ -151,6 +163,8 @@ export const useSignUpForm = () => {
         isLoading,
         step,
         maxStep,
+        globalError,
+        resetError,
         ActiveStepComponent,
         canGoNext,
         _prev,

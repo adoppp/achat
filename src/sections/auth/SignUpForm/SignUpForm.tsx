@@ -1,36 +1,36 @@
-import type { FC } from "react";
-import classNames from "classnames/bind";
+import classNames from 'classnames/bind';
+import type { FC } from 'react';
 
 import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
-import { useSignUpForm } from './SignUpForm.hooks';
-import { IconCheckMark } from '@/assets/svg';
-import { Button } from '@/ui/Button/Button';
 import { Progress } from './Progress/Progress';
+import { useSignUpForm } from './SignUpForm.hooks';
+import { ModalWrapper } from '@/components/ModalWrapper/ModalWrapper';
+import { ErrorWrapper } from '@/components/ErrorWrapper/ErrorWrapper';
 
 const cn = classNames.bind(styles);
 
 export const SignUpForm: FC = () => {
-    const { 
-        formState, 
-        errorState, 
-        passwdErrors, 
-        step, 
+    const {
+        formState,
+        errorState,
+        passwdErrors,
+        step,
         maxStep,
         isLoading,
+        globalError,
+        resetError,
         ActiveStepComponent,
         canGoNext,
-        _prev, 
-        _next, 
-        handleOnChange, 
-        handleSubmit
+        _prev,
+        _next,
+        handleOnChange,
+        handleSubmit,
     } = useSignUpForm();
-    
+
     return (
         <div className={cn('signup')}>
             <div className={cn('signup__content')}>
-                <div className={cn('signup__progress')}>
-                    <Progress step={step} />
-                </div>
+                <Progress step={step} />
 
                 <ActiveStepComponent
                     formState={formState}
@@ -46,6 +46,16 @@ export const SignUpForm: FC = () => {
                     onSubmit={handleSubmit}
                 />
             </div>
+
+            <ModalWrapper>
+                <ErrorWrapper title='Error title' message='Some message of an error occured' cb={resetError}  />
+            </ModalWrapper>
+
+            {globalError.title && globalError.message && (
+                <ModalWrapper>
+                    <ErrorWrapper title={globalError.title} message={globalError.message} cb={resetError} />
+                </ModalWrapper>
+            )}
         </div>
     );
 };

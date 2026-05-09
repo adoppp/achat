@@ -51,4 +51,6 @@ export const signUpAuth = async (
         bio: null,
         createdAt: serverTimestamp(),
     });
+
+    return userCredentials.user;
 }

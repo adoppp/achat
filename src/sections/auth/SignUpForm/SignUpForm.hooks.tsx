@@ -1,18 +1,15 @@
-import { useState, type FC, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { STEPS, stepComponents, type Step } from './SignUpForm.config';
 import type {
-    BaseStepProps,
     ErrorFields,
     ErrorState,
     FieldTypes,
     FormState,
-    PasswdErrors,
+    IsPasswordValid,
 } from './SignUpForm.types';
 import { emailRegex } from '@/constants/regex';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { auth, firestore } from '@/firebase';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { signUpAuth } from '@/services/auth.service';
+import { sendEmailVerification } from 'firebase/auth';
 
 const initialFormState: FormState = {
     username: '',
@@ -25,8 +22,7 @@ const initialErrorsState: ErrorState = {
     email: null,
 };
 
-// false means error. true -> rule passed
-const initialPasswdErrors: PasswdErrors = {
+const initialIsPasswordValid: IsPasswordValid = {
     isEightCharacters: false,
     isOneUppercase: false,
     isOneLowercase: false,
@@ -37,8 +33,9 @@ const initialPasswdErrors: PasswdErrors = {
 export const useSignUpForm = () => {
     const [formState, setFormState] = useState<FormState>(initialFormState);
     const [errorState, setErrorState] = useState<ErrorState>(initialErrorsState);
-    const [passwdErrors, setPasswdErrors] = useState<PasswdErrors>(initialPasswdErrors);
+    const [passwdErrors, setPasswdErrors] = useState<IsPasswordValid>(initialIsPasswordValid);
     const [step, setStep] = useState<Step>(1);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const maxStep = STEPS.length;
     const ActiveStepComponent = stepComponents[step];
 
@@ -78,9 +75,11 @@ export const useSignUpForm = () => {
 
             return next;
         });
+
+        console.log(passwdErrors)
     };
 
-    const validatePassword = (password: string): PasswdErrors => {
+    const validatePassword = (password: string): IsPasswordValid => {
         return {
             isEightCharacters: password.length >= 8,
             isOneUppercase: /[A-Z]/.test(password),
@@ -123,25 +122,33 @@ export const useSignUpForm = () => {
         const isValid = Object.values(passwdErrors).every(Boolean);
         const isErrors = Object.values(errorState).some(value => value !== null);
 
-        
-        if (isValid && !isErrors) {
-            try {
-                await signUpAuth(formState);
+        setIsLoading(true)
+        // if (isValid && !isErrors) {
+        //     try {
+        //         setIsLoading(true);
 
-                _next();
-            } catch (error) {
+        //         const user = await signUpAuth(formState);
 
-            } finally {
+        //         await sendEmailVerification(user, {
+        //             url: 'http://localhost:5173/auth/signin',
+        //         });
 
-            }
-        }
-        // write later
+        //         setIsLoading(false);
+
+        //         _next();
+        //     } catch (error) {
+        //         setIsLoading(false);
+        //     } finally {
+        //         setIsLoading(false);
+        //     }
+        // }
     };
 
     return {
         formState,
         errorState,
         passwdErrors,
+        isLoading,
         step,
         maxStep,
         ActiveStepComponent,

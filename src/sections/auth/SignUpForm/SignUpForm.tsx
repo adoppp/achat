@@ -16,6 +16,7 @@ export const SignUpForm: FC = () => {
         passwdErrors, 
         step, 
         maxStep,
+        isLoading,
         ActiveStepComponent,
         canGoNext,
         _prev, 
@@ -37,6 +38,7 @@ export const SignUpForm: FC = () => {
                     passwdErrors={passwdErrors}
                     step={step}
                     maxStep={maxStep}
+                    isLoading={isLoading}
                     _next={_next}
                     _prev={_prev}
                     canGoNext={canGoNext}

@@ -58,6 +58,7 @@ export const Input: FC<InputProps> = ({
                     type={type}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
+                    onBlur={(e) => onChange(e.target.value)}
                     placeholder={placeholder}
                     disabled={disabled}
                     autoComplete={autoComplete}

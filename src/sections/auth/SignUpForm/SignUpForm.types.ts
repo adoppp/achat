@@ -16,7 +16,7 @@ export interface ErrorState {
 
 export type ErrorFields = keyof ErrorState;
 
-export interface PasswdErrors {
+export interface IsPasswordValid {
     isEightCharacters: boolean;
     isOneUppercase: boolean;
     isOneLowercase: boolean;
@@ -25,7 +25,7 @@ export interface PasswdErrors {
 }
 
 export type StepPassword = Omit<StepFormProps, 'errorState'> & {
-    passwdErrors: PasswdErrors;
+    passwdErrors: IsPasswordValid;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
 };
 
@@ -47,8 +47,9 @@ export type StepFormProps = BaseStepFormProps & {
 };
 
 export type StepPasswordProps = BaseStepFormProps & {
-    passwdErrors: PasswdErrors;
+    passwdErrors: IsPasswordValid;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    isLoading: boolean
 };
 
 export type StepMeta = {

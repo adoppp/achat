@@ -70,7 +70,7 @@ export const useSignUpForm = () => {
     const resetError = () => setGlobalError({ title: null, message: null });
 
     const handleOnTransitionEnd = () => {
-        resetError();
+        // resetError();
     };
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {

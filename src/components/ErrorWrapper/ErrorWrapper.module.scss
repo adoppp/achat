@@ -42,12 +42,20 @@
         border-radius: 50%;
         margin-bottom: 16px;
 
+        box-shadow: 0 0 0 0 $error-fog;
+
+        animation: iconContainer 2.2s ease-in-out 0.2s infinite;
+
         & svg {
             min-width: 16px;
             min-height: 16px;
 
             stroke: $error;
-            stroke-width: 2px
+            stroke-width: 2px;
+
+            transform: translateY(0) scale(0.98);
+
+            animation: icon 2.2s ease-in-out 0.2s infinite;
         }
     }
 
@@ -72,5 +80,29 @@
         & button {
             width: inherit;
         }
+    }
+}
+
+@keyframes iconContainer {
+    0% {
+        box-shadow: 0 0 0 0 $error-fog;
+    } 
+    50% {
+        box-shadow: 0 0 12px 6px $error-fog;
+    } 
+    100% {
+        box-shadow: 0 0 0 0 $error-fog;
+    }
+}
+
+@keyframes icon {
+    0% {
+        transform: translateY(0) scale(0.98);
+    } 
+    50% {
+        transform: translateY(-2px) scale(1.03);
+    } 
+    100% {
+        transform: translateY(0) scale(0.98);
     }
 }

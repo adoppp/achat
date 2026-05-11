@@ -4,3 +4,44 @@
     margin: 0 auto;
     padding-inline: 16px;
 }
+
+@mixin bgModal() {
+    position: fixed;
+    top: 0;
+    opacity: 0;
+
+    background-color: var(--bg-fog);
+    backdrop-filter: blur(3px);
+
+    width: inherit;
+    height: 100dvh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    animation: open 0.2s ease-in-out 0.1s forwards;
+}
+
+@keyframes open {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@mixin bgModalClose {
+    animation: close 0.2s ease-in-out forwards;
+}
+
+@keyframes close {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+

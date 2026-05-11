@@ -9,6 +9,9 @@ import type {
     FormState,
     IsPasswordValid,
 } from './SignUpForm.types';
+import { FirebaseError } from 'firebase/app';
+import { sendEmailVerification } from 'firebase/auth';
+import { signUpAuth } from '@/services/auth.service';
 
 const initialFormState: FormState = {
     username: '',
@@ -35,7 +38,7 @@ export const useSignUpForm = () => {
     const [passwdErrors, setPasswdErrors] = useState<IsPasswordValid>(initialIsPasswordValid);
     const [step, setStep] = useState<Step>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [globalError, setGlobalError] = useState<Omit<ErrorWrapperProps, 'cb'>>({
+    const [globalError, setGlobalError] = useState<Pick<ErrorWrapperProps, 'title' | 'message'>>({
         title: null,
         message: null,
     });
@@ -65,6 +68,10 @@ export const useSignUpForm = () => {
     };
 
     const resetError = () => setGlobalError({ title: null, message: null });
+
+    const handleOnTransitionEnd = () => {
+        resetError();
+    };
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {
         setFormState((prev) => {
@@ -127,7 +134,7 @@ export const useSignUpForm = () => {
         const isValid = Object.values(passwdErrors).every(Boolean);
         const isErrors = Object.values(errorState).some((value) => value !== null);
 
-        setGlobalError({ title: 'error', message: 'error' });
+        setGlobalError({ title: 'error', message: 'Some error' });
         // setIsLoading(true);
         // if (isValid && !isErrors) {
         //     try {
@@ -145,11 +152,17 @@ export const useSignUpForm = () => {
         //     } catch (error: unknown) {
         //         setIsLoading(false);
 
-        //         if (error instanceof Error) {
-        //             setGlobalError({ title: 'Unexcepted error', message: error.message })
-        //         } else if (error instanceof FirebaseError) {
-        //             setGlobalError({ title: `${error.name}; ${error.code}`, message: error.message });
+        //         if (error instanceof FirebaseError) {
+        //             setGlobalError({
+        //                 // title: `${error.name}: ${error.code}`,
+        //                 title:  `${error.name}`,
+        //                 message: error.message,
+        //             });
+        //         } else if (error instanceof Error) {
+        //             setGlobalError({ title: 'Unexcepted error', message: error.message });
         //         }
+
+
         //     } finally {
         //         setIsLoading(false);
         //     }
@@ -164,6 +177,7 @@ export const useSignUpForm = () => {
         step,
         maxStep,
         globalError,
+        handleOnTransitionEnd,
         resetError,
         ActiveStepComponent,
         canGoNext,

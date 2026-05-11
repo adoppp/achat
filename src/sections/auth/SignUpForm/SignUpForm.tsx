@@ -19,6 +19,7 @@ export const SignUpForm: FC = () => {
         isLoading,
         globalError,
         resetError,
+        handleOnTransitionEnd,
         ActiveStepComponent,
         canGoNext,
         _prev,
@@ -47,13 +48,13 @@ export const SignUpForm: FC = () => {
                 />
             </div>
 
-            <ModalWrapper>
+            {/* <ModalWrapper>
                 <ErrorWrapper title='Error title' message='Some message of an error occured' cb={resetError}  />
-            </ModalWrapper>
+            </ModalWrapper> */}
 
             {globalError.title && globalError.message && (
                 <ModalWrapper>
-                    <ErrorWrapper title={globalError.title} message={globalError.message} cb={resetError} />
+                    <ErrorWrapper title={globalError.title} message={globalError.message} onTransitionEnd={handleOnTransitionEnd} cb={resetError} />
                 </ModalWrapper>
             )}
         </div>

@@ -36,6 +36,7 @@ export const StepPersonal: FC<StepFormProps> = ({
 
                     <Input
                         label="Email"
+                        type='email'
                         value={formState.email}
                         onChange={onChange('email')}
                         error={errorState.email}

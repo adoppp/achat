@@ -24,11 +24,6 @@ export interface IsPasswordValid {
     isOneSpecialSymbol: boolean;
 }
 
-export type StepPassword = Omit<StepFormProps, 'errorState'> & {
-    passwdErrors: IsPasswordValid;
-    handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-};
-
 export type BaseStepProps = {
     step: Step;
     maxStep: number;

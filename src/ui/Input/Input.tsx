@@ -21,8 +21,8 @@ export const Input: FC<InputProps> = ({
 
     leftIcon,
     rightIcon,
-    onClickleft,
-    onClickright,
+    onClickLeft,
+    onClickRight,
 
     autoComplete = 'off',
     customClass
@@ -48,7 +48,7 @@ export const Input: FC<InputProps> = ({
 
             <div className={cn('input__container')}>
                 {leftIcon && (
-                    <button type="button" className={cn('icon__left')} onClick={onClickleft}>
+                    <button type="button" className={cn('icon__left')} onClick={onClickLeft}>
                         {leftIcon}
                     </button>
                 )}
@@ -67,7 +67,7 @@ export const Input: FC<InputProps> = ({
                 />
 
                 {rightIcon && (
-                    <button type="button" className={cn('icon__right')} onClick={onClickright}>
+                    <button type="button" className={cn('icon__right')} onClick={onClickRight}>
                         {rightIcon}
                     </button>
                 )}

@@ -38,7 +38,7 @@
         opacity: 0.5;
     }
 
-    &:disabled[data-loading]  {
+    &:disabled[data-loading] {
         cursor: wait;
     }
 }
@@ -100,7 +100,7 @@
     }
 
     &::after {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
 
@@ -211,7 +211,7 @@
     }
 
     &::after {
-        content: "";
+        content: '';
         position: absolute;
         inset: 0;
 

@@ -1,4 +1,4 @@
-@use "sass:map";
+@use 'sass:map';
 
 $font-family-basic: 'Inter', sans-serif;
 
@@ -50,44 +50,44 @@ $font-scale: (
 
 // @use "@scss/global/colors" as c;
 
-$typography-config: (
-  "14": (size: 14px, line: 140%),
-  "16": (size: 16px, line: 160%),
-  "18": (size: 18px, line: 160%),
-  "24": (size: 24px, line: 120%),
-  "28": (size: 28px, line: 120%),
-  "32": (size: 32px, line: 120%),
-  "42": (size: 42px, line: 120%),
-  "44": (size: 44px, line: 120%),
-  "48": (size: 48px, line: 120%),
-  "64": (size: 64px, line: 105%),
-);
+// $typography-config: (
+//   "14": (size: 14px, line: 140%),
+//   "16": (size: 16px, line: 160%),
+//   "18": (size: 18px, line: 160%),
+//   "24": (size: 24px, line: 120%),
+//   "28": (size: 28px, line: 120%),
+//   "32": (size: 32px, line: 120%),
+//   "42": (size: 42px, line: 120%),
+//   "44": (size: 44px, line: 120%),
+//   "48": (size: 48px, line: 120%),
+//   "64": (size: 64px, line: 105%),
+// );
 
-@mixin text(
-  $key,
-  $align: left,
-  $weight: 400,
-  $transform: null,
-  $decoration: null,
-  $color: c.$raisin-black,
-  $line-override: null,
-) {
-  @if not map.has-key($typography-config, $key) {
-    @error "Key '#{$key}' not found in typography-config map.";
-  }
- 
-  $data: map.get($typography-config, $key);
+// @mixin text(
+//   $key,
+//   $align: left,
+//   $weight: 400,
+//   $transform: null,
+//   $decoration: null,
+//   $color: c.$raisin-black,
+//   $line-override: null,
+// ) {
+//   @if not map.has-key($typography-config, $key) {
+//     @error "Key '#{$key}' not found in typography-config map.";
+//   }
 
-  font-size: map.get($data, size);
-  font-weight: $weight;
-  text-align: $align;
-  text-transform: $transform;
-  text-decoration: $decoration;
-  color: $color;
+//   $data: map.get($typography-config, $key);
 
-  @if $line-override {
-    line-height: $line-override;
-  } @else {
-    line-height: map.get($data, line);
-  }
-}
+//   font-size: map.get($data, size);
+//   font-weight: $weight;
+//   text-align: $align;
+//   text-transform: $transform;
+//   text-decoration: $decoration;
+//   color: $color;
+
+//   @if $line-override {
+//     line-height: $line-override;
+//   } @else {
+//     line-height: map.get($data, line);
+//   }
+// }

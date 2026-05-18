@@ -1,6 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import type { Message } from "@/types/global.types";
+import type { Message } from '@/types/global.types';
 
 interface MessagesState {
     byChatId: Record<string, Message[]>;
@@ -9,7 +9,7 @@ interface MessagesState {
 
 const initialState: MessagesState = {
     byChatId: {},
-    loadingByChat: {}
+    loadingByChat: {},
 };
 
 const messagesSlice = createSlice({
@@ -27,7 +27,7 @@ const messagesSlice = createSlice({
 
             const list = state.byChatId[chatId] ?? (state.byChatId[chatId] = []);
 
-            if (list.find(m => m.id === message.id)) return;
+            if (list.find((m) => m.id === message.id)) return;
 
             list.push(message);
         },
@@ -37,7 +37,7 @@ const messagesSlice = createSlice({
             const list = state.byChatId[chatId];
             if (!list) return;
 
-            const index = list.findIndex(m => m.id === message.id);
+            const index = list.findIndex((m) => m.id === message.id);
             if (index === -1) return;
 
             list[index] = message;
@@ -48,11 +48,11 @@ const messagesSlice = createSlice({
             const list = state.byChatId[chatId];
             if (!list) return;
 
-            state.byChatId[chatId] = list.filter(m => m.id !== messageId);
+            state.byChatId[chatId] = list.filter((m) => m.id !== messageId);
         },
         setMessagesLoading(
-        state,
-        action: PayloadAction<{ chatId: string; status: 'loading' | 'success' | 'error' }>
+            state,
+            action: PayloadAction<{ chatId: string; status: 'loading' | 'success' | 'error' }>,
         ) {
             const { chatId, status } = action.payload;
             state.loadingByChat[chatId] = status;
@@ -64,17 +64,17 @@ const messagesSlice = createSlice({
         resetMessages(state) {
             state.byChatId = {};
             state.loadingByChat = {};
-        }
-    }
+        },
+    },
 });
 
 export const messagesReducer = messagesSlice.reducer;
 export const {
-  setMessages,
-  addMessage,
-  updateMessage,
-  removeMessage,
-  setMessagesLoading,
-  clearChatMessages,
-  resetMessages
+    setMessages,
+    addMessage,
+    updateMessage,
+    removeMessage,
+    setMessagesLoading,
+    clearChatMessages,
+    resetMessages,
 } = messagesSlice.actions;

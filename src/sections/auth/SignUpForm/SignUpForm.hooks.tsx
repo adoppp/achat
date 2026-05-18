@@ -1,17 +1,18 @@
-import type { ErrorWrapperProps } from '@/components/ErrorWrapper/ErrorWrapper';
-import { emailRegex } from '@/constants/regex';
 import { useState, type FormEvent } from 'react';
-import { STEPS, stepComponents, type Step } from './SignUpForm.config';
+import { sendEmailVerification } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
+
+import { emailRegex } from '@/constants/regex';
+import { STEPS, stepComponents, type Step } from '@/sections/auth/SignUpForm/SignUpForm.config';
 import type {
     ErrorFields,
     ErrorState,
     FieldTypes,
     FormState,
     IsPasswordValid,
-} from './SignUpForm.types';
-import { FirebaseError } from 'firebase/app';
-import { sendEmailVerification } from 'firebase/auth';
+} from '@/sections/auth/SignUpForm/SignUpForm.types';
 import { signUpAuth } from '@/services/auth.service';
+import { useModalContext } from '@/components/Modal/ModalProvider';
 
 const initialFormState: FormState = {
     username: '',
@@ -38,10 +39,14 @@ export const useSignUpForm = () => {
     const [passwdErrors, setPasswdErrors] = useState<IsPasswordValid>(initialIsPasswordValid);
     const [step, setStep] = useState<Step>(1);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [globalError, setGlobalError] = useState<Pick<ErrorWrapperProps, 'title' | 'message'>>({
+    const [globalError, setGlobalError] = useState<{
+        title: string | null;
+        message: string | null;
+    }>({
         title: null,
         message: null,
     });
+    const modalContext = useModalContext();
     const maxStep = STEPS.length;
     const ActiveStepComponent = stepComponents[step];
 
@@ -68,10 +73,6 @@ export const useSignUpForm = () => {
     };
 
     const resetError = () => setGlobalError({ title: null, message: null });
-
-    const handleOnTransitionEnd = () => {
-        // resetError();
-    };
 
     const handleOnChange = (field: FieldTypes) => (value: string) => {
         setFormState((prev) => {
@@ -135,6 +136,10 @@ export const useSignUpForm = () => {
         const isErrors = Object.values(errorState).some((value) => value !== null);
 
         setGlobalError({ title: 'error', message: 'Some error' });
+        modalContext?.open({
+            type: 'error',
+            modalProps: { title: 'error', message: 'Some error' },
+        });
         // setIsLoading(true);
         // if (isValid && !isErrors) {
         //     try {
@@ -162,7 +167,6 @@ export const useSignUpForm = () => {
         //             setGlobalError({ title: 'Unexcepted error', message: error.message });
         //         }
 
-
         //     } finally {
         //         setIsLoading(false);
         //     }
@@ -177,7 +181,6 @@ export const useSignUpForm = () => {
         step,
         maxStep,
         globalError,
-        handleOnTransitionEnd,
         resetError,
         ActiveStepComponent,
         canGoNext,

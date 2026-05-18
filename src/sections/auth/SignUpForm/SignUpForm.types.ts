@@ -1,5 +1,5 @@
-import type { FormEvent } from "react";
-import type { Step } from "./SignUpForm.config";
+import type { FormEvent } from 'react';
+import type { Step } from './SignUpForm.config';
 
 export interface FormState {
     username: string;
@@ -35,7 +35,7 @@ export type BaseStepProps = {
 export type BaseStepFormProps = BaseStepProps & {
     formState: FormState;
     onChange: (field: FieldTypes) => (value: string) => void;
-}
+};
 
 export type StepFormProps = BaseStepFormProps & {
     errorState: ErrorState;
@@ -44,7 +44,7 @@ export type StepFormProps = BaseStepFormProps & {
 export type StepPasswordProps = BaseStepFormProps & {
     passwdErrors: IsPasswordValid;
     onSubmit: (event: FormEvent<HTMLFormElement>) => void;
-    isLoading: boolean
+    isLoading: boolean;
 };
 
 export type StepMeta = {

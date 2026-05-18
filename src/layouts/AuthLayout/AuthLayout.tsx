@@ -18,9 +18,7 @@ export const AuthLayout: FC = () => {
         <div className={cn('auth')}>
             <header className={cn('auth__header')}>
                 <div className={cn('auth__header--container')}>
-                    <h1 className={cn('auth__header--title')}>
-                        {title}
-                    </h1>
+                    <h1 className={cn('auth__header--title')}>{title}</h1>
                 </div>
             </header>
             <section className={cn('auth__section-container')}>

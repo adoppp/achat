@@ -25,9 +25,8 @@ export const Input: FC<InputProps> = ({
     onClickRight,
 
     autoComplete = 'off',
-    customClass
+    customClass,
 }) => {
-
     const inputId = id || useId();
     const hasError = !!error;
 

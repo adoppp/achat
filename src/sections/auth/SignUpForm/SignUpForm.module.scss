@@ -5,9 +5,8 @@
 .signup {
     display: flex;
     justify-content: center;
-    
+
     &__content {
-        
     }
 
     &__loader {
@@ -65,7 +64,7 @@
         &--title {
             @include heading(h2);
         }
-        
+
         &--description {
             @include text();
 
@@ -156,7 +155,8 @@
 
             .step__done &,
             .step__active & {
-                background: linear-gradient(-45deg,
+                background: linear-gradient(
+                    -45deg,
                     var(--accent-base) 10%,
                     var(--accent-active) 50%,
                     var(--accent-base) 90%
@@ -235,7 +235,7 @@
             & svg {
                 width: 8px;
                 height: 8px;
-                
+
                 transform: translate(0px, -7px);
 
                 stroke: var(--bg-primary);

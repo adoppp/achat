@@ -67,11 +67,7 @@ const ChatsPage: FC = () => {
                 rightIcon={IconArrowRight}
                 leftIcon={IconArrowLeft}
             />
-            <InputPassword 
-                value={text}
-                onChange={setText}
-                size="l"
-            />
+            <InputPassword value={text} onChange={setText} size="l" />
         </div>
     );
 };

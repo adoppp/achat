@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes, ReactNode, MouseEvent } from "react";
+import type { InputHTMLAttributes, ReactNode, MouseEvent } from 'react';
 
 export interface InputProps {
     id?: string;
@@ -26,4 +26,4 @@ export interface InputProps {
         input?: string;
         error?: string;
     };
-};
+}

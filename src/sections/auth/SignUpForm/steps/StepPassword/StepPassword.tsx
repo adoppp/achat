@@ -1,16 +1,17 @@
-import { IconCheckMark, IconClose } from '@/assets/svg';
-import { ErrorWrapper } from '@/components/ErrorWrapper/ErrorWrapper';
-import { Loader } from '@/components/Loader/Loader';
+import { useId, type FC, type ReactNode } from 'react';
+import classNames from 'classnames/bind';
+
 import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
+
+import { IconCheckMark, IconClose } from '@/assets/svg';
+import { Loader } from '@/components/Loader/Loader';
 import type {
     IsPasswordValid,
     StepPasswordProps,
 } from '@/sections/auth/SignUpForm/SignUpForm.types';
 import { Button } from '@/ui/Button/Button';
 import { InputPassword } from '@/ui/InputPassword/InputPassword';
-import classNames from 'classnames/bind';
-import { useId, type FC, type ReactNode } from 'react';
-import { stepIcons } from '../../SignUpForm.config';
+import { stepIcons } from '@/sections/auth/SignUpForm/SignUpForm.config';
 
 const passwordErrorMessages: Record<keyof IsPasswordValid, string> = {
     isEightCharacters: 'At least 8 characters',

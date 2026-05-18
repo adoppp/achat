@@ -5,16 +5,16 @@
 
 .auth {
     height: 100dvh;
-    
+
     &__header {
         border-bottom: 1px solid var(--accent-fog);
         margin-bottom: 32px;
-        
+
         &--container {
             @include container();
 
             position: relative;
-            
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,7 +23,7 @@
         }
 
         &--title {
-            @include heading(h1); 
+            @include heading(h1);
 
             color: var(--text-primary);
         }

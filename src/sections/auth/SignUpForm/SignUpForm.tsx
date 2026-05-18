@@ -4,8 +4,6 @@ import type { FC } from 'react';
 import styles from '@/sections/auth/SignUpForm/SignUpForm.module.scss';
 import { Progress } from './Progress/Progress';
 import { useSignUpForm } from './SignUpForm.hooks';
-import { ModalWrapper } from '@/components/ModalWrapper/ModalWrapper';
-import { ErrorWrapper } from '@/components/ErrorWrapper/ErrorWrapper';
 
 const cn = classNames.bind(styles);
 
@@ -17,9 +15,6 @@ export const SignUpForm: FC = () => {
         step,
         maxStep,
         isLoading,
-        globalError,
-        resetError,
-        handleOnTransitionEnd,
         ActiveStepComponent,
         canGoNext,
         _prev,
@@ -47,16 +42,6 @@ export const SignUpForm: FC = () => {
                     onSubmit={handleSubmit}
                 />
             </div>
-
-            {/* <ModalWrapper>
-                <ErrorWrapper title='Error title' message='Some message of an error occured' cb={resetError}  />
-            </ModalWrapper> */}
-
-            {globalError.title && globalError.message && (
-                <ModalWrapper>
-                    <ErrorWrapper title={globalError.title} message={globalError.message} onTransitionEnd={handleOnTransitionEnd} cb={resetError} />
-                </ModalWrapper>
-            )}
         </div>
     );
 };

@@ -1,18 +1,18 @@
-import type { Chat } from "@/types/global.types";
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { Chat } from '@/types/global.types';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface ChatsState {
     items: Record<string, Chat>;
     activeChatId: string | null;
     loading: 'loading' | 'success' | 'error';
     readsByChat: Record<string, Record<string, number>>;
-};
+}
 
 const initialState: ChatsState = {
     items: {},
     activeChatId: null,
     loading: 'loading',
-    readsByChat: {}
+    readsByChat: {},
 };
 
 const chatsSlice = createSlice({
@@ -34,7 +34,7 @@ const chatsSlice = createSlice({
         },
         removeChat(state, action: PayloadAction<string>) {
             delete state.items[action.payload];
-            delete state.readsByChat[action.payload]
+            delete state.readsByChat[action.payload];
 
             if (state.activeChatId === action.payload) {
                 state.activeChatId = null;
@@ -42,7 +42,7 @@ const chatsSlice = createSlice({
         },
         setRead(
             state,
-            action: PayloadAction<{ chatId: string; userId: string; lastReadAt: number }>
+            action: PayloadAction<{ chatId: string; userId: string; lastReadAt: number }>,
         ) {
             const { chatId, userId, lastReadAt } = action.payload;
 
@@ -51,16 +51,10 @@ const chatsSlice = createSlice({
             }
 
             state.readsByChat[chatId][userId] = lastReadAt;
-        }
-    }
+        },
+    },
 });
 
 export const chatsReducer = chatsSlice.reducer;
-export const {
-    setChats,
-    setActiveChat,
-    setChatsLoading,
-    updateChat,
-    removeChat,
-    setRead
-} = chatsSlice.actions;
+export const { setChats, setActiveChat, setChatsLoading, updateChat, removeChat, setRead } =
+    chatsSlice.actions;

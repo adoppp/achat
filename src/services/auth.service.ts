@@ -1,43 +1,36 @@
-import { auth, firestore } from "@/firebase";
+import { auth, firestore } from '@/firebase';
 
-import type { User } from "@/types/global.types";
-import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
-import { doc, serverTimestamp, setDoc } from "firebase/firestore";
+import type { User } from '@/types/global.types';
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from 'firebase/auth';
+import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
 export const subscribeAuth = (cb: (user: User | null) => void) => {
     return onAuthStateChanged(auth, (firebaseUser) => {
         if (!firebaseUser) {
-                cb(null);
-                return;
+            cb(null);
+            return;
         }
 
         cb({
             id: firebaseUser.uid,
-            username: firebaseUser.displayName ?? "",
+            username: firebaseUser.displayName ?? '',
             lastSeen: Date.now(),
             email: firebaseUser.email,
-            phone: firebaseUser.phoneNumber
+            phone: firebaseUser.phoneNumber,
         });
     });
 };
 
-export const signUpAuth = async (
-    { 
-        username, 
-        email, 
-        password 
-    }: 
-    { 
-        username: string, 
-        email: string, 
-        password: string 
-    }
-) => {
-    const userCredentials = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-    );
+export const signUpAuth = async ({
+    username,
+    email,
+    password,
+}: {
+    username: string;
+    email: string;
+    password: string;
+}) => {
+    const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
 
     await updateProfile(userCredentials.user, { displayName: username });
 
@@ -53,4 +46,4 @@ export const signUpAuth = async (
     });
 
     return userCredentials.user;
-}
+};

@@ -3,7 +3,7 @@
 @use '@/styles/variables' as *;
 
 .input {
-    --py: 6px; 
+    --py: 6px;
     --px: 10px;
 
     display: flex;
@@ -65,10 +65,10 @@
 }
 
 .input--s {
-    --py: 4px; 
+    --py: 4px;
     --px: 8px;
-    
-    & .input__label, 
+
+    & .input__label,
     & .input__element {
         @include ui(sm);
     }
@@ -79,7 +79,7 @@
 }
 
 .input--m {
-    & .input__label, 
+    & .input__label,
     & .input__element {
         @include ui(base);
     }
@@ -90,10 +90,10 @@
 }
 
 .input--l {
-    --py: 8px; 
+    --py: 8px;
     --px: 14px;
-    
-    & .input__label, 
+
+    & .input__label,
     & .input__element {
         @include ui(md);
     }
@@ -128,7 +128,7 @@
     cursor: pointer;
 
     stroke: var(--accent-fog);
-    
+
     width: 24px;
     height: 24px;
 

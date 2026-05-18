@@ -1,0 +1,54 @@
+@use '@/styles/typography' as *;
+@use '@/styles/colors' as *;
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.modal {
+    @include bgModal();
+
+    &__close {
+        margin-left: auto;
+        margin-bottom: 16px;
+
+        & svg {
+            min-width: 16px;
+            min-height: 16px;
+
+            stroke: var(--text-secondary);
+
+            transform: scale(1);
+
+            transition: $transition-smooth;
+        }
+
+        &:hover svg {
+            stroke: var(--accent-hover);
+            stroke-width: 1.5px;
+
+            transform: scale(1.03);
+        }
+
+        &:active svg {
+            stroke: var(--accent-hover);
+            stroke-width: 1px;
+
+            transform: scale(0.933);
+        }
+    }
+
+    &__box {
+        background-color: var(--bg-primary);
+
+        width: 100%;
+        min-width: 280px;
+        max-width: 420px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 16px 12px;
+        border: 1px solid var(--accent-fog);
+        border-radius: $border-radius;
+    }
+}

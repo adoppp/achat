@@ -1,7 +1,12 @@
+import type {
+    BaseStepProps,
+    StepFormProps,
+    StepPasswordProps,
+} from '@/sections/auth/SignUpForm/SignUpForm.types';
+
 import { StepPassword } from '@/sections/auth/SignUpForm/steps/StepPassword/StepPassword';
 import { StepPersonal } from '@/sections/auth/SignUpForm/steps/StepPersonal/StepPersonal';
 import { StepVerify } from '@/sections/auth/SignUpForm/steps/StepVerify/StepVerify';
-import type { BaseStepProps, StepFormProps, StepPasswordProps } from './SignUpForm.types';
 import { IconEmail, IconLock, IconUser } from '@/assets/svg';
 
 export const STEPS = [1, 2, 3] as const;
@@ -16,5 +21,5 @@ export const stepComponents = {
 export const stepIcons = {
     1: IconUser,
     2: IconLock,
-    3: IconEmail
+    3: IconEmail,
 } as const;

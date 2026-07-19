@@ -60,7 +60,7 @@ const getInitialSurface = (): SurfaceMode => {
         return 'accent';
     }
 
-    if (storedSurface === 'neutral' || storedSurface === 'default') {
+    if (storedSurface === 'neutral') {
         return 'neutral';
     }
 

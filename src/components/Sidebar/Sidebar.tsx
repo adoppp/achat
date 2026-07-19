@@ -23,10 +23,6 @@ const SidebarRoot: FC = () => {
     });
     const Tab: FC = tabs[activeTab];
 
-    useEffect(() => {
-        location.pathname.startsWith('/settings');
-    }, []);
-
     return (
         <aside className={cn('sidebar')}>
             <div className={cn('sidebar__container')}>

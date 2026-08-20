@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import { auth } from '@/firebase';
 import { setGuest, setLoading, setUser } from '@/redux/reducers/authSlice';

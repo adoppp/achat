@@ -11,12 +11,18 @@ import {
     updateProfile,
     type User,
 } from 'firebase/auth';
-import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, onSnapshot, orderBy, serverTimestamp, setDoc, where } from 'firebase/firestore';
 
 import { auth, firestore } from '@/firebase';
-import type { SerializedUser } from '@/types/global.types';
+import type { Chat, SerializedUser } from '@/types/global.types';
+import { query } from 'firebase/firestore';
 
 const FRONTEND_URL = import.meta.env.VITE_FRONTEND_URL;
+
+const collections = {
+    users: 'users',
+    chats: 'chats'
+} as const;
 
 export const subscribeAuth = (cb: (user: SerializedUser | null) => void) => {
     return onAuthStateChanged(auth, (firebaseUser) => {
@@ -77,7 +83,7 @@ export const verifyByEmail = async (user: User): Promise<void> => {
 
 export const resetPassword = async (email: string) => {
     await sendPasswordResetEmail(auth, email, {
-        url: `${FRONTEND_URL}/auth/action`,
+        url: `${FRONTEND_URL}/auth/signin`,
         handleCodeInApp: true,
     });
 }
@@ -85,3 +91,22 @@ export const resetPassword = async (email: string) => {
 export const confirmReset = async (code: string, newPassword: string) => {
     await confirmPasswordReset(auth, code, newPassword);
 }
+
+export const getChatsByUser = (setChatsData: (chats: Record<string, Chat>) => void) => {
+    const q = query(
+        collection(firestore, collections.chats),
+        where('members', 'array-contains', auth.currentUser?.uid),
+        orderBy('lastActivity', 'desc')
+    );
+
+    return onSnapshot(q, (snapshot) => {
+        const chats = snapshot.docs.reduce<Record<string, Chat>>((acc, doc) => {
+            acc[doc.id] = doc.data() as Chat;
+            return acc;
+        }, {});
+
+        console.log(chats)
+        
+        setChatsData(chats);
+    });
+};

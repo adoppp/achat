@@ -56,7 +56,22 @@
             }
         }
     }
+
     &--list {
         padding-bottom: 88px;
+    }
+
+    &--null {
+        &-container {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 16px;
+            gap: 16px;
+            align-items: center;
+        }
+
+        &-description {
+            @include heading(h3);
+        }
     }
 }

@@ -2,23 +2,25 @@ import classNames from 'classnames/bind';
 import type { FC } from 'react';
 
 import { Input } from '@/ui/Input/Input';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { IoSearchOutline } from 'react-icons/io5';
 
 import styles from '@/components/Sidebar/tabs/SettingsTab/SettingsTab.module.scss';
 
+import { useTheme } from '@/hooks/useTheme';
 import { SettingsSection } from './SettingsSection/SettingsSection';
-import { SettingsConfig, type SettingsConfigProps } from './SettingsTab.config';
+import { SettingsConfig } from './SettingsTab.config';
 
 const cn = classNames.bind(styles);
 
 export const SettingsTab: FC = () => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState<string>('');
+    const { theme, accent, surface } = useTheme();
 
-    const renderSection = (sections: SettingsConfigProps[]) => {
+    const renderSection = useMemo(() => {
         const query = search.trim().toLowerCase();
 
-        return sections.map((section) => {
+        return SettingsConfig.map((section) => {
             if (!query) {
                 return (
                     <SettingsSection
@@ -45,7 +47,7 @@ export const SettingsTab: FC = () => {
                 <SettingsSection key={section.title} title={section.title} items={filteredItems} />
             );
         });
-    };
+    }, [search, theme, accent, surface]);
 
     return (
         <div className={cn('settings__tab')}>
@@ -62,7 +64,7 @@ export const SettingsTab: FC = () => {
                 />
             </div>
 
-            <div className={cn('settings__tab--content')}>{renderSection(SettingsConfig)}</div>
+            <div className={cn('settings__tab--content')}>{renderSection}</div>
         </div>
     );
 };
